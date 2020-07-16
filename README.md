@@ -34,9 +34,21 @@
     - src/main/java/Hello2.java
     - src/main/java/com/eomcs/basic 폴더 생성
     - src/main/java/com/eomcs/basic/Hello2.java 생성
+- 패키지 문법 사용 및 패키지 소속 클래스 실행하기
+    - > java -classpath(cp) [class파일이 있는 폴더] [package명 포함 calss이름]
+    
 - git add 시 오류 발생
     - LF와 CRLF 문제
     - UNIX/LINUX 계열은 LF로 개행 문자
     - windows 는 CR/LF 형식으로 개행 문자
     -git config core.autocrlf ture 입력 후 add
     - 만약 Linux/MAC/UNIX라면 git config core.autocrlf input
+
+### 4일차
+
+- 소스 파일과 클래스 블록, 클래스 파일의 관계
+    - com.eomcs.basic.ex01 패키지 예제
+- 주석 종류와 사용법
+    - com.eomcs.basic.ex02 패키지 예제
+- 자바 언어로 값을 표현하는 문법(literal)
+    -com.eoms.basic.ex03 패키지 예제
