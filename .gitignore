@@ -13,7 +13,9 @@ tmp/
 local.properties
 .settings/
 .loadpath
-.recommenders
+.recommenderseclipse
+.classpath
+.project
 
 # External tool builders
 .externalToolBuilders/

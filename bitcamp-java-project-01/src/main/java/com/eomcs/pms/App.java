@@ -3,12 +3,32 @@
  */
 package com.eomcs.pms;
 
+import java.util.Scanner;
+import java.sql.Date;
+
+
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
+    public static void main(String[] args) {
+        
+       Point[] p = new Point[5];
+       for(int i = 0; i < p.length; i++) { 
+           p[i] = new Point();
+           p[i].prn();
+       }
+       
+
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    class Point{
+        int x,y;
+
+        void prn() {
+            System.out.println("(" + x + "," +y + ")");
+        }
     }
+    
 }
+
+
+
+ 
