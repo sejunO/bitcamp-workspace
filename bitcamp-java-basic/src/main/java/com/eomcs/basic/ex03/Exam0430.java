@@ -8,6 +8,6 @@ public class Exam0430{
 
         System.out.println('\u0041');
         
-        System.out.println((boolean)1);
+        
     }
 }
