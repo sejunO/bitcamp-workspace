@@ -183,3 +183,7 @@ Mini-PMS를 이용하는 회원 정보를 출력한다. 일단 한 명의 정보
   - Eclipse IDE로 프로젝트 가져오기
     - bitcamp-java-project import
     - bitcamp-java-basic import
+
+    ### 10일차(2020-07-24,금)
+
+    - 예제 프로젝트 수행(bitcamp-java-project)
