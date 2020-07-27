@@ -21,6 +21,8 @@ public class App {
   static int count = 0;
   final static int MAX_LENGTH = 5;
   static Member[] members = new Member[MAX_LENGTH];
+  
+  
   public static void main(String[] args) {
 
     System.out.println("[회원]");
