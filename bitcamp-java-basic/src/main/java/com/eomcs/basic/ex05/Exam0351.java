@@ -20,6 +20,7 @@ public class Exam0351 {
     System.out.println(57 % 16);
     System.out.println(57 & 0b1111);
     
+   
   }
 }
 
