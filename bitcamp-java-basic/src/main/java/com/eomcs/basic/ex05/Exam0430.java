@@ -30,5 +30,10 @@ public class Exam0430 {
     System.out.println(i >>> 4);
     // xxxx0000000000000000000000000110|1001
     // 00000000000000000000000000000110   => 6
+    
+    String s = "abc";
+    String s2 = "가나다";
+    String s3 = "a가b";
+    System.out.println(s3.length());
   }
 }

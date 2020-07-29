@@ -2,7 +2,7 @@ package com.eomcs.basic.ex05;
 
 //# 비트 이동 연산자 : 응용 II
 //
-public class Exam0450 {
+public class Exam0451 {
   public static void main(String[] args) {
     // Yes/No 또는 true/false 값을 저장할 때 
     // 비트 연산자를 사용하면 메모리를 절약할 수 있다.

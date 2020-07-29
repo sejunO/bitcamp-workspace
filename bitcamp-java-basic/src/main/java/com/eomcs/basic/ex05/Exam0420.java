@@ -13,7 +13,8 @@ public class Exam0420 {
 
     System.out.println(i);
     // 00000000000000000000000001101001
-
+    int b = i >> 1;
+    System.out.println(b);
 
     System.out.println(i >> 1);
     // x0000000000000000000000000110100|1
