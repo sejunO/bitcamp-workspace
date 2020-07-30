@@ -9,23 +9,18 @@ public class Main {
     int A = sc.nextInt();
     int B = sc.nextInt();
 
-    if (A < B) {
-      int temp = A;
-      A = B;
-      B = temp;
-    }
-    int a = A, b = B;
-
-
-
-    while (b > 0) {
-      int temp = b;
-      b = a % b;
-      a = temp;
+    if (B < 45) {
+      B = 60 + B - 45;
+      A--;
+    } else {
+      B = B -45;
     }
 
-
-
-    System.out.printf("%d %d",a, A*B/a);
+    if (A > 24) {
+      A = A % 24;
+    } else if (A < 0) {
+      A = (A + 24);
+    }
+    System.out.printf("%d %d",A, B);
   }
 }
