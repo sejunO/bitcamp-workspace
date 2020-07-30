@@ -6,15 +6,26 @@ public class Main {
 
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-    int a = sc.nextInt();
-    int d = 0, h = 0, m = 0, s =0;
-    s = a/86400;
-    m = (a%86400/3600);
-    h = (a%86400%3600/24);
-    d = (a%86400%2600%24/24);
-    System.out.printf("%d %d %d %d", s , m ,h, d);
-    
+    int A = sc.nextInt();
+    int B = sc.nextInt();
+
+    if (A < B) {
+      int temp = A;
+      A = B;
+      B = temp;
+    }
+    int a = A, b = B;
+
+
+
+    while (b > 0) {
+      int temp = b;
+      b = a % b;
+      a = temp;
+    }
+
+
+
+    System.out.printf("%d %d",a, A*B/a);
   }
 }
-
- 

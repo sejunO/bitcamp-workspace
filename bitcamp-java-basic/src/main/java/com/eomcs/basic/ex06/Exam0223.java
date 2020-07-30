@@ -24,5 +24,15 @@ public class Exam0223 {
       default:
         System.out.println("F");
     }
+
+    String value = "developer";
+
+    switch (value) {
+      case "developer":
+        break;
+      case "manager":
+        break;
+      default:
+    }
   }
 }
