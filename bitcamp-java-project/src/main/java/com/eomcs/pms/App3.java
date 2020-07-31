@@ -4,40 +4,48 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class App3 {
+  static class Task {
+    String project;
+    int no;
+    String ob;
+    Date endDate;
+    int state;
+    String owner;
+  }
+
   final static int N = 10;
+  static Task[] tasks = new Task[N];
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-    String[] project = new String[N];
-    int[] no = new int[N];
-    String[] ob = new String[N];
-    Date[] endDate = new Date[N];
-    int[] state = new int[N];
-    String[] owner = new String[N];
     int count = 0;
 
     System.out.println("작업");
     for (int i = 0; i < N; i++) {
+      count++;
+      Task t = new Task();
+
       System.out.printf("프로젝트: ");
-      project[i] = sc.nextLine();
+      t.project = sc.nextLine();
 
       System.out.printf("번호: ");
-      no[i] = sc.nextInt();
+      t.no = sc.nextInt();
       sc.nextLine();
+
       System.out.printf("내용: ");
-      ob[i] = sc.nextLine();
+      t.ob = sc.nextLine();
 
       System.out.printf("완료일: ");
-      endDate[i] = Date.valueOf(sc.nextLine());
+      t.endDate = Date.valueOf(sc.nextLine());
 
       System.out.println("상태: ");
       System.out.printf("0: 신규 \n1: 진행중\n2: 완료\n > ");
-      state[i] = sc.nextInt();
+      t.state = sc.nextInt();
       sc.nextLine();
 
       System.out.printf("담당자: ");
-      owner[i] = sc.nextLine();
+      t.owner = sc.nextLine();
 
-      count++;
+      tasks[i] = t;
 
       System.out.print("계속? y/N");
       String response = sc.nextLine();
@@ -49,12 +57,13 @@ public class App3 {
 
     System.out.println("-----------------------------");
     for(int i = 0; i < count; i++) {
-
-      System.out.println("프로젝트 " + project[i]);
-      System.out.println("번호: " + no[i]);
-      System.out.println("내용: " + ob[i]);
-      System.out.println("완료일: " + endDate[i]);
-      switch(state[i]) {
+      Task t = new Task();
+      t = tasks[i];
+      System.out.println("프로젝트 " + t.project);
+      System.out.println("번호: " + t.no);
+      System.out.println("내용: " + t.ob);
+      System.out.println("완료일: " + t.endDate);
+      switch(t.state) {
         case 1:
           System.out.println("상태: 신규");
           break;
@@ -64,7 +73,7 @@ public class App3 {
         default:
           System.out.println("상태: 완료");
       }
-      System.out.println("담당자: " + owner[i]);
+      System.out.println("담당자: " + t.owner);
     }
 
   }
