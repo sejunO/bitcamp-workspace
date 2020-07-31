@@ -1,10 +1,8 @@
 package com.eomcs.basic.ex06;
 
-// # 흐름 제어문 - for 중첩과 break
-//
-public class Exam0430 {
+public class Exam0430{
   public static void main(String[] args) {
-    // for 문의 중첩
+    // TODO Auto-generated method stub
     for (int i = 1; i <= 10; i++) {
       for (int j = 1; j <= i; j++) {
         System.out.print(j + " ");
@@ -12,6 +10,5 @@ public class Exam0430 {
       System.out.println();
     }
   }
+
 }
-
-
