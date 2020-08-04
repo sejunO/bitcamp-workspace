@@ -20,6 +20,12 @@ public class Exam0210 {
     m8("홍길동",100, 90, 80, 70);
     m8("홍길동",100, 90, 80);
     m10(new int[] {100, 90, 80}, new String[] {"국어", "영어", "수학"}, "오세준");
+
+    int sum = 0;
+
+
+    sum = plus(plus(plus(2,3),7),4);
+    System.out.println(sum);
   }
   static void m1() {
     System.out.println("Hello");
@@ -74,5 +80,8 @@ public class Exam0210 {
     for (int i = 0; i < scores.length; i++) {
       System.out.printf("%s = %d 점\n", titles[i], scores[i]);
     }
+  }
+  static int plus(int a, int b) {
+    return a + b;
   }
 }
