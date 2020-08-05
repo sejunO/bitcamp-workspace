@@ -7,17 +7,14 @@ public class Exam0414 {
     int b = 100;
     Add ad= new Add();
     ad.add(a,b);
-    System.out.printf("%d %d",  a, b);
+    System.out.println(ad.result);
   }
 
   static class Add {
-    int a = 5;
-    int b = 2;
+    int result = 0;
 
-    public void add(int a, int b) {
-      System.out.println(a);
+    void add(int a, int b) {
+      this.result = a + b;
     }
-
-
   }
 }
