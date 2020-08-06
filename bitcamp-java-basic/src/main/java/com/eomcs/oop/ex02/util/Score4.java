@@ -22,7 +22,9 @@ public class Score4 {
 
     this.computeScore();
   }
-
+  public Score4() {
+    this.name = "추가바람";
+  }
   public Score4(String name, int kor) {
     this.name = name;
     this.kor = kor;
