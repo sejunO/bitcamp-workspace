@@ -17,5 +17,9 @@ public class Test {
     this.b = b;
   }
 
+  public void add(int a, int b) {
+    this.c = a + b;
+  }
+
 
 }
