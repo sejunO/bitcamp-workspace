@@ -29,7 +29,7 @@ public class Exam0510 {
         A.b, A.s, A.i, A.l, A.c, A.f,
         A.d, A.bool, A.str, A.date);
 
-    System.out.printf("%f \n", A.f);
+
     System.out.printf("%f\n", A.d);
   }
 }

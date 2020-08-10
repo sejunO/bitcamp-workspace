@@ -15,5 +15,6 @@ public class Exam0710 {
   public static void main(String[] args) {
     A obj1 = new A();
     System.out.println(obj1.a);
+
   }
 }

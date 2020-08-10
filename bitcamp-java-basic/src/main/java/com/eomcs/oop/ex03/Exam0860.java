@@ -27,3 +27,5 @@ public class Exam0860 {
     A obj3 = new A();
   }
 }
+
+

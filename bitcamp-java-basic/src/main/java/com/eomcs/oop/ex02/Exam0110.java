@@ -12,6 +12,7 @@ public class Exam0110 {
     float aver = (float)sum / 3;
 
     printScore(name, kor, eng, math, sum, aver);
+
   }
 
   static void printScore(String name, int kor, int eng, int math, int sum, float aver) {

@@ -16,3 +16,4 @@ public class Cal {
     result /= a;
   }
 }
+
