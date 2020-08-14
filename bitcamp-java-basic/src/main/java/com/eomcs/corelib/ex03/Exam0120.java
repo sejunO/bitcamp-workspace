@@ -13,6 +13,7 @@ public class Exam0120 {
 
     print(list);
 
+
     list.remove(2); // aaa, bbb, ddd,
     print(list);
 
@@ -40,7 +41,9 @@ public class Exam0120 {
 
     list.add("eee"); // zzz, aaa, yyy, xxx, ddd, ttt, ccc, eee
     print(list);
+
   }
+
 
   static void print(ArrayList list) {
     for (int i = 0; i < list.size(); i++) {
