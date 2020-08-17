@@ -1,11 +1,22 @@
 package com.eomcs.corelib.ex03;
 
+import java.util.Arrays;
+
 public class MyArrayList {
-  private Object[] elementData = new Object[5];
+  private static final int DEFAULT_CAPACITY = 5;
+  private Object[] elementData;
   private int size;
 
-  public int size() {
-    return this.size;
+  public MyArrayList() {
+    elementData = new Object[DEFAULT_CAPACITY];
+  }
+
+  public MyArrayList(int initialCapacity) {
+    if (initialCapacity < DEFAULT_CAPACITY) {
+      elementData = new Object[DEFAULT_CAPACITY];
+    } else {
+      elementData = new Object[initialCapacity];
+    }
   }
 
   public boolean add(Object e) {
@@ -17,12 +28,16 @@ public class MyArrayList {
   }
 
   private void grow() {
+    int newCapacity = elementData.length + (elementData.length >> 1);
+    elementData = Arrays.copyOf(elementData, newCapacity);
+
+    /*
     Object[] newArray = new Object[elementData.length + (elementData.length >> 1)];
     for (int i = 0; i < elementData.length; i++) {
       newArray[i] = elementData[i];
     }
     elementData = newArray;
-
+     */
   }
 
   public void add(int index, Object element) {
@@ -57,11 +72,51 @@ public class MyArrayList {
 
   public Object remove(int index) {
     Object old = elementData[index];
+
+    System.arraycopy(elementData, // 복사 대상
+        index + 1, // 복사할 항목의 시작 index
+        elementData, // 목적지
+        index, //복사 목적지 index
+        this.size - (index + 1)); // 복사할 항목의 갯수
+    /*
     for (int i = index; i < size - 1; i++) {
       elementData[i] = elementData[i + 1];
     }
+     */
     size--;
     elementData[size] = null;
     return old;
   }
+
+  public int size() {
+    return this.size;
+  }
+  public Object[] toArray() {
+    Object[] arr = Arrays.copyOf(elementData, this.size);
+    return arr;
+    /*
+    Object[] arr = new Object[this.size];
+    for (int i = 0; i < arr.length; i++) {
+      arr[i] = elementData[i];
+    }
+    return arr;
+     */
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
