@@ -13,13 +13,13 @@ public class Exam0320 {
     Member v5 = new Member("윤봉길", 25);
 
     HashMap map = new HashMap();
+    Set keys = map.keySet();
     map.put("s01", v1);
     map.put("s02", v2);
     map.put("s03", v3);
     map.put("s04", v4);
     map.put("s05", v5);
 
-    Set keys = map.keySet();
 
     map.remove("s01");
     map.remove("s02");

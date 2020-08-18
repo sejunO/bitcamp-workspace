@@ -32,12 +32,12 @@ public class Exam0210 {
 
     // 2) 창고에서 값을 꺼내주는 객체의 도움을 받는다.
     // => HashSet에서 값을 꺼내는 객체를 얻는다.
-    Iterator 컬렉션에서값을꺼내주는객체 = set.iterator();
+    Iterator a = set.iterator();
 
     // => 값을 꺼내주는 객체를 통해 값을 꺼낸다.
-    while (컬렉션에서값을꺼내주는객체.hasNext()) {
+    while (a.hasNext()) {
       // => 꺼낼 데이터가 있다면 값을 꺼내달라고 명령한다.
-      System.out.print(컬렉션에서값을꺼내주는객체.next() + ", ");
+      System.out.print(a.next() + ", ");
     }
     System.out.println();
 
