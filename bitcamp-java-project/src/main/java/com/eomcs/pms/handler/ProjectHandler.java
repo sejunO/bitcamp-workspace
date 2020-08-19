@@ -5,7 +5,6 @@ import com.eomcs.util.Prompt;
 
 public class ProjectHandler {
 
-  // 프로젝트 데이터
   static class Project {
     int no;
     String title;
@@ -15,16 +14,21 @@ public class ProjectHandler {
     String owner;
     String members;
   }
+  static final int LENGTH = 100;
+
+  Project[] list = new Project[LENGTH];
+  int size = 0;
+
+  // 외부에서 직접 이 변수를 사용하지 않기 때문에
+  // public 으로 공개한 것을 취소한다.
   MemberHandler memberHandler;
+
+  // 인스턴스 변수들을 유효한 값으로 초기화시키는 생성자를 정의한다.
   public ProjectHandler(MemberHandler memberHandler) {
     this.memberHandler = memberHandler;
   }
-  static final int LENGTH = 100;  // PLENGTH 를 LENGTH 로 변경한다.
-  Project[] list = new Project[LENGTH]; // projects 를 list 로 변경한다.
-  int size = 0; // psize 를 size 로 변경한다.
 
-  //다른 패키지에서 이 메서드를 사용할 수 있도록 public 으로 사용 범위를 공개한다.
-  public  void add() {
+  public void add() {
     System.out.println("[프로젝트 등록]");
 
     Project project = new Project();
@@ -65,14 +69,14 @@ public class ProjectHandler {
     }
     project.members = members.toString();
 
-    list[size++] = project;
+    this.list[this.size++] = project;
   }
 
-  public  void list() {
+  public void list() {
     System.out.println("[프로젝트 목록]");
 
-    for (int i = 0; i < size; i++) {
-      Project project = list[i];
+    for (int i = 0; i < this.size; i++) {
+      Project project = this.list[i];
       System.out.printf("%d, %s, %s, %s, %s, [%s]\n",
           project.no,
           project.title,
