@@ -4,8 +4,6 @@ import java.sql.Date;
 import com.eomcs.util.Prompt;
 
 public class ProjectHandler {
-  static int size = 0;
-  static final int LENGTH = 100;
 
   // 프로젝트 데이터
   static class Project {
@@ -17,61 +15,71 @@ public class ProjectHandler {
     String owner;
     String members;
   }
-  static Project[] list = new Project[LENGTH];
+  MemberHandler memberHandler;
+  public ProjectHandler(MemberHandler memberHandler) {
+    this.memberHandler = memberHandler;
+  }
+  static final int LENGTH = 100;  // PLENGTH 를 LENGTH 로 변경한다.
+  Project[] list = new Project[LENGTH]; // projects 를 list 로 변경한다.
+  int size = 0; // psize 를 size 로 변경한다.
 
-  public static void add() {
+  //다른 패키지에서 이 메서드를 사용할 수 있도록 public 으로 사용 범위를 공개한다.
+  public  void add() {
     System.out.println("[프로젝트 등록]");
 
-    Project p = new Project();
-    p.no = Prompt.inputInt("번호? ");
-    p.title = Prompt.inputString("프로젝트명? ");
-    p.content = Prompt.inputString("내용? ");
-    p.startDate = Prompt.inputDate("시작일? ");
-    p.endDate = Prompt.inputDate("종료일? ");
+    Project project = new Project();
+    project.no = Prompt.inputInt("번호? ");
+    project.title = Prompt.inputString("프로젝트명? ");
+    project.content = Prompt.inputString("내용? ");
+    project.startDate = Prompt.inputDate("시작일? ");
+    project.endDate = Prompt.inputDate("종료일? ");
 
     while (true) {
-      String name = Prompt.inputString("만든이? ");
-      if (name.equals("")) {
+      String name = Prompt.inputString("만든이?(취소: 빈 문자열) ");
+
+      if (name.length() == 0) {
         System.out.println("프로젝트 등록을 취소합니다.");
         return;
-      } else if (MemberHandler.findByName(name) != null) {
-        p.owner = name;
+      } else if (memberHandler.findByName(name) != null) {
+        project.owner = name;
         break;
       }
+
       System.out.println("등록된 회원이 아닙니다.");
     }
 
-    StringBuilder names = new StringBuilder();
-
+    StringBuilder members = new StringBuilder();
     while (true) {
-      String name = Prompt.inputString("팀원? ");
-      if (name.equals("")) {
+      String name = Prompt.inputString("팀원?(완료: 빈 문자열) ");
+
+      if (name.length() == 0) {
         break;
-      } else if (MemberHandler.findByName(name) != null) {
-        if (names.length() > 0) {
-          names.append(",");
+      } else if (memberHandler.findByName(name) != null) {
+        if (members.length() > 0) {
+          members.append(",");
         }
-        names.append(name);
+        members.append(name);
       } else {
         System.out.println("등록된 회원이 아닙니다.");
       }
     }
-    p.members = names.toString();
-    list[size++] = p;
+    project.members = members.toString();
 
+    list[size++] = project;
   }
 
-  public static void list() {
+  public  void list() {
     System.out.println("[프로젝트 목록]");
 
     for (int i = 0; i < size; i++) {
-      Project p = list[i];
-      System.out.printf("%d, %s, %s, %s, %s, %s, [%s]\n", // 출력 형식 지정
-          p.no, p.title, p.content, p.startDate, p.endDate, p.owner, p.members );
-      System.out.println(p.owner);
+      Project project = list[i];
+      System.out.printf("%d, %s, %s, %s, %s, [%s]\n",
+          project.no,
+          project.title,
+          project.startDate,
+          project.endDate,
+          project.owner,
+          project.members);
     }
   }
-
-
-
 }
