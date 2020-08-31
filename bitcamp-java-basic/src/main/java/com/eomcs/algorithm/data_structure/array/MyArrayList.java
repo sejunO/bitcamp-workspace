@@ -1,5 +1,6 @@
-package com.eomcs.corelib.ex03;
+package com.eomcs.algorithm.data_structure.array;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 //테스트1 - MyArrayListTest
@@ -33,7 +34,7 @@ import java.util.Arrays;
 //19) 배열의 특정 항목을 삭제할 때 배열 복사 기능을 이용하여 처리한다.
 //20) ArrayList에 보관되어 있는 인스턴스 목록을 배열로 리턴하는 toArray() 메서드를 추가한다.
 //21) toArray()에서 배열을 복사할 때 Arrays.copyOf() 메서드를 활용해보자.
-public class MyArrayList {
+public class MyArrayList<E> {
 
   private static final int DEFAULT_CAPACITY = 5;
   private Object[] elementData;
@@ -51,7 +52,7 @@ public class MyArrayList {
     }
   }
 
-  public boolean add(Object e) {
+  public boolean add(E e) {
     if (size == elementData.length) {
       grow();
     }
@@ -60,20 +61,12 @@ public class MyArrayList {
   }
 
   private void grow() {
-    //System.out.println("오호라! 배열을 늘리자.");
     int newCapacity = elementData.length + (elementData.length >> 1);
     elementData = Arrays.copyOf(elementData, newCapacity);
-    /*
-    Object[] newArray = new Object[elementData.length + (elementData.length >> 1)];
-    for (int i = 0; i < elementData.length; i++) {
-      newArray[i] = elementData[i];
-    }
-    elementData = newArray;
-     */
   }
 
 
-  public void add(int index, Object element) {
+  public void add(int index, E element) {
     if (size == elementData.length) {
       grow();
     }
@@ -87,23 +80,26 @@ public class MyArrayList {
     size++;
   }
 
-  public Object get(int index) {
+  @SuppressWarnings("unchecked")
+public E get(int index) {
     if (index < 0 || index >= size) {
       throw new ArrayIndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
     }
-    return elementData[index];
+    return (E) elementData[index];
   }
 
-  public Object set(int index, Object element) {
+  @SuppressWarnings("unchecked")
+public E set(int index, E element) {
     if (index < 0 || index >= size) {
       throw new ArrayIndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
     }
     Object old = elementData[index];
     elementData[index] = element;
-    return old;
+    return (E) old;
   }
 
-  public Object remove(int index) {
+  @SuppressWarnings("unchecked")
+public E remove(int index) {
     Object old = elementData[index];
 
     System.arraycopy(
@@ -124,7 +120,7 @@ public class MyArrayList {
     // 쓰지 않는 인스턴스의 주소를 제거하여
     // 가비지 될 수 있게 한다.
 
-    return old;
+    return (E) old;
   }
 
   public int size() {
@@ -135,13 +131,21 @@ public class MyArrayList {
     Object[] arr = Arrays.copyOf(elementData, this.size);
     //System.out.println(elementData == arr); //false
     return arr;
-    /*
-    Object[] arr = new Object[this.size];
-    for (int i = 0; i < arr.length; i++) {
-      arr[i] = elementData[i];
+  }
+  
+  
+  @SuppressWarnings("unchecked")
+  public E[] toArray(E[] arr) {
+    if (arr.length < size) {
+      arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), this.size);
     }
+    System.arraycopy(
+        this.elementData, 
+        0, 
+        arr, 
+        0,
+        this.size);
     return arr;
-     */
   }
 }
 

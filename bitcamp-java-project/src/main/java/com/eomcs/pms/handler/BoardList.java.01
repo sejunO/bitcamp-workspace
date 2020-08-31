@@ -1,21 +1,28 @@
 package com.eomcs.pms.handler;
 
-import com.eomcs.pms.domain.Board;
+import java.sql.Date;
 
 public class BoardList {
-
-  static final int DEFAULT_LENGTH = 100;
-
+  // 게시물 데이터
+  static class Board {
+    int no;
+    String title;
+    String content;
+    String writer;
+    Date registeredDate;
+    int viewCount;
+  }
+  static final int DEFAULT_CAPACITY = 100;
   Board[] list;
   int size = 0;
 
   public BoardList() {
-    list = new Board[DEFAULT_LENGTH];
+    list = new Board[DEFAULT_CAPACITY];
   }
 
   public BoardList(int initialCapacity) {
-    if (initialCapacity <= DEFAULT_LENGTH) {
-      list = new Board[DEFAULT_LENGTH];
+    if (initialCapacity <= DEFAULT_CAPACITY) {
+      list = new Board[DEFAULT_CAPACITY];
     } else {
       list = new Board[initialCapacity];
     }
@@ -33,3 +40,7 @@ public class BoardList {
     return arr;
   }
 }
+
+
+
+
