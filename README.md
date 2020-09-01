@@ -321,6 +321,56 @@ macOS 개발 환경 구축하기
 - 다형성 문법: 오버로딩, 오버라이딩
   - com.eomcs.oop.ex06.b ~ e 패키지 예제
 - 캡슐화 문법
-  - eom.eomcs.oop.ex07 패키지 예제
+  - com.eomcs.oop.ex07 패키지 예제
 
+### 24일차(2020-08-13,목)
 
+- 주요 클래스 사용법: Object 클래스
+  - com.eomcs.corelib.ex01 패키지 예제
+
+### 25일차(2020-08-14,금)
+
+- 주요 클래스 사용법
+  - String 클래스: com.eomcs.corelib.ex02 패키지 예제
+  - ArrayList 클래스: com.eomcs.corelib.ex03 패키지 예제
+  - ArrayList 클래스 만들기: com.eomcs.algorithm.data_structure.array 패키지 예제
+
+### 26일차(2020-08-17,월)
+
+- 주요 클래스 사용법
+  - LinkedList 클래스: com.eomcs.corelib.ex04 패키지 예제
+  - LinkedList 클래스 만들기: com.eomcs.algorithm.data_structure.linkedlist 패키지 예제
+
+### 27일차(2020-08-18,화)
+
+- 주요 클래스 사용법
+  - Stack 클래스: com.eomcs.corelib.ex05 패키지 예제
+  - Stack 클래스 만들기: com.eomcs.algorithm.data_structure.stack 패키지 예제
+  - Queue 클래스: com.eomcs.corelib.ex06 패키지 예제
+  - Queue 클래스 만들기: com.eomcs.algorithm.data_structure.queue 패키지 예제
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 10 버전 수행: 다른 클래스와 관계 맺기 : 의존 관계
+
+### 28일차(2020-08-19,수)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 11 버전 수행: 클래스 필드와 클래스 메서드의 한계
+  - 12 버전 수행: 인스턴스 필드와 인스턴스 메서드가 필요한 이유
+  - 13 버전 수행: 생성자가 필요한 이유 : 의존 객체 주입
+  - 14 버전 수행: 데이터를 처리하는 코드를 별도의 클래스로 분리하기 : 캡슐화
+
+## 29일차(2020-08-31,월)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 15 버전 수행: 캡슐화와 접근 제어 : 세터(setter) / 게터(getter)
+  - 16 버전 수행: 다형성과 형변환 응용
+  - 17 버전 수행: 제네릭이 필요한 이유와 사용법
+  - 18 버전 수행: CRUD
+
+## 30일차(2020-09-01,화)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 18 버전 수행: CRUD (계속)
+- 제네릭 사용법
+  - com.eomcs.generic 패키지 예제
+  

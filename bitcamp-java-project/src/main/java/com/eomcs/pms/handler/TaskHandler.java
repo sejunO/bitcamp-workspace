@@ -6,6 +6,8 @@ import com.eomcs.util.Prompt;
 
 public class TaskHandler {
 
+  //Task 객체 목록을 저장할 ArrayList 객체를 준비한다.
+  // 제네릭 문법으로 항목의 타입을 지정한다.
   ArrayList<Task> taskList = new ArrayList<>();
   MemberHandler memberHandler;
 
@@ -36,36 +38,20 @@ public class TaskHandler {
       System.out.println("등록된 회원이 아닙니다.");
     }
 
+    // 제네릭 문법에 따라 add()를 호출할 때 넘겨줄 수 있는 값은 
+    // Task 또는 그 하위 타입의 인스턴스만 가능하다.
+    // 다른 타입은 불가능하다.
     taskList.add(task);
-  }
-
-  public void detail() {
-    System.out.println("프로젝트 조회");
-    int no = Prompt.inputInt("번호? ");
-    Task task = findByNo(no);
-    if (task == null) {
-      System.out.println("해당 번호의 회원이 없습니다.");
-    } else {
-      System.out.printf("내용: %s", task.getContent());
-      System.out.printf("마감일: %s", task.getDeadline());
-      System.out.printf("상태: %s", task.getStatus());
-      System.out.printf("팀장: %s", task.getOwner());
-    }
-  }
-
-  private Task findByNo(int no) {
-    for (int i = 0; i < taskList.size(); i++) {
-      Task task = taskList.get(i);
-      if (task.getNo() == no) {
-        return task;
-      }
-    }
-    return null;
   }
 
   public void list() {
     System.out.println("[작업 목록]");
-    Task[] tasks = taskList.toArray(new Task[] {});
+
+    // 제네릭 문법에 따라 리턴 타입이 'Task[]' 이기 때문에
+    // 따로 형변환 할 필요가 없다.
+    // 대신 Task[] 배열을 리턴해 달라는 의미로 배열의 타입 정보를 넘긴다.
+    Task[] tasks = taskList.toArray(Task[].class);
+
     for (Task task : tasks) {
       String stateLabel = null;
       switch (task.getStatus()) {
@@ -78,8 +64,12 @@ public class TaskHandler {
         default:
           stateLabel = "신규";
       }
-      System.out.printf("%d, %s, %s, %s, %s\n", task.getNo(), task.getContent(), task.getDeadline(),
-          stateLabel, task.getOwner());
+      System.out.printf("%d, %s, %s, %s, %s\n",
+          task.getNo(),
+          task.getContent(),
+          task.getDeadline(),
+          stateLabel,
+          task.getOwner());
     }
   }
 }
