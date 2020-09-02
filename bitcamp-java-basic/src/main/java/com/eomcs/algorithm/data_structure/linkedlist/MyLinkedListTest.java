@@ -2,7 +2,7 @@ package com.eomcs.algorithm.data_structure.linkedlist;
 
 public class MyLinkedListTest {
   public static void main(String[] args) {
-    MyLinkedList list = new MyLinkedList();
+    MyLinkedList<String> list = new MyLinkedList<>();
 
     list.add("aaa");
     list.add("bbb");
@@ -20,15 +20,15 @@ public class MyLinkedListTest {
     list.remove(0);
     list.remove(4);
     print(list);
-    list.set(1,"xxx");
-    list.set(0,"zzz");
-    list.set(3,"yyy");
+    list.set(1, "xxx");
+    list.set(0, "zzz");
+    list.set(3, "yyy");
     print(list);
     print2(list.toArray());
 
   }
 
-  static void print(MyLinkedList list) {
+  static void print(MyLinkedList<String> list) {
     for (int i = 0; i < list.size; i++) {
       System.out.print(list.get(i) + ",");
     }

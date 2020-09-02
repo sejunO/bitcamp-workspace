@@ -1,4 +1,4 @@
-package com.eomcs.algorithm.data_structure.linkedlist;
+package com.eomcs.util;
 
 import java.lang.reflect.Array;
 
@@ -13,7 +13,7 @@ import java.lang.reflect.Array;
 // 7) 목록에서 특정 인덱스에 값을 제거하는 remove(int) 메서드를 정의한다.
 // 8) 목록에서 특정 인덱스의 값을 바꾸는 set(int, Object) 메서드를 정의한다.
 // 9) 목록의 데이터를 새 배열에 담아 리턴하는 toArray() 메서드를 정의한다.
-public class MyLinkedList<E> {
+public class LinkedList<E> {
 
   // 값을 찾을 때는 첫 번째 노드부터 따라간다.
   private Node<E> first;
@@ -56,17 +56,16 @@ public class MyLinkedList<E> {
     return true;
   }
 
-  @SuppressWarnings("unchecked")
   public E get(int index) {
     if (index < 0 || index >= this.size) {
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
     }
 
-    Node cursor = this.first;
+    Node<E> cursor = this.first;
     for (int i = 1; i <= index; i++) {
       cursor = cursor.next;
     }
-    return (E) cursor.value;
+    return cursor.value;
   }
 
   public void add(int index, E element) {
@@ -97,7 +96,6 @@ public class MyLinkedList<E> {
     }
   }
 
-  @SuppressWarnings("unchecked")
   public E remove(int index) {
     if (index < 0 || index >= this.size) {
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
