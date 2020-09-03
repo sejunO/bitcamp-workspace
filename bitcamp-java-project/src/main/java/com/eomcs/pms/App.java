@@ -1,27 +1,43 @@
 package com.eomcs.pms;
 
+import com.eomcs.pms.domain.Board;
+import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.domain.Project;
+import com.eomcs.pms.domain.Task;
 import com.eomcs.pms.handler.BoardHandler;
 import com.eomcs.pms.handler.MemberHandler;
 import com.eomcs.pms.handler.ProjectHandler;
 import com.eomcs.pms.handler.TaskHandler;
+import com.eomcs.util.ArrayList;
+import com.eomcs.util.LinkedList;
+import com.eomcs.util.abstractList;
 import com.eomcs.util.Prompt;
+import com.eomcs.util.Queue;
 import com.eomcs.util.Stack;
 
 public class App {
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
 
-    BoardHandler boardHandler = new BoardHandler();
-    MemberHandler memberHandler = new MemberHandler();
-    ProjectHandler projectHandler = new ProjectHandler(memberHandler);
-    TaskHandler taskHandler = new TaskHandler(memberHandler);
+    abstractList<Board> boardList = new ArrayList<>();
+    abstractList<Member> memberList = new LinkedList<>();
+    abstractList<Project> projectList = new LinkedList<>();
+    abstractList<Task> taskList = new LinkedList<>();
 
-    Stack commandList = new Stack();
+    BoardHandler boardHandler = new BoardHandler(boardList);
+    MemberHandler memberHandler = new MemberHandler(memberList);
+
+    ProjectHandler projectHandler = new ProjectHandler(projectList, memberHandler);
+    TaskHandler taskHandler = new TaskHandler(taskList, memberHandler);
+    Stack<String> stack = new Stack<>();
+    Queue<String> queue = new Queue<>();
 
     loop: while (true) {
       String command = Prompt.inputString("명령> ");
 
-      commandList.push(command);
+      stack.push(command);
+      queue.offer(command);
+
       switch (command) {
         case "/member/add":
           memberHandler.add();
@@ -83,8 +99,11 @@ public class App {
         case "/board/delete":
           boardHandler.delete();
           break;
-        case "history":
-          printCommandHistory(commandList);
+        case "hs":
+          printStackHistory(stack);
+          break;
+        case "hq":
+          printQueueHistory(queue);
           break;
         case "quit":
         case "exit":
@@ -95,20 +114,47 @@ public class App {
       }
       System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
     }
-
     Prompt.close();
   }
 
-  private static void printCommandHistory(Stack commandList) throws CloneNotSupportedException {
-    Stack commandStack = commandList.clone();
-    for (int count = 1; !commandStack.empty(); count++) {
-      System.out.println(commandStack.pop());
-      if (count % 5 == 0) {
-        String response = Prompt.inputString(":");
-        if (response.equalsIgnoreCase("q")) {
-          break;
+  static void printStackHistory(Stack<String> stack) {
+    try {
+      Stack<String> history = stack.clone();
+
+      for (int count = 1; history.size() != 0; count++) {
+        System.out.println(history.pop());
+
+        if (count % 5 == 0) {
+          String response = Prompt.inputString(" : ");
+          if (response.equalsIgnoreCase("q")) {
+            break;
+          }
         }
       }
+
+    } catch (Exception e) {
+      System.out.println("실패");
+    }
+
+
+  }
+
+
+  private static void printQueueHistory(Queue<String> queue) {
+    try {
+      Queue<String> printQueue = queue.clone();
+
+      for (int count = 1; printQueue.size() > 0; count++) {
+        System.out.println(printQueue.poll());
+        if (count % 5 == 0) {
+          String response = Prompt.inputString(" : ");
+          if (response.equalsIgnoreCase("q")) {
+            break;
+          }
+        }
+      }
+    } catch (Exception e) {
+      System.out.println("실패");
     }
   }
 }

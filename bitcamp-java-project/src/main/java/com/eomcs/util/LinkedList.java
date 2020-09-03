@@ -13,7 +13,7 @@ import java.lang.reflect.Array;
 // 7) 목록에서 특정 인덱스에 값을 제거하는 remove(int) 메서드를 정의한다.
 // 8) 목록에서 특정 인덱스의 값을 바꾸는 set(int, Object) 메서드를 정의한다.
 // 9) 목록의 데이터를 새 배열에 담아 리턴하는 toArray() 메서드를 정의한다.
-public class LinkedList<E> {
+public class LinkedList<E> extends abstractList<E> {
 
   // 값을 찾을 때는 첫 번째 노드부터 따라간다.
   private Node<E> first;
@@ -22,7 +22,6 @@ public class LinkedList<E> {
   private Node<E> last;
 
   // 목록 크기를 보관한다.
-  int size;
 
   // 용도?
   // - Node 클래스는 목록에서 각 항목의 값을 보관하는 객체로 역할을 수행한다.
@@ -40,9 +39,10 @@ public class LinkedList<E> {
     }
   }
 
-  public boolean add(E e) {
+  @Override
+  public boolean add(E item) {
     Node<E> node = new Node<>();
-    node.value = e;
+    node.value = item;
 
     if (first == null) {
       first = node;
@@ -56,6 +56,7 @@ public class LinkedList<E> {
     return true;
   }
 
+  @Override
   public E get(int index) {
     if (index < 0 || index >= this.size) {
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
@@ -68,6 +69,7 @@ public class LinkedList<E> {
     return cursor.value;
   }
 
+  @Override
   public void add(int index, E element) {
     if (index < 0 || index > this.size) {
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
@@ -96,12 +98,13 @@ public class LinkedList<E> {
     }
   }
 
+  @Override
   public E remove(int index) {
     if (index < 0 || index >= this.size) {
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
     }
 
-    size--;
+    size--; 
 
     if (index == 0) {
       Node<E> old = first;
@@ -126,6 +129,7 @@ public class LinkedList<E> {
     return old.value;
   }
 
+  @Override
   @SuppressWarnings("unchecked")
   public E set(int index, E element) {
     if (index < 0 || index >= this.size) {
@@ -143,8 +147,8 @@ public class LinkedList<E> {
     return (E) old;
   }
 
-  @SuppressWarnings("unchecked")
-  public E[] toArray() {
+  @Override
+  public Object[] toArray() {
     Object[] arr = new Object[this.size];
 
     int i = 0;
@@ -155,13 +159,10 @@ public class LinkedList<E> {
       cursor = cursor.next;
     }
 
-    return (E[]) arr;
+    return arr;
   }
 
-  public int size() {
-    return this.size;
-  }
-
+  @Override
   @SuppressWarnings("unchecked")
   public E[] toArray(E[] arr) {
     if (arr.length < this.size) {

@@ -40,9 +40,9 @@ public class MyLinkedList<E> {
     }
   }
 
-  public boolean add(E e) {
+  public boolean add(E item) {
     Node<E> node = new Node<>();
-    node.value = e;
+    node.value = item;
 
     if (first == null) {
       first = node;
@@ -56,17 +56,16 @@ public class MyLinkedList<E> {
     return true;
   }
 
-  @SuppressWarnings("unchecked")
   public E get(int index) {
     if (index < 0 || index >= this.size) {
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
     }
 
-    Node cursor = this.first;
+    Node<E> cursor = this.first;
     for (int i = 1; i <= index; i++) {
       cursor = cursor.next;
     }
-    return (E) cursor.value;
+    return cursor.value;
   }
 
   public void add(int index, E element) {
