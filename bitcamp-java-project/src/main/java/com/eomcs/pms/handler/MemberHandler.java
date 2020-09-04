@@ -1,14 +1,14 @@
 package com.eomcs.pms.handler;
 
 import com.eomcs.pms.domain.Member;
-import com.eomcs.util.abstractList;
+import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
 
 public class MemberHandler {
 
-  abstractList<Member> memberList;
+  List<Member> memberList;
 
-  public MemberHandler(abstractList<Member> list) {
+  public MemberHandler(List<Member> list) {
     this.memberList = list;
   }
 

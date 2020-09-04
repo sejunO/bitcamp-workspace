@@ -3,7 +3,8 @@ package com.eomcs.oop.ex09.g;
 
 public class Exam0110 implements A {
   @Override
-  public void m3() {
+  public String m3() {
     // 추상 메서드는 반드시 구현해야 한다.
+    return null;
   }
 }

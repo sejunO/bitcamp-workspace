@@ -2,15 +2,15 @@ package com.eomcs.pms.handler;
 
 import java.sql.Date;
 import com.eomcs.pms.domain.Task;
-import com.eomcs.util.abstractList;
+import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
 
 public class TaskHandler {
 
-  abstractList<Task> taskList;
+  List<Task> taskList;
   MemberHandler memberHandler;
 
-  public TaskHandler(abstractList<Task> list, MemberHandler memberHandler) {
+  public TaskHandler(List<Task> list, MemberHandler memberHandler) {
     this.taskList = list;
     this.memberHandler = memberHandler;
   }

@@ -15,5 +15,4 @@ public class Oh extends Student {
   public void fighting() {
     System.out.println("잘 부탁드립니다.");
   }
-
 }

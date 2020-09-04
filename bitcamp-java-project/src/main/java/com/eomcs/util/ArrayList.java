@@ -3,7 +3,7 @@ package com.eomcs.util;
 import java.util.Arrays;
 
 // ArrayList 가 다룰 객체의 타입을 파라미터로 받을 수 있도록 '타입 파라미터'를 선언한다.
-public class ArrayList<E> extends abstractList<E> {
+public class ArrayList<E> extends AbstractList<E> {
 
   static final int DEFAULT_CAPACITY = 3;
   Object[] elementData;

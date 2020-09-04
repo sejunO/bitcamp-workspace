@@ -2,14 +2,14 @@ package com.eomcs.pms.handler;
 
 import java.sql.Date;
 import com.eomcs.pms.domain.Board;
-import com.eomcs.util.abstractList;
+import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
 
 public class BoardHandler {
 
-  abstractList<Board> boardList;
+  List<Board> boardList;
 
-  public BoardHandler(abstractList<Board> list) {
+  public BoardHandler(List<Board> list) {
     this.boardList = list;
   }
 

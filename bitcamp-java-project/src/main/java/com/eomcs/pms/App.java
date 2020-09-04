@@ -10,7 +10,7 @@ import com.eomcs.pms.handler.ProjectHandler;
 import com.eomcs.pms.handler.TaskHandler;
 import com.eomcs.util.ArrayList;
 import com.eomcs.util.LinkedList;
-import com.eomcs.util.abstractList;
+import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
 import com.eomcs.util.Queue;
 import com.eomcs.util.Stack;
@@ -19,10 +19,10 @@ public class App {
 
   public static void main(String[] args) {
 
-    abstractList<Board> boardList = new ArrayList<>();
-    abstractList<Member> memberList = new LinkedList<>();
-    abstractList<Project> projectList = new LinkedList<>();
-    abstractList<Task> taskList = new LinkedList<>();
+    List<Board> boardList = new ArrayList<>();
+    List<Member> memberList = new LinkedList<>();
+    List<Project> projectList = new LinkedList<>();
+    List<Task> taskList = new LinkedList<>();
 
     BoardHandler boardHandler = new BoardHandler(boardList);
     MemberHandler memberHandler = new MemberHandler(memberList);
