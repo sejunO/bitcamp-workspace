@@ -2,15 +2,15 @@ package com.eomcs.pms.handler;
 
 import java.sql.Date;
 import com.eomcs.pms.domain.Project;
-import com.eomcs.util.List;
+import com.eomcs.util.AbstractList;
 import com.eomcs.util.Prompt;
 
 public class ProjectHandler {
 
-  List<Project> projectList;
+  AbstractList<Project> projectList;
   MemberHandler memberHandler;
 
-  public ProjectHandler(List<Project> list, MemberHandler memberHandler) {
+  public ProjectHandler(AbstractList<Project> list, MemberHandler memberHandler) {
     this.projectList = list;
     this.memberHandler = memberHandler;
   }
@@ -64,8 +64,13 @@ public class ProjectHandler {
 
     for (int i = 0; i < projectList.size(); i++) {
       Project project = projectList.get(i);
-      System.out.printf("%d, %s, %s, %s, %s, [%s]\n", project.getNo(), project.getTitle(),
-          project.getStartDate(), project.getEndDate(), project.getOwner(), project.getMembers());
+      System.out.printf("%d, %s, %s, %s, %s, [%s]\n",
+          project.getNo(),
+          project.getTitle(),
+          project.getStartDate(),
+          project.getEndDate(),
+          project.getOwner(),
+          project.getMembers());
     }
   }
 
@@ -96,14 +101,19 @@ public class ProjectHandler {
       return;
     }
 
-    String title = Prompt.inputString(String.format("프로젝트명(%s)? ", project.getTitle()));
-    String content = Prompt.inputString(String.format("내용(%s)? ", project.getContent()));
-    Date startDate = Prompt.inputDate(String.format("시작일(%s)? ", project.getStartDate()));
-    Date endDate = Prompt.inputDate(String.format("종료일(%s)? ", project.getEndDate()));
+    String title = Prompt.inputString(
+        String.format("프로젝트명(%s)? ", project.getTitle()));
+    String content = Prompt.inputString(
+        String.format("내용(%s)? ", project.getContent()));
+    Date startDate = Prompt.inputDate(
+        String.format("시작일(%s)? ", project.getStartDate()));
+    Date endDate = Prompt.inputDate(
+        String.format("종료일(%s)? ", project.getEndDate()));
 
     String owner = null;
     while (true) {
-      String name = Prompt.inputString(String.format("만든이(%s)?(취소: 빈 문자열) ", project.getOwner()));
+      String name = Prompt.inputString(
+          String.format("만든이(%s)?(취소: 빈 문자열) ", project.getOwner()));
       if (name.length() == 0) {
         System.out.println("프로젝트 등록을 취소합니다.");
         return;
@@ -116,7 +126,8 @@ public class ProjectHandler {
 
     StringBuilder members = new StringBuilder();
     while (true) {
-      String name = Prompt.inputString(String.format("팀원(%s)?(완료: 빈 문자열) ", project.getMembers()));
+      String name = Prompt.inputString(
+          String.format("팀원(%s)?(완료: 빈 문자열) ", project.getMembers()));
       if (name.length() == 0) {
         break;
       } else if (memberHandler.findByName(name) != null) {

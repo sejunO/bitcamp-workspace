@@ -1,8 +1,9 @@
 package com.eomcs.util;
 
 import java.util.EmptyStackException;
+import com.eomcs.algorithm.data_structure.linkedlist.MyLinkedList;
 
-public class Stack<E> extends LinkedList<E> implements Cloneable {
+public class Stack<E> extends MyLinkedList<E> implements Cloneable {
   public E push(E item) {
     this.add(item);
     return item;
@@ -28,12 +29,12 @@ public class Stack<E> extends LinkedList<E> implements Cloneable {
   @SuppressWarnings("unchecked")
   @Override
   public Stack<E> clone() throws CloneNotSupportedException {
-    Stack<E> newStack = new Stack<>();
+    Stack<E> stack = new Stack<>();
     Object[] values = this.toArray();
     for (Object value : values) {
-      newStack.push((E) value);
+      stack.push((E) value);
     }
-    return newStack;
+    return stack;
   }
 
 

@@ -2,15 +2,15 @@ package com.eomcs.pms.handler;
 
 import java.sql.Date;
 import com.eomcs.pms.domain.Task;
-import com.eomcs.util.List;
+import com.eomcs.util.AbstractList;
 import com.eomcs.util.Prompt;
 
 public class TaskHandler {
 
-  List<Task> taskList;
+  AbstractList<Task> taskList;
   MemberHandler memberHandler;
 
-  public TaskHandler(List<Task> list, MemberHandler memberHandler) {
+  public TaskHandler(AbstractList<Task> list, MemberHandler memberHandler) {
     this.taskList = list;
     this.memberHandler = memberHandler;
   }
@@ -57,8 +57,12 @@ public class TaskHandler {
         default:
           stateLabel = "신규";
       }
-      System.out.printf("%d, %s, %s, %s, %s\n", task.getNo(), task.getContent(), task.getDeadline(),
-          stateLabel, task.getOwner());
+      System.out.printf("%d, %s, %s, %s, %s\n",
+          task.getNo(),
+          task.getContent(),
+          task.getDeadline(),
+          stateLabel,
+          task.getOwner());
     }
   }
 
@@ -99,8 +103,10 @@ public class TaskHandler {
       return;
     }
 
-    String content = Prompt.inputString(String.format("내용(%s)? ", task.getContent()));
-    Date deadline = Prompt.inputDate(String.format("마감일(%s)? ", task.getDeadline()));
+    String content = Prompt.inputString(
+        String.format("내용(%s)? ", task.getContent()));
+    Date deadline = Prompt.inputDate(
+        String.format("마감일(%s)? ", task.getDeadline()));
     String stateLabel = null;
     switch (task.getStatus()) {
       case 1:
@@ -112,11 +118,13 @@ public class TaskHandler {
       default:
         stateLabel = "신규";
     }
-    int status = Prompt.inputInt(String.format("상태(%s)?\n0: 신규\n1: 진행중\n2: 완료\n> ", stateLabel));
+    int status = Prompt.inputInt(
+        String.format("상태(%s)?\n0: 신규\n1: 진행중\n2: 완료\n> ", stateLabel));
 
     String owner = null;
     while (true) {
-      String name = Prompt.inputString(String.format("담당자(%s)?(취소: 빈 문자열) ", task.getOwner()));
+      String name = Prompt.inputString(
+          String.format("담당자(%s)?(취소: 빈 문자열) ", task.getOwner()));
 
       if (name.length() == 0) {
         System.out.println("작업 등록을 취소합니다.");

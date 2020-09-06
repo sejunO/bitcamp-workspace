@@ -9,8 +9,8 @@ public class BoardHandler {
 
   List<Board> boardList;
 
-  public BoardHandler(List<Board> list) {
-    this.boardList = list;
+  public BoardHandler(List<Board> boardList) {
+    this.boardList = boardList;
   }
 
   public void add() {
@@ -34,8 +34,12 @@ public class BoardHandler {
 
     for (int i = 0; i < boardList.size(); i++) {
       Board board = boardList.get(i);
-      System.out.printf("%d, %s, %s, %s, %d\n", board.getNo(), board.getTitle(), board.getWriter(),
-          board.getRegisteredDate(), board.getViewCount());
+      System.out.printf("%d, %s, %s, %s, %d\n",
+          board.getNo(),
+          board.getTitle(),
+          board.getWriter(),
+          board.getRegisteredDate(),
+          board.getViewCount());
     }
   }
 
@@ -68,9 +72,12 @@ public class BoardHandler {
       return;
     }
 
-    String title = Prompt.inputString(String.format("제목(%s)? ", board.getTitle()));
-    String content = Prompt.inputString(String.format("내용(%s)? ", board.getContent()));
-    String writer = Prompt.inputString(String.format("작성자(%s)? ", board.getWriter()));
+    String title = Prompt.inputString(
+        String.format("제목(%s)? ", board.getTitle()));
+    String content = Prompt.inputString(
+        String.format("내용(%s)? ", board.getContent()));
+    String writer = Prompt.inputString(
+        String.format("작성자(%s)? ", board.getWriter()));
 
     String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (!response.equalsIgnoreCase("y")) {

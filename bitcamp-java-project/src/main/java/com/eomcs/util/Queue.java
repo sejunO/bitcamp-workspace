@@ -18,15 +18,17 @@ public class Queue<E> extends MyLinkedList<E> {
     return this.get(0);
   }
 
+  public boolean empty() {
+    return this.size() == 0;
+  }
   @SuppressWarnings("unchecked")
   @Override
-  public Queue<E> clone() throws CloneNotSupportedException {
+  public Queue<E> clone() {
     Queue<E> queue = new Queue<>();
-
-    for (Object value : this.toArray()) {
-      queue.offer((E) value);
+    Object[] values = this.toArray();
+    for (Object value : values) {
+      queue.offer((E)value);
     }
-
     return queue;
   }
 }

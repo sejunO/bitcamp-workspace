@@ -2,17 +2,6 @@ package com.eomcs.util;
 
 import java.lang.reflect.Array;
 
-// 1) LinkedList 클래스 정의
-// 2) 값을 담을 노드 클래스를 설계한다.
-// 3) 첫 번째 노드와 마지막 노드의 주소를 담을 필드를 추가한다.
-// 목록 크기를 저장할 필드를 추가한다.
-// 4) 목록에 값을 추가하는 add() 메서드를 정의한다.
-// 5) 목록에서 값을 조회하는 get() 메서드를 정의한다.
-// 6) 목록에서 특정 인덱스 위치에 값을 삽입하는 add(int, Object) 메서드를 정의한다.
-// - Node의 생성자를 추가한다.
-// 7) 목록에서 특정 인덱스에 값을 제거하는 remove(int) 메서드를 정의한다.
-// 8) 목록에서 특정 인덱스의 값을 바꾸는 set(int, Object) 메서드를 정의한다.
-// 9) 목록의 데이터를 새 배열에 담아 리턴하는 toArray() 메서드를 정의한다.
 public class LinkedList<E> extends AbstractList<E> {
 
   // 값을 찾을 때는 첫 번째 노드부터 따라간다.
@@ -26,8 +15,8 @@ public class LinkedList<E> extends AbstractList<E> {
   // 용도?
   // - Node 클래스는 목록에서 각 항목의 값을 보관하는 객체로 역할을 수행한다.
   // 스태틱 클래스?
-  // - 여러 개의 MyLinkedList 객체가 공유하는 클래스이므로 
-  // 스태틱으로 Node 클래스를 설계한다.
+  // - 여러 개의 MyLinkedList 객체가 공유하는 클래스이므로
+  //   스태틱으로 Node 클래스를 설계한다.
   static class Node<E> {
     E value;
     Node<E> next;
@@ -40,9 +29,9 @@ public class LinkedList<E> extends AbstractList<E> {
   }
 
   @Override
-  public boolean add(E item) {
+  public boolean add(E e) {
     Node<E> node = new Node<>();
-    node.value = item;
+    node.value = e;
 
     if (first == null) {
       first = node;
@@ -75,7 +64,7 @@ public class LinkedList<E> extends AbstractList<E> {
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
     }
 
-    Node<E> node = new Node<E>(element);
+    Node<E> node = new Node<>(element);
 
     size++;
 
@@ -104,7 +93,7 @@ public class LinkedList<E> extends AbstractList<E> {
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
     }
 
-    size--; 
+    size--;
 
     if (index == 0) {
       Node<E> old = first;
@@ -130,7 +119,6 @@ public class LinkedList<E> extends AbstractList<E> {
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public E set(int index, E element) {
     if (index < 0 || index >= this.size) {
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
@@ -141,10 +129,10 @@ public class LinkedList<E> extends AbstractList<E> {
       cursor = cursor.next;
     }
 
-    Object old = cursor.value;
+    E old = cursor.value;
     cursor.value = element;
 
-    return (E) old;
+    return old;
   }
 
   @Override
@@ -162,21 +150,43 @@ public class LinkedList<E> extends AbstractList<E> {
     return arr;
   }
 
+
   @Override
   @SuppressWarnings("unchecked")
   public E[] toArray(E[] arr) {
-    if (arr.length < this.size) {
-      arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), this.size);
+
+    if (arr.length < size) {
+      arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), size);
     }
 
     Node<E> cursor = first;
-    for (int i = 0; i < size(); i++) {
+    for (int i = 0; i < size; i++) {
       arr[i] = cursor.value;
       cursor = cursor.next;
     }
 
     return arr;
   }
+
+
+  // Object.clone()을 오버라이딩 할 때 'deep copy' 이용하여 스택 객체 복사하기
+  // => 새 연결 리스트를 만들어 원본에 보관된 값을 복사한다.
+  // => 따라서 복사본의 Node 객체는 원본의 Node 객체와 다르다. 
+  //    복사본의 상태 변경에 원본은 영향 받지 않는다.
+  //
+  @SuppressWarnings("unchecked")
+  @Override
+  public LinkedList<E> clone() throws CloneNotSupportedException {
+    LinkedList<E> newList = new LinkedList<>();
+    Object[] values = this.toArray();
+    for (Object value : values) {
+      newList.add((E) value);
+    }
+    return newList;
+  }
 }
+
+
+
 
 
