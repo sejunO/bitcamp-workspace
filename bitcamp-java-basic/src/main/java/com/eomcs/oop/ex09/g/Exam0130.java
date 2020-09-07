@@ -5,6 +5,8 @@ public class Exam0130 {
   public static void main(String[] args) {
 
     List a = new ArList();
+
     a.m3();
+
   }
 }

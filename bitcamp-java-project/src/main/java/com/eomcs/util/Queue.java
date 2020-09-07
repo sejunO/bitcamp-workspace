@@ -1,5 +1,6 @@
 package com.eomcs.util;
 
+import java.util.NoSuchElementException;
 import com.eomcs.algorithm.data_structure.linkedlist.MyLinkedList;
 
 public class Queue<E> extends MyLinkedList<E> {
@@ -21,6 +22,7 @@ public class Queue<E> extends MyLinkedList<E> {
   public boolean empty() {
     return this.size() == 0;
   }
+
   @SuppressWarnings("unchecked")
   @Override
   public Queue<E> clone() {
@@ -30,5 +32,31 @@ public class Queue<E> extends MyLinkedList<E> {
       queue.offer((E)value);
     }
     return queue;
+  }
+
+  public Iterator<E> iterator(){
+    return new QueueIterator<E>(this.clone());
+  }
+
+  private static class QueueIterator<E> implements Iterator<E> {
+
+    Queue<E> queue;
+
+    public QueueIterator(Queue<E> queue) {
+      this.queue = queue;
+    }
+
+    @Override
+    public boolean hasNext() {
+      return !queue.empty();
+    }
+
+    @Override
+    public E next() {
+      if (queue.empty())
+        throw new NoSuchElementException();
+      return queue.poll();
+    }
+
   }
 }

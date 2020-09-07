@@ -3,4 +3,7 @@ package com.eomcs.oop.ex09.g;
 
 public class ArList extends Abstract {
 
+  public void m3() {
+
+  }
 }

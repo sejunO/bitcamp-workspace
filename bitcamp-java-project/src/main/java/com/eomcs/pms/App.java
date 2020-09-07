@@ -10,6 +10,7 @@ import com.eomcs.pms.handler.ProjectHandler;
 import com.eomcs.pms.handler.TaskHandler;
 import com.eomcs.util.AbstractList;
 import com.eomcs.util.ArrayList;
+import com.eomcs.util.Iterator;
 import com.eomcs.util.LinkedList;
 import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
@@ -63,8 +64,8 @@ public class App {
           case "/board/detail": boardHandler.detail(); break;
           case "/board/update": boardHandler.update(); break;
           case "/board/delete": boardHandler.delete(); break;
-          case "history": printCommandHistory(commandStack);break;
-          case "history2": printCommandHistory2(commandQueue);break;
+          case "history": printCommandHistory(commandStack.iterator());break;
+          case "history2": printCommandHistory(commandQueue.iterator());break;
           case "quit":
           case "exit":
             System.out.println("안녕!");
@@ -78,40 +79,19 @@ public class App {
     Prompt.close();
   }
 
-  private static void printCommandHistory2(Queue<String> commandQueue) {
-    Queue<String> printQueue = commandQueue.clone();
-    int count = 0;
 
-    while (!printQueue.empty()) {
+  private static void printCommandHistory(Iterator<String> iterator) {
 
+    while (iterator.hasNext()) {
+      System.out.println(iterator.next());
+
+      int count = 1;
       if (count++ % 5 == 0) {
-        String response = Prompt.inputString(": ");
-        if(response.equalsIgnoreCase("q")) {
+        String response = Prompt.inputString(" : ");
+        if (response.equalsIgnoreCase("q"))
           break;
-        }
       }
-      System.out.println(printQueue.poll());
     }
-  }
 
-  private static void printCommandHistory(Stack<String> commandStack) {
-
-    try {
-      Stack<String> printStack = commandStack.clone();
-      int count = 0;
-
-      while(!printStack.empty()) {
-
-        if (count++ % 5 == 0) {
-          String response = Prompt.inputString(": ");
-          if(response.equalsIgnoreCase("q")) {
-            break;
-          }
-        }
-        System.out.println(printStack.pop());
-      }
-    } catch(Exception e) {
-      System.out.println("printCommandHistory 실패");
-    }
   }
 }

@@ -1,9 +1,9 @@
 package com.eomcs.util;
 
 import java.util.EmptyStackException;
-import com.eomcs.algorithm.data_structure.linkedlist.MyLinkedList;
+import java.util.NoSuchElementException;
 
-public class Stack<E> extends MyLinkedList<E> implements Cloneable {
+public class Stack<E> extends LinkedList<E> implements Cloneable {
   public E push(E item) {
     this.add(item);
     return item;
@@ -37,6 +37,34 @@ public class Stack<E> extends MyLinkedList<E> implements Cloneable {
     return stack;
   }
 
+  @Override
+  public Iterator<E> iterator() {
+    try {
+      return new StackIterator<E>(this.clone());
+    } catch (Exception e) {
+      throw new RuntimeException("스택 복제 오류");
+    }
+  }
+  private static class StackIterator<E> implements Iterator<E> {
+    Stack<E> stack;
+
+    public StackIterator(Stack<E> stack) {
+      this.stack = stack;
+    }
+
+    @Override
+    public boolean hasNext() {
+      return !stack.empty();
+    }
+
+    @Override
+    public E next() {
+      if (stack.empty())
+        throw new NoSuchElementException();
+      return stack.pop();
+    }
+
+  }
 
 
 }

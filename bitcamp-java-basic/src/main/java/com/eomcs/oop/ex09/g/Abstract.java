@@ -7,8 +7,5 @@ public abstract class Abstract implements List{
 
   }
 
-  public void m3() {
-
-  }
 
 }

@@ -13,4 +13,7 @@ public interface List {
   // 따라서 이 인터페이스는 추상 메서드가 한 개다.
   // 즉 람다로 구현할 수 있다.
   //String m3();
+
+  void m3();
+
 }

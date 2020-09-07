@@ -3,6 +3,7 @@ package com.eomcs.pms.handler;
 import java.sql.Date;
 import com.eomcs.pms.domain.Task;
 import com.eomcs.util.AbstractList;
+import com.eomcs.util.Iterator;
 import com.eomcs.util.Prompt;
 
 public class TaskHandler {
@@ -43,9 +44,9 @@ public class TaskHandler {
 
   public void list() {
     System.out.println("[작업 목록]");
-
-    for (int i = 0; i < taskList.size(); i++) {
-      Task task = taskList.get(i);
+    Iterator<Task> iterator = taskList.iterator();
+    while (iterator.hasNext()) {
+      Task task = iterator.next();
       String stateLabel = null;
       switch (task.getStatus()) {
         case 1:
@@ -65,6 +66,7 @@ public class TaskHandler {
           task.getOwner());
     }
   }
+
 
   public void detail() {
     System.out.println("[작업 상세보기]");
