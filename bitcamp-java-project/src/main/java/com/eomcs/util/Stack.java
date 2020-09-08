@@ -39,31 +39,31 @@ public class Stack<E> extends LinkedList<E> implements Cloneable {
 
   @Override
   public Iterator<E> iterator() {
-    try {
-      return new StackIterator<E>(this.clone());
-    } catch (Exception e) {
-      throw new RuntimeException("스택 복제 오류");
-    }
-  }
-  private static class StackIterator<E> implements Iterator<E> {
-    Stack<E> stack;
+    class StackIterator implements Iterator<E> {
 
-    public StackIterator(Stack<E> stack) {
-      this.stack = stack;
-    }
+      Stack<E> stack;
 
-    @Override
-    public boolean hasNext() {
-      return !stack.empty();
-    }
+      public StackIterator() {
+        try {
+          this.stack = Stack.this.clone();
+        } catch (CloneNotSupportedException e) {
+          e.printStackTrace();
+        }
+      }
 
-    @Override
-    public E next() {
-      if (stack.empty())
-        throw new NoSuchElementException();
-      return stack.pop();
-    }
+      @Override
+      public boolean hasNext() {
+        return !stack.empty();
+      }
 
+      @Override
+      public E next() {
+        if (stack.empty())
+          throw new NoSuchElementException();
+        return stack.pop();
+      }
+    }
+    return new StackIterator();
   }
 
 

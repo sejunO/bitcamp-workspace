@@ -35,28 +35,28 @@ public class Queue<E> extends MyLinkedList<E> {
   }
 
   public Iterator<E> iterator(){
-    return new QueueIterator<E>(this.clone());
+    class QueueIterator implements Iterator<E> {
+
+      Queue<E> queue;
+
+      public QueueIterator() {
+        this.queue = Queue.this.clone();
+      }
+
+      @Override
+      public boolean hasNext() {
+        return !queue.empty();
+      }
+
+      @Override
+      public E next() {
+        if (queue.empty())
+          throw new NoSuchElementException();
+        return queue.poll();
+      }
+
+    }
+    return new QueueIterator();
   }
 
-  private static class QueueIterator<E> implements Iterator<E> {
-
-    Queue<E> queue;
-
-    public QueueIterator(Queue<E> queue) {
-      this.queue = queue;
-    }
-
-    @Override
-    public boolean hasNext() {
-      return !queue.empty();
-    }
-
-    @Override
-    public E next() {
-      if (queue.empty())
-        throw new NoSuchElementException();
-      return queue.poll();
-    }
-
-  }
 }
