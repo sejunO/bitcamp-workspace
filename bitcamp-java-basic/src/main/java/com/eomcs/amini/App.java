@@ -7,17 +7,17 @@ public class App {
     MemberHandler memberHandler = new MemberHandler();
     BookHandler bookHandler = new BookHandler(init);
 
-    while(true) {
-      bookHandler.checkBook();
-      String command = Prompt.inputString("명령 >");
-      switch(command) {
-        case "/member/add":  memberHandler.add(); break;
-        case "/member/list": memberHandler.list(); break;
 
-      }
-
-    }
+    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    System.out.println("\t\t\t1.  회원\n");
+    System.out.println("\t\t\t2. 비회원\n");
+    System.out.println("\t\t\t3.  본사\n");
+    System.out.println("\t\t\t4.  점포\n");
+    System.out.println("\t\t\t5. 라이더\n");
+    System.out.println("\n");
 
   }
+
 }
+
 
