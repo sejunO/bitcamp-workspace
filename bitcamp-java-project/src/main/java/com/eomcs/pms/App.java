@@ -1,5 +1,9 @@
 package com.eomcs.pms;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -8,7 +12,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Queue;
+import java.util.Scanner;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
@@ -39,12 +45,14 @@ import com.eomcs.util.Prompt;
 
 public class App {
 
+  static List<Board> boardList = new ArrayList<>();
+
   public static void main(String[] args) {
 
+    loadBoards();
     Map<String,Command> commandMap = new HashMap<>();
 
     //Board
-    List<Board> boardList = new ArrayList<>();
     commandMap.put("/board/add", new BoardAddCommand(boardList));
     commandMap.put("/board/delete", new BoardDeleteCommand(boardList));
     commandMap.put("/board/detail", new BoardDetailCommand(boardList));
@@ -77,13 +85,11 @@ public class App {
     commandMap.put("/task/add", new TaskUpdateCommand(taskList, memberListCommand));
     commandMap.put("/task/add", new TaskDeleteCommand(taskList));
 
-
-
     //Hello
     commandMap.put("hello", new SayHelloCommand());
 
+    //history
     Deque<String> commandStack = new ArrayDeque<>();
-
     Queue<String> commandQueue = new LinkedList<>();
 
     loop:
@@ -106,9 +112,10 @@ public class App {
             break loop;
           default:
             Command command = commandMap.get(inputStr);
-            if (command != null) {
+            try {
               command.execute();
-            } else {
+            } catch (Exception e) {
+              System.out.printf("%s\n", e.getClass().getName());
               System.out.println("실행할 수 없는 명령입니다.");
             }
         }
@@ -116,7 +123,11 @@ public class App {
       }
 
     Prompt.close();
+
+    // 프로그램 종료 전에 List에 보관된 객체를 파일에 저장한다.
+    saveBoards();
   }
+
 
 
   private static void printCommandHistory(Iterator<String> iterator) {
@@ -133,4 +144,80 @@ public class App {
     }
 
   }
+
+  public static void saveBoards() {
+    System.out.println("게시글 저장");
+
+    File file = new File("./board.csv");
+    FileWriter out = null;
+    try {
+      out = new FileWriter(file);
+
+      for (Board board : boardList) {
+        String.format("%d, %s, %s, %s, %s, %d\n",
+            board.getNo(),
+            board.getTitle(),
+            board.getContent(),
+            board.getWriter(),
+            board.getRegisteredDate(),
+            board.getViewCount());
+
+        out.write(board.getTitle());
+      }
+
+    } catch (IOException e) {
+      System.out.println("파일 출력 작업 중에 오류 발생");
+    } finally {
+      try {
+        out.close();
+      } catch (Exception e) {
+
+      }
+    }
+  }
+
+  static void loadBoards() {
+    System.out.println("게시글 파일 로딩");
+    //읽어올 파일
+    File file = new File("./board.csv");
+
+    FileReader out = null;
+    Scanner sc = null;
+    try {
+      // 데이터를 읽을 때 사용할 도구
+      out = new FileReader(file);
+      sc = new Scanner(file);
+
+      while (true) {
+        try {
+          String record = sc.nextLine();
+        } catch (NoSuchElementException e) {
+          break;
+        }
+
+      }
+
+      for (Board board : boardList) {
+        String.format("%d, %s, %s, %s, %s, %d\n",
+            board.getNo(),
+            board.getTitle(),
+            board.getContent(),
+            board.getWriter(),
+            board.getRegisteredDate(),
+            board.getViewCount());
+
+        out.write(board.getTitle());
+      }
+
+    } catch (IOException e) {
+      System.out.println("파일 출력 작업 중에 오류 발생");
+    } finally {
+      try {
+        out.close();
+      } catch (Exception e) {
+
+      }
+    }
+  }
+
 }
