@@ -9,10 +9,10 @@ import java.util.function.Supplier;
 
 public class Exam0750 {
 
-  static Collection prepareNames(Supplier factory, String... names) {
-    Collection list = (Collection) factory.get();
+  static <T> Collection<T> prepareNames(Supplier<Collection <T>> factory, String... names) {
+    Collection<T> list = factory.get();
     for (String name : names) {
-      list.add(name);
+      list.add((T) name);
     }
     return list;
   }
