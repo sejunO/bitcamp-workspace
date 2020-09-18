@@ -14,7 +14,6 @@ public class Exam0120 {
 
     // 2) 1바이트를 읽는다.
     // => read() 메서드의 리턴 타입이 int 라 하더라도 1바이트를 읽어 리턴한다.
-
     System.out.printf("%x\n", in.read());
     // 3) 읽기 도구를 닫는다.
     in.close();

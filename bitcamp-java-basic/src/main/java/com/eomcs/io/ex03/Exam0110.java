@@ -34,6 +34,7 @@ public class Exam0110 {
     // 1 ~ 4 바이트 값으로 변환하여 파일에 쓴다.
     //
     out.write(0x7a6bac00);
+    out.write(0xddddac00);
     // - 앞의 2바이트(7a6b)는 버린다.
     // - 뒤의 2바이트(ac00)은 UTF-8(eab080) 코드 값으로 변환되어 파일에 출력된다.
 

@@ -29,12 +29,13 @@ public class Exam0120 {
     //    왜? 문자라고 간주하고 값을 변경하기 때문이다.
     int ch1 = in.read(); 
     int ch2 = in.read();
-    
+
     // 3) 읽기 도구를 닫는다.
     in.close();
 
     System.out.printf("%x\n", ch1); // ea b0 80(UTF-8) ===> ac 00(UCS2)
     System.out.printf("%x\n", ch2); // 41(UTF-8) ===> 00 41(UCS2)
+
   }
 }
 
