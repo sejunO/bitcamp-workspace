@@ -13,14 +13,14 @@ public class Exam0110 {
     // - 기존에 같은 이름의 파일이 있으면 덮어쓴다.
     // - 주의! 기존 파일이 삭제된다.
     // - 파일 경로가 절대 경로가 아니면
-    //   - 리눅스,유닉스: / 로 시작하지 않으면,
-    //   - 윈도우: c:\, d:\ 등으로 시작하지 않으면,
-    //   현재 디렉토리가 기준이 된다.
-    FileOutputStream out = new FileOutputStream("temp/test1.data");
+    // - 리눅스,유닉스: / 로 시작하지 않으면,
+    // - 윈도우: c:\, d:\ 등으로 시작하지 않으면,
+    // 현재 디렉토리가 기준이 된다.
+    FileOutputStream out = new FileOutputStream("temp/test12.data", true);
 
     // 2) 1바이트를 출력한다.
     // - int 값을 아규먼트로 넘기더라도 맨 마지막 1바이트만 출력한다.
-    out.write(0x7a6b5c4d); // 출력하는 값은 0x4d 이다.
+    out.write(0x7a6b5c); // 출력하는 값은 0x4d 이다.
 
     // 3) 출력 도구를 닫는다.
     // - OS에서 관리하는 자원 중에서 한정된 개수를 갖는 자원에 대해
@@ -45,7 +45,7 @@ public class Exam0110 {
     // 자원 부족 문제가 발생한다.
     // 결론!
     // - 간단한 코드를 작성하더라도 close()를 호출하는 것에 게을리하지 말라!
-    // 
+    //
     System.out.println("데이터 출력 완료!");
 
   }
@@ -55,17 +55,17 @@ public class Exam0110 {
 // 파일 입출력 API 주요 클래스 (java.io 패키지)
 // 1) 데이터 읽기
 // InputStream (추상 클래스)
-//   +-- FileInputStream : 바이트 단위로 읽기 (binary stream)
+// +-- FileInputStream : 바이트 단위로 읽기 (binary stream)
 //
 // Reader (추상 클래스)
-//   +-- FileReader : 문자 단위로 읽기 (character stream)
+// +-- FileReader : 문자 단위로 읽기 (character stream)
 //
 // 2) 데이터 쓰기
 // OutputStream (추상 클래스)
-//   +-- FileOutputStream : 바이트 단위로 쓰기 (binary stream)
+// +-- FileOutputStream : 바이트 단위로 쓰기 (binary stream)
 //
 // Writer (추상 클래스)
-//   +-- FileWriter : 문자 단위로 쓰기 (character stream)
+// +-- FileWriter : 문자 단위로 쓰기 (character stream)
 
 // ## 바이너리 파일 vs 텍스트 파일
 // 1) 바이너리 파일

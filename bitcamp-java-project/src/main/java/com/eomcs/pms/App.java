@@ -1,5 +1,6 @@
 package com.eomcs.pms;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -65,9 +66,9 @@ public class App {
     loadProjects();
     loadTasks();
 
-    Map<String,Command> commandMap = new HashMap<>();
+    Map<String, Command> commandMap = new HashMap<>();
 
-    //Board
+    // Board
     commandMap.put("/board/add", new BoardAddCommand(boardList));
     commandMap.put("/board/delete", new BoardDeleteCommand(boardList));
     commandMap.put("/board/detail", new BoardDetailCommand(boardList));
@@ -75,7 +76,7 @@ public class App {
     commandMap.put("/board/update", new BoardUpdateCommand(boardList));
 
 
-    //Member
+    // Member
     MemberListCommand memberListCommand = new MemberListCommand(memberList);
     commandMap.put("/member/add", new MemberAddCommand(memberList));
     commandMap.put("/member/delete", new MemberDeleteCommand(memberList));
@@ -83,7 +84,7 @@ public class App {
     commandMap.put("/member/update", new MemberUpdateCommand(memberList));
 
 
-    //Project
+    // Project
 
     commandMap.put("/project/add", new ProjectAddCommand(projectList, memberListCommand));
     commandMap.put("/project/list", new ProjectListCommand(projectList));
@@ -91,7 +92,7 @@ public class App {
     commandMap.put("/project/update", new ProjectUpdateCommand(projectList, memberListCommand));
     commandMap.put("/project/delete", new ProjectDeleteCommand(projectList));
 
-    //Task
+    // Task
 
     commandMap.put("/task/add", new TaskAddCommand(taskList, memberListCommand));
     commandMap.put("/task/list", new TaskListCommand(taskList));
@@ -99,42 +100,47 @@ public class App {
     commandMap.put("/task/update", new TaskUpdateCommand(taskList, memberListCommand));
     commandMap.put("/task/delete", new TaskDeleteCommand(taskList));
 
-    //Hello
+    // Hello
     commandMap.put("hello", new SayHelloCommand());
 
-    //history
+    // history
     Deque<String> commandStack = new ArrayDeque<>();
     Queue<String> commandQueue = new LinkedList<>();
 
-    loop:
-      while (true) {
-        String inputStr = Prompt.inputString("명령> ");
+    loop: while (true) {
+      String inputStr = Prompt.inputString("명령> ");
 
-        if (inputStr.length() == 0) {
-          continue;
-        }
-        commandStack.push(inputStr);
-        commandQueue.offer(inputStr);
-
-        switch (inputStr) {
-          case "/member/list": memberListCommand.execute();break;
-          case "history": printCommandHistory(commandStack.iterator());break;
-          case "history2": printCommandHistory(commandQueue.iterator());break;
-          case "quit":
-          case "exit":
-            System.out.println("안녕!");
-            break loop;
-          default:
-            Command command = commandMap.get(inputStr);
-            try {
-              command.execute();
-            } catch (Exception e) {
-              System.out.printf("%s\n", e.getClass().getName());
-              System.out.println("실행할 수 없는 명령입니다.");
-            }
-        }
-        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+      if (inputStr.length() == 0) {
+        continue;
       }
+      commandStack.push(inputStr);
+      commandQueue.offer(inputStr);
+
+      switch (inputStr) {
+        case "/member/list":
+          memberListCommand.execute();
+          break;
+        case "history":
+          printCommandHistory(commandStack.iterator());
+          break;
+        case "history2":
+          printCommandHistory(commandQueue.iterator());
+          break;
+        case "quit":
+        case "exit":
+          System.out.println("안녕!");
+          break loop;
+        default:
+          Command command = commandMap.get(inputStr);
+          try {
+            command.execute();
+          } catch (Exception e) {
+            System.out.printf("%s\n", e.getClass().getName());
+            System.out.println("실행할 수 없는 명령입니다.");
+          }
+      }
+      System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+    }
 
     Prompt.close();
 
@@ -185,14 +191,16 @@ public class App {
 
   static void loadBoards() {
     System.out.println("게시글 파일 로딩");
-    //읽어올 파일
+    // 읽어올 파일
 
     FileReader out = null;
+    BufferedReader out2 = null;
     Scanner sc = null;
     try {
       // 데이터를 읽을 때 사용할 도구
       out = new FileReader(boardFile);
-      sc = new Scanner(boardFile);
+      out2 = new BufferedReader(out);
+      sc = new Scanner(out2);
 
       int count = 0;
 
@@ -205,7 +213,7 @@ public class App {
         }
 
       }
-      System.out.printf("총 %d 개의 데이터를 로딩\n",count);
+      System.out.printf("총 %d 개의 데이터를 로딩\n", count);
 
     } catch (IOException e) {
       System.out.println("파일 출력 작업 중에 오류 발생");
@@ -217,10 +225,6 @@ public class App {
       }
     }
   }
-
-
-
-
 
 
 
@@ -270,15 +274,22 @@ public class App {
         }
 
       }
-      System.out.printf("총 %d 개의 데이터를 로딩\n",count);
+      System.out.printf("총 %d 개의 데이터를 로딩\n", count);
 
     } catch (IOException e) {
       System.out.println("파일 읽기 작업 중에 오류 발생" + e.getMessage());
     } finally {
-      try {in.close();} catch (Exception e) {}
-      try {sc.close();} catch (Exception e){}
+      try {
+        in.close();
+      } catch (Exception e) {
+      }
+      try {
+        sc.close();
+      } catch (Exception e) {
+      }
     }
   }
+
   private static void saveProjects() {
     FileWriter out = null;
 

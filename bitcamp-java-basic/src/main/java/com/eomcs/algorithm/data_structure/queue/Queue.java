@@ -1,8 +1,6 @@
 package com.eomcs.algorithm.data_structure.queue;
 
-import com.eomcs.algorithm.data_structure.linkedlist.LinkedList;
-
-public class Queue<E> extends LinkedList<E> implements Cloneable {
+import java.util.LinkedList;nkedList<E> implements Cloneable {
   
   public void offer(E value) {
     this.add(value);
@@ -16,16 +14,16 @@ public class Queue<E> extends LinkedList<E> implements Cloneable {
   @Override
   public Queue clone() {
     try {
-      // 단순히 객체의 인스턴스 변수를 복제하는 'shallow copy' 수행
-      // => Object의 clone()은 'shallow copy'를 수행한다.
-      // => Queue에서 poll()을 수행하면 first 노드를 삭제하게 되고,
-      //    이때 원본 객체의 노드의 링크 정보를 변경하게 된다.
-      // => 따라서 다음에 다시 복제를 수행하면,
-      //    원본 노드의 링크 정보가 제거되었기 때문에 제대로 작업을 수행할 수 없다.
+      // �떒�닚�엳 媛앹껜�쓽 �씤�뒪�꽩�뒪 蹂��닔瑜� 蹂듭젣�븯�뒗 'shallow copy' �닔�뻾
+      // => Object�쓽 clone()�� 'shallow copy'瑜� �닔�뻾�븳�떎.
+      // => Queue�뿉�꽌 poll()�쓣 �닔�뻾�븯硫� first �끂�뱶瑜� �궘�젣�븯寃� �릺怨�,
+      //    �씠�븣 �썝蹂� 媛앹껜�쓽 �끂�뱶�쓽 留곹겕 �젙蹂대�� 蹂�寃쏀븯寃� �맂�떎.
+      // => �뵲�씪�꽌 �떎�쓬�뿉 �떎�떆 蹂듭젣瑜� �닔�뻾�븯硫�,
+      //    �썝蹂� �끂�뱶�쓽 留곹겕 �젙蹂닿� �젣嫄곕릺�뿀湲� �븣臾몄뿉 �젣��濡� �옉�뾽�쓣 �닔�뻾�븷 �닔 �뾾�떎.
       //
-      // 해결책?
-      // => 원본 객체가 사용하는 노드도 함께 복제해야 한다.
-      // => 즉 'deep copy'를 수행해야 한다.
+      // �빐寃곗콉?
+      // => �썝蹂� 媛앹껜媛� �궗�슜�븯�뒗 �끂�뱶�룄 �븿猿� 蹂듭젣�빐�빞 �븳�떎.
+      // => 利� 'deep copy'瑜� �닔�뻾�빐�빞 �븳�떎.
       //
       return (Queue) super.clone();
       
@@ -38,13 +36,13 @@ public class Queue<E> extends LinkedList<E> implements Cloneable {
   
   @Override
   public Queue<E> clone() {
-    // 'deep copy' 수행
-    // => 스택의 경우 배열을 복사하면 되기 때문에,
-    //    기존의 'shallow copy'를 수행한 후 배열을 따로 복사하였다.
-    // => LinkedList의 경우 노드와 노드 사이를 연결해야 하기 때문에 
-    //    단순히 'shallow copy'를 수행해서는 안된다.
-    // => 그냥 다음과 같이 새 Queue를 만들고, 
-    //    기존 Queue에 저장된 값을 꺼내서 새 Queue에 저장해야 한다.
+    // 'deep copy' �닔�뻾
+    // => �뒪�깮�쓽 寃쎌슦 諛곗뿴�쓣 蹂듭궗�븯硫� �릺湲� �븣臾몄뿉,
+    //    湲곗〈�쓽 'shallow copy'瑜� �닔�뻾�븳 �썑 諛곗뿴�쓣 �뵲濡� 蹂듭궗�븯���떎.
+    // => LinkedList�쓽 寃쎌슦 �끂�뱶�� �끂�뱶 �궗�씠瑜� �뿰寃고빐�빞 �븯湲� �븣臾몄뿉 
+    //    �떒�닚�엳 'shallow copy'瑜� �닔�뻾�빐�꽌�뒗 �븞�맂�떎.
+    // => 洹몃깷 �떎�쓬怨� 媛숈씠 �깉 Queue瑜� 留뚮뱾怨�, 
+    //    湲곗〈 Queue�뿉 ���옣�맂 媛믪쓣 爰쇰궡�꽌 �깉 Queue�뿉 ���옣�빐�빞 �븳�떎.
     //
     Queue<E> temp = new Queue<E>();
     
