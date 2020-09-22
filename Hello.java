@@ -1,6 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Hello {
-    public static void main(String[] args) {
-        System.out.println("Hello, world!");
-        System.out.println("안녕하세요!");
-    }
+  public static void main(String[] args) {
+    List<String> list = new ArrayList<>();
+    list.add("String");
+    list.add("St");
+    System.out.println(list);
+  }
 }
