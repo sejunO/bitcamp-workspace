@@ -4,12 +4,12 @@ import java.util.List;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
-public class BoardUpdateCommand implements Command{
+public class BoardUpdateCommand implements Command {
 
-  private List<Board> boardList;
+  List<Board> boardList;
 
-  public BoardUpdateCommand(List<Board> boardList) {
-    this.boardList = boardList;
+  public BoardUpdateCommand(List<Board> list) {
+    this.boardList = list;
   }
 
   @Override

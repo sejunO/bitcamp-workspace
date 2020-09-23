@@ -5,12 +5,13 @@ import java.util.List;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
-public class BoardAddCommand implements Command{
+// Command 규칙에 따라 클래스를 정의한다. 
+public class BoardAddCommand implements Command {
 
-  private List<Board> boardList;
+  List<Board> boardList;
 
-  public BoardAddCommand(List<Board> boardList) {
-    this.boardList = boardList;
+  public BoardAddCommand(List<Board> list) {
+    this.boardList = list;
   }
 
   @Override

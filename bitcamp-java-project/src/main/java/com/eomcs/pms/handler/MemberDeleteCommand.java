@@ -4,12 +4,12 @@ import java.util.List;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
 
-public class MemberDeleteCommand implements Command{
+public class MemberDeleteCommand implements Command {
 
-  private List<Member> memberList;
+  List<Member> memberList;
 
-  public MemberDeleteCommand(List<Member> memberList) {
-    this.memberList = memberList;
+  public MemberDeleteCommand(List<Member> list) {
+    this.memberList = list;
   }
 
   @Override
@@ -42,5 +42,4 @@ public class MemberDeleteCommand implements Command{
     }
     return -1;
   }
-
 }

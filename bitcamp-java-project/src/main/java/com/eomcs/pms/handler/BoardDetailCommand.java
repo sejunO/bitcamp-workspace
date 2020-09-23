@@ -5,10 +5,11 @@ import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
 public class BoardDetailCommand implements Command {
-  private List<Board> boardList;
 
-  public BoardDetailCommand(List<Board> boardList) {
-    this.boardList = boardList;
+  List<Board> boardList;
+
+  public BoardDetailCommand(List<Board> list) {
+    this.boardList = list;
   }
 
   @Override
@@ -41,5 +42,3 @@ public class BoardDetailCommand implements Command {
     return null;
   }
 }
-
-

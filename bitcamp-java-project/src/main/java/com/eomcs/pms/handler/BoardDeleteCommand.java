@@ -4,12 +4,12 @@ import java.util.List;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
-public class BoardDeleteCommand implements Command{
+public class BoardDeleteCommand implements Command {
 
-  private List<Board> boardList;
+  List<Board> boardList;
 
-  public BoardDeleteCommand(List<Board> boardList) {
-    this.boardList = boardList;
+  public BoardDeleteCommand(List<Board> list) {
+    this.boardList = list;
   }
 
   @Override
@@ -43,6 +43,3 @@ public class BoardDeleteCommand implements Command{
     return -1;
   }
 }
-
-
-

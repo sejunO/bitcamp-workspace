@@ -5,11 +5,12 @@ import com.eomcs.pms.domain.Project;
 import com.eomcs.util.Prompt;
 
 public class ProjectAddCommand implements Command {
-  List<Project> projectList;   
+
+  List<Project> projectList;
   MemberListCommand memberListCommand;
 
-  public ProjectAddCommand(List<Project> projectList, MemberListCommand memberListCommand) {
-    this.projectList = projectList;
+  public ProjectAddCommand(List<Project> list, MemberListCommand memberListCommand) {
+    this.projectList = list;
     this.memberListCommand = memberListCommand;
   }
 
@@ -46,7 +47,7 @@ public class ProjectAddCommand implements Command {
         break;
       } else if (memberListCommand.findByName(name) != null) {
         if (members.length() > 0) {
-          members.append(":");
+          members.append(",");
         }
         members.append(name);
       } else {

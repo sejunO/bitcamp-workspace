@@ -4,12 +4,12 @@ import java.util.List;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
 
-public class MemberUpdateCommand implements Command{
+public class MemberUpdateCommand implements Command {
 
-  private List<Member> memberList;
+  List<Member> memberList;
 
-  public MemberUpdateCommand(List<Member> memberList) {
-    this.memberList = memberList;
+  public MemberUpdateCommand(List<Member> list) {
+    this.memberList = list;
   }
 
   @Override
@@ -57,7 +57,4 @@ public class MemberUpdateCommand implements Command{
     }
     return null;
   }
-
 }
-
-

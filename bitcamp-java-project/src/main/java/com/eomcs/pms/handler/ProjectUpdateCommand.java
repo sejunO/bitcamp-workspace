@@ -10,8 +10,8 @@ public class ProjectUpdateCommand implements Command {
   List<Project> projectList;
   MemberListCommand memberListCommand;
 
-  public ProjectUpdateCommand(List<Project> projectList, MemberListCommand memberListCommand) {
-    this.projectList = projectList;
+  public ProjectUpdateCommand(List<Project> list, MemberListCommand memberListCommand) {
+    this.projectList = list;
     this.memberListCommand = memberListCommand;
   }
 
@@ -57,7 +57,7 @@ public class ProjectUpdateCommand implements Command {
         break;
       } else if (memberListCommand.findByName(name) != null) {
         if (members.length() > 0) {
-          members.append(":");
+          members.append(",");
         }
         members.append(name);
       } else {
@@ -90,5 +90,4 @@ public class ProjectUpdateCommand implements Command {
     }
     return null;
   }
-
 }

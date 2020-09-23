@@ -6,10 +6,10 @@ import com.eomcs.pms.domain.Project;
 
 public class ProjectListCommand implements Command {
 
-  List<Project> projectList;   
+  List<Project> projectList;
 
-  public ProjectListCommand(List<Project> projectList) {
-    this.projectList = projectList;
+  public ProjectListCommand(List<Project> list) {
+    this.projectList = list;
   }
 
   @Override

@@ -6,10 +6,10 @@ import com.eomcs.util.Prompt;
 
 public class ProjectDetailCommand implements Command {
 
-  List<Project> projectList;   
+  List<Project> projectList;
 
-  public ProjectDetailCommand(List<Project> projectList) {
-    this.projectList = projectList;
+  public ProjectDetailCommand(List<Project> list) {
+    this.projectList = list;
   }
 
   @Override
@@ -39,5 +39,4 @@ public class ProjectDetailCommand implements Command {
     }
     return null;
   }
-
 }
