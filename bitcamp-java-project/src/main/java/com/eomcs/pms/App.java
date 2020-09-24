@@ -1,15 +1,14 @@
 package com.eomcs.pms;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -43,34 +42,37 @@ import com.eomcs.pms.handler.TaskDeleteCommand;
 import com.eomcs.pms.handler.TaskDetailCommand;
 import com.eomcs.pms.handler.TaskListCommand;
 import com.eomcs.pms.handler.TaskUpdateCommand;
+import com.eomcs.util.CsvObject;
+import com.eomcs.util.CsvObjectFactory;
 import com.eomcs.util.Prompt;
 
 public class App {
 
-  // main(), saveBoards(), loadBoards() 가 공유하는 필드
-  static List<Board> boardList = new ArrayList<>();
-  static File boardFile = new File("./board.data"); // 게시글을 저장할 파일 정보
-
-  // main(), saveMembers(), loadMembers() 가 공유하는 필드
-  static List<Member> memberList = new LinkedList<>();
-  static File memberFile = new File("./member.data"); // 회원을 저장할 파일 정보
-
-  // main(), saveProjects(), loadProjects() 가 공유하는 필드
-  static List<Project> projectList = new LinkedList<>();
-  static File projectFile = new File("./project.data"); // 프로젝트를 저장할 파일 정보
-
-  // main(), saveTasks(), loadTasks() 가 공유하는 필드
-  static List<Task> taskList = new ArrayList<>();
-  static File taskFile = new File("./task.data"); // 작업을 저장할 파일 정보
 
 
   public static void main(String[] args) {
+    // main(), saveBoards(), loadBoards() 가 공유하는 필드
+    List<Board> boardList = new ArrayList<>();
+    File boardFile = new File("./board.csv"); // 게시글을 저장할 파일 정보
+
+    // main(), saveMembers(), loadMembers() 가 공유하는 필드
+    List<Member> memberList = new LinkedList<>();
+    File memberFile = new File("./member.csv"); // 회원을 저장할 파일 정보
+
+    // main(), saveProjects(), loadProjects() 가 공유하는 필드
+    List<Project> projectList = new LinkedList<>();
+    File projectFile = new File("./project.csv"); // 프로젝트를 저장할 파일 정보
+
+    // main(), saveTasks(), loadTasks() 가 공유하는 필드
+    List<Task> taskList = new ArrayList<>();
+    File taskFile = new File("./task.csv"); // 작업을 저장할 파일 정보
 
     // 파일에서 데이터 로딩
-    loadBoards();
-    loadMembers();
-    loadProjects();
-    loadTasks();
+    loadObjects(boardList, boardFile, Board::new);
+    loadObjects(memberList, memberFile, Member::new);
+    loadObjects(projectList, projectFile, Project::new);
+    loadObjects(taskList, taskFile, Task::new);
+
 
     Map<String, Command> commandMap = new HashMap<>();
 
@@ -147,10 +149,11 @@ public class App {
     Prompt.close();
 
     // 데이터를 파일에 저장
-    saveBoards();
-    saveMembers();
-    saveProjects();
-    saveTasks();
+    saveObjects(boardList, boardFile);
+    saveObjects(memberList, memberFile);
+    saveObjects(projectList, projectFile);
+    saveObjects(taskList, taskFile);
+
   }
 
   static void printCommandHistory(Iterator<String> iterator) {
@@ -169,22 +172,20 @@ public class App {
     }
   }
 
-  private static void saveBoards() {
-    ObjectOutputStream out = null;
+  private static <T extends CsvObject> void saveObjects(Collection<T> list, File file) {
+    BufferedWriter out = null;
 
     try {
-      // 기존의 스트림 객체에 데코레이터를 꼽아서 사용한다.
-      out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(boardFile)));
+      out = new BufferedWriter(new FileWriter(file));
 
-      // 데이터의 개수를 먼저 출력한다.
-      out.writeInt(boardList.size());
-
-      for (Board board : boardList) {
-        // 게시글 목록에서 게시글 데이터를 꺼내 직렬화하여 출력한다.
-        out.writeObject(board);
+      for (T obj : list) {
+        out.write(obj.toCsvString());
+        out.write("\n");
       }
 
-      System.out.printf("총 %d 개의 게시글 데이터를 저장했습니다.\n", boardList.size());
+      out.flush();
+
+      System.out.printf("총 %d 개의 게시글 데이터를 저장했습니다.\n", list.size());
 
     } catch (IOException e) {
       System.out.println("게시글 데이터의 파일 쓰기 중 오류 발생! - " + e.getMessage());
@@ -193,26 +194,24 @@ public class App {
       try {
         out.close();
       } catch (IOException e) {
-        // FileWriter를 닫을 때 발생하는 예외는 무시한다.
       }
     }
   }
 
-  private static void loadBoards() {
-    ObjectInputStream in = null;
+  private static <T> void loadObjects(Collection<T> list, File file, CsvObjectFactory<T> factory) {
+    BufferedReader in = null;
 
     try {
-      // 기존의 스트림 객체에 데코레이터를 꼽아서 사용한다.
-      in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(boardFile)));
+      in = new BufferedReader(new FileReader(file));
 
-      // 데이터의 개수를 먼저 읽는다.
-      int size = in.readInt();
-
-      for (int i = 0; i < size; i++) {
-        boardList.add((Board) in.readObject());
+      while (true) {
+        String record = in.readLine();
+        if (record == null) {
+          break;
+        }
+        list.add(factory.create(record));
       }
-
-      System.out.printf("총 %d 개의 게시글 데이터를 로딩했습니다.\n", boardList.size());
+      System.out.printf("총 %d 개의 게시글 데이터를 로딩했습니다.\n", list.size());
 
     } catch (Exception e) {
       System.out.println("게시글 파일 읽기 중 오류 발생! - " + e.getMessage());
@@ -225,153 +224,5 @@ public class App {
   }
 
 
-  private static void saveMembers() {
-    ObjectOutputStream out = null;
 
-    try {
-      out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(memberFile)));
-
-      // 데이터의 개수를 먼저 출력한다.
-      out.writeInt(memberList.size());
-
-      for (Member member : memberList) {
-        // 회원 목록에서 회원 데이터를 꺼내 직렬화 하여 출력한다.
-        out.writeObject(member);
-      }
-      System.out.printf("총 %d 개의 회원 데이터를 저장했습니다.\n", memberList.size());
-
-    } catch (IOException e) {
-      System.out.println("회원 데이터의 파일 쓰기 중 오류 발생! - " + e.getMessage());
-
-    } finally {
-      try {
-        out.close();
-      } catch (IOException e) {
-      }
-    }
-  }
-
-  private static void loadMembers() {
-    ObjectInputStream in = null;
-
-    try {
-      in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(memberFile)));
-
-      // 데이터의 개수를 먼저 읽는다. (4바이트)
-      int size = in.readInt();
-
-      for (int i = 0; i < size; i++) {
-        memberList.add((Member) in.readObject());
-      }
-      System.out.printf("총 %d 개의 회원 데이터를 로딩했습니다.\n", memberList.size());
-
-    } catch (Exception e) {
-      System.out.println("회원 파일 읽기 중 오류 발생! - " + e.getMessage());
-    } finally {
-      try {
-        in.close();
-      } catch (Exception e) {
-      }
-    }
-  }
-
-  private static void saveProjects() {
-    ObjectOutputStream out = null;
-
-    try {
-      out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(projectFile)));
-
-      // 데이터의 개수를 먼저 출력한다.
-      out.writeInt(projectList.size());
-
-      for (Project project : projectList) {
-        // 프로젝트 목록에서 프로젝트 데이터를 꺼내 직렬화 하여 출력한다.
-        out.writeObject(project);
-      }
-      System.out.printf("총 %d 개의 프로젝트 데이터를 저장했습니다.\n", projectList.size());
-
-    } catch (IOException e) {
-      System.out.println("프로젝트 데이터의 파일 쓰기 중 오류 발생! - " + e.getMessage());
-
-    } finally {
-      try {
-        out.close();
-      } catch (IOException e) {
-      }
-    }
-  }
-
-  private static void loadProjects() {
-    ObjectInputStream in = null;
-
-    try {
-      in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(projectFile)));
-
-      // 데이터의 개수를 먼저 읽는다. (4바이트)
-      int size = in.readInt();
-
-      for (int i = 0; i < size; i++) {
-        projectList.add((Project) in.readObject());
-      }
-      System.out.printf("총 %d 개의 프로젝트 데이터를 로딩했습니다.\n", projectList.size());
-
-    } catch (Exception e) {
-      System.out.println("프로젝트 파일 읽기 중 오류 발생! - " + e.getMessage());
-    } finally {
-      try {
-        in.close();
-      } catch (Exception e) {
-      }
-    }
-  }
-
-  private static void saveTasks() {
-    ObjectOutputStream out = null;
-
-    try {
-      out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(taskFile)));
-
-      // 데이터의 개수를 먼저 출력한다.
-      out.writeInt(taskList.size());
-
-      for (Task task : taskList) {
-        // 작업 목록에서 작업 데이터를 꺼내 직렬화 하여 출력한다.
-        out.writeObject(task);
-      }
-      System.out.printf("총 %d 개의 작업 데이터를 저장했습니다.\n", taskList.size());
-
-    } catch (IOException e) {
-      System.out.println("작업 데이터의 파일 쓰기 중 오류 발생! - " + e.getMessage());
-
-    } finally {
-      try {
-        out.close();
-      } catch (IOException e) {
-      }
-    }
-  }
-
-  private static void loadTasks() {
-    ObjectInputStream in = null;
-
-    try {
-      in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(taskFile)));
-
-      // 데이터의 개수를 먼저 읽는다.
-      int size = in.readInt();
-
-      for (int i = 0; i < size; i++) {
-        taskList.add((Task) in.readObject());
-      }
-      System.out.printf("총 %d 개의 작업 데이터를 로딩했습니다.\n", taskList.size());
-
-    } catch (Exception e) {
-      System.out.println("작업 파일 읽기 중 오류 발생! - " + e.getMessage());
-    } finally {
-      try {
-        in.close();
-      } catch (Exception e) {
-      }
-    }
-  }
 }
