@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
@@ -43,8 +44,8 @@ import com.eomcs.pms.handler.TaskDetailCommand;
 import com.eomcs.pms.handler.TaskListCommand;
 import com.eomcs.pms.handler.TaskUpdateCommand;
 import com.eomcs.util.CsvObject;
-import com.eomcs.util.CsvObjectFactory;
 import com.eomcs.util.Prompt;
+import com.google.gson.Gson;
 
 public class App {
 
@@ -53,25 +54,25 @@ public class App {
   public static void main(String[] args) {
     // main(), saveBoards(), loadBoards() 가 공유하는 필드
     List<Board> boardList = new ArrayList<>();
-    File boardFile = new File("./board.csv"); // 게시글을 저장할 파일 정보
+    File boardFile = new File("./board.json"); // 게시글을 저장할 파일 정보
 
     // main(), saveMembers(), loadMembers() 가 공유하는 필드
     List<Member> memberList = new LinkedList<>();
-    File memberFile = new File("./member.csv"); // 회원을 저장할 파일 정보
+    File memberFile = new File("./member.json"); // 회원을 저장할 파일 정보
 
     // main(), saveProjects(), loadProjects() 가 공유하는 필드
     List<Project> projectList = new LinkedList<>();
-    File projectFile = new File("./project.csv"); // 프로젝트를 저장할 파일 정보
+    File projectFile = new File("./project.json"); // 프로젝트를 저장할 파일 정보
 
     // main(), saveTasks(), loadTasks() 가 공유하는 필드
     List<Task> taskList = new ArrayList<>();
-    File taskFile = new File("./task.csv"); // 작업을 저장할 파일 정보
+    File taskFile = new File("./task.json"); // 작업을 저장할 파일 정보
 
     // 파일에서 데이터 로딩
-    loadObjects(boardList, boardFile, Board::new);
-    loadObjects(memberList, memberFile, Member::new);
-    loadObjects(projectList, projectFile, Project::new);
-    loadObjects(taskList, taskFile, Task::new);
+    loadObjects(boardList, boardFile, Board[].class);
+    loadObjects(memberList, memberFile, Member[].class);
+    loadObjects(projectList, projectFile, Project[].class);
+    loadObjects(taskList, taskFile, Task[].class);
 
 
     Map<String, Command> commandMap = new HashMap<>();
@@ -178,10 +179,7 @@ public class App {
     try {
       out = new BufferedWriter(new FileWriter(file));
 
-      for (T obj : list) {
-        out.write(obj.toCsvString());
-        out.write("\n");
-      }
+      out.write(new Gson().toJson(list));
 
       out.flush();
 
@@ -198,22 +196,19 @@ public class App {
     }
   }
 
-  private static <T> void loadObjects(Collection<T> list, File file, CsvObjectFactory<T> factory) {
+  private static <T> void loadObjects(Collection<T> list, File file, Class<T[]> clazz) {
     BufferedReader in = null;
 
     try {
       in = new BufferedReader(new FileReader(file));
 
-      while (true) {
-        String record = in.readLine();
-        if (record == null) {
-          break;
-        }
-        list.add(factory.create(record));
-      }
+      list.addAll(Arrays.asList(new Gson().fromJson(in, clazz)));
+
       System.out.printf("총 %d 개의 게시글 데이터를 로딩했습니다.\n", list.size());
 
+
     } catch (Exception e) {
+
       System.out.println("게시글 파일 읽기 중 오류 발생! - " + e.getMessage());
     } finally {
       try {
