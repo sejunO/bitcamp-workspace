@@ -13,6 +13,7 @@ public class CTest {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintStream out = new PrintStream(socket.getOutputStream())) {
       System.out.println("서버와 연결 성공");
+
       System.out.printf("아이디 : ");
       out.println(sc.nextLine());
       out.flush();
