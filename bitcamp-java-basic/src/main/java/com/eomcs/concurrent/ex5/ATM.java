@@ -14,7 +14,7 @@ public class ATM extends Thread {
     long sum = 0;
 
     while (true) {
-      money = account.withdraw(100);
+      money = account.withdraw(1);
       if (money <= 0)
         break;
       sum += money;

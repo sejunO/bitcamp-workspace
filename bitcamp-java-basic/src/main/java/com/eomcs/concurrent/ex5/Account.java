@@ -19,7 +19,7 @@ public class Account {
   // => 여러 스레드가 동시에 실행해도 문제가 없는 코드 블록을
   // "스레드 안전(thread safe)"라 부른다.
   //
-  synchronized public long withdraw(long money) {
+  /* synchronized */ public long withdraw(long money) {
 
     // 1) 이 메서드처럼 여러 스레드가 같은 메모리(balance 필드)의 값을 동시에 변경할 때
     // 문제가 발생하는 코드를 "크리티컬 섹션(임계영역; critical section) 또는 크리티컬 리전(critical region)"
