@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import com.eomcs.context.ApplicationContextListener;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
@@ -43,15 +44,42 @@ import com.eomcs.pms.handler.TaskDeleteCommand;
 import com.eomcs.pms.handler.TaskDetailCommand;
 import com.eomcs.pms.handler.TaskListCommand;
 import com.eomcs.pms.handler.TaskUpdateCommand;
+import com.eomcs.pms.listener.AppInitListener;
 import com.eomcs.util.CsvObject;
 import com.eomcs.util.Prompt;
 import com.google.gson.Gson;
 
 public class App {
+  List<ApplicationContextListener> listeners = new ArrayList<>();
 
+  public void addApplicationContextListener(ApplicationContextListener listener) {
+    listeners.add(listener);
+  }
 
+  public void removeApplicationContextListener(ApplicationContextListener listener) {
+    listeners.remove(listener);
+  }
 
-  public static void main(String[] args) {
+  private void notifyApplicationContextListenerOnServiceSrarted() {
+    for (ApplicationContextListener listener : listeners) {
+      listener.contextInitialized();
+    }
+  }
+
+  private void notifyApplicationContextListenerOnServiceStopped() {
+    for (ApplicationContextListener listener : listeners) {
+      listener.contextDestroyed();
+    }
+  }
+
+  public static void main(String[] args) throws Exception {
+    App app = new App();
+    app.addApplicationContextListener(new AppInitListener());
+    app.service();
+  }
+
+  public void service() throws Exception {
+    notifyApplicationContextListenerOnServiceSrarted();
     // main(), saveBoards(), loadBoards() 가 공유하는 필드
     List<Board> boardList = new ArrayList<>();
     File boardFile = new File("./board.json"); // 게시글을 저장할 파일 정보
@@ -155,6 +183,8 @@ public class App {
     saveObjects(projectList, projectFile);
     saveObjects(taskList, taskFile);
 
+    notifyApplicationContextListenerOnServiceStopped();
+
   }
 
   static void printCommandHistory(Iterator<String> iterator) {
@@ -173,7 +203,7 @@ public class App {
     }
   }
 
-  private static <T extends CsvObject> void saveObjects(Collection<T> list, File file) {
+  private <T extends CsvObject> void saveObjects(Collection<T> list, File file) {
     BufferedWriter out = null;
 
     try {
@@ -196,7 +226,7 @@ public class App {
     }
   }
 
-  private static <T> void loadObjects(Collection<T> list, File file, Class<T[]> clazz) {
+  private <T> void loadObjects(Collection<T> list, File file, Class<T[]> clazz) {
     BufferedReader in = null;
 
     try {
@@ -204,7 +234,7 @@ public class App {
 
       list.addAll(Arrays.asList(new Gson().fromJson(in, clazz)));
 
-      System.out.printf("총 %d 개의 게시글 데이터를 로딩했습니다.\n", list.size());
+      System.out.printf("총 %d 개의 %s데이터를 로딩했습니다.\n", list.size(), file.getName());
 
 
     } catch (Exception e) {
