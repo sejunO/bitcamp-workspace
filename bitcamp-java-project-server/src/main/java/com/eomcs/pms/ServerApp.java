@@ -6,30 +6,99 @@ package com.eomcs.pms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import com.eomcs.context.ApplicationContextListener;
+import com.eomcs.pms.listener.AppInitListener;
+import com.eomcs.pms.listener.DataHandlerListener;
 
 public class ServerApp {
+  static boolean stop = false;
 
-  public static void main(String[] args) {
-    try (ServerSocket ss = new ServerSocket(8888)) {
-      System.out.println("클라이언트 기다리는 ");
+  List<ApplicationContextListener> listeners = new ArrayList<>();
+  Map<String, Object> context = new Hashtable<>();
+  public void addApplicationContextListener(ApplicationContextListener listener) {
+    listeners.add(listener);
+  }
 
-      try (Socket socket = ss.accept();
-          BufferedReader in = new BufferedReader(new InputStreamReader(((socket.getInputStream()))));
-          PrintStream out = new PrintStream(socket.getOutputStream())){
+  public void removeApplicationContextListener(ApplicationContextListener listener) {
+    listeners.remove(listener);
+  }
+  private void notifyApplicationContextListenerOnServiceSrarted() {
+    for (ApplicationContextListener listener : listeners) {
+      listener.contextInitialized(context);
+    }
+  }
 
+  private void notifyApplicationContextListenerOnServiceStopped() {
+    for (ApplicationContextListener listener : listeners) {
+      listener.contextDestroyed(context);
+    }
+  }
 
+  public void service(int port) {
+    notifyApplicationContextListenerOnServiceSrarted();
+    try (ServerSocket ss = new ServerSocket(port)) {
+      System.out.println("클라이언트 기다리는 중 ");
 
-        System.out.println(in.readLine());
-        out.println("나도 반갑다.");
+      while (true) {
 
-
-      } catch (Exception e) {
-        e.printStackTrace();
+        Socket clientSocket = ss.accept();
+        if (stop) {
+          break;
+        }
+        new Thread(() -> handlerClient(clientSocket)).start();
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
+    notifyApplicationContextListenerOnServiceStopped();
+  }
+
+  public static void main(String[] args) {
+    ServerApp server = new ServerApp();
+
+    server.addApplicationContextListener(new AppInitListener());
+    server.addApplicationContextListener(new DataHandlerListener());
+    server.service(8888);
+  }
+
+
+
+  public static void handlerClient(Socket clientSocket) {
+    InetAddress address = clientSocket.getInetAddress();
+    System.out.println(address.getHostAddress()+ " 님이 접속하였습니다!");
+
+    try (Socket socket = clientSocket;
+        BufferedReader in = new BufferedReader(new InputStreamReader(((socket.getInputStream()))));
+        PrintStream out = new PrintStream(socket.getOutputStream())){
+
+      while (true) {
+        String request = in.readLine();
+        sendResponse(out, request);
+        out.println();
+        if (request.equalsIgnoreCase("quit")) {
+          break;
+        } else if(request.equalsIgnoreCase("stop")) {
+          stop = true;
+          break;
+        }
+      }
+    } catch (Exception e) {
+      System.out.println("나가");
+    }
+
+    System.out.println(address.getHostAddress()+ " 님이 퇴장하였습니다!");
+  }
+
+  private static void sendResponse(PrintStream out, String message) {
+    out.println(message);
+    out.println();
+    out.flush();
   }
 }

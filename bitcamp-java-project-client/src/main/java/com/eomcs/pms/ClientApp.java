@@ -7,21 +7,58 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import com.eomcs.util.Prompt;
 
 public class ClientApp {
 
   public static void main(String[] args) {
-    try(Socket socket = new Socket("localhost", 8888);
+
+    if (args.length != 2) {
+      System.out.println("프로그램 사용");
+      System.out.println("java -cp ... ClientApp 서버주소 포트번호");
+    }
+    boolean stop = false;
+    try(Socket socket = new Socket(args[0], Integer.parseInt(args[1]));
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintStream out = new PrintStream(socket.getOutputStream())) {
 
       //서버에 인삿말 보냄.
       //서버가 응답한 메세지 출력
-      out.println("안녕");
-      out.flush();
-      System.out.println(in.readLine());
+      while (true) {
+        String input = Prompt.inputString("메세지: ");
+        out.println(input);
+        out.flush();
+        receiveResponse(in);
+
+        if (input.equalsIgnoreCase("quit")) {
+          break;
+        } else if (input.equalsIgnoreCase("stop")) {
+          stop = true;
+          break;
+        }
+      }
+
+
 
     } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (stop) {
+      try (Socket socket = new Socket(args[0], Integer.parseInt(args[1]))) {
+
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  private static void receiveResponse(BufferedReader in) throws Exception {
+    while (true) {
+      String response = in.readLine();
+      if (response.length() ==0) {
+        break;
+      }
+      System.out.println(response);
 
     }
   }
