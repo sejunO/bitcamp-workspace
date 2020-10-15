@@ -5,7 +5,7 @@ package com.eomcs.pms;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,14 +14,16 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import com.eomcs.context.ApplicationContextListener;
+import com.eomcs.pms.handler.Command;
 import com.eomcs.pms.listener.AppInitListener;
 import com.eomcs.pms.listener.DataHandlerListener;
+import com.eomcs.pms.listener.RequestMappingListener;
 
 public class ServerApp {
   static boolean stop = false;
 
   List<ApplicationContextListener> listeners = new ArrayList<>();
-  Map<String, Object> context = new Hashtable<>();
+  static Map<String, Object> context = new Hashtable<>();
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
   }
@@ -65,9 +67,9 @@ public class ServerApp {
 
     server.addApplicationContextListener(new AppInitListener());
     server.addApplicationContextListener(new DataHandlerListener());
+    server.addApplicationContextListener(new RequestMappingListener());
     server.service(8888);
   }
-
 
 
   public static void handlerClient(Socket clientSocket) {
@@ -76,19 +78,27 @@ public class ServerApp {
 
     try (Socket socket = clientSocket;
         BufferedReader in = new BufferedReader(new InputStreamReader(((socket.getInputStream()))));
-        PrintStream out = new PrintStream(socket.getOutputStream())){
+        PrintWriter out = new PrintWriter(socket.getOutputStream())){
 
-      while (true) {
-        String request = in.readLine();
-        sendResponse(out, request);
+      String request = in.readLine();
+
+      if(request.equalsIgnoreCase("stop")) {
+        stop = true;
+        out.println("서버를 종료하는 중입니다!");
         out.println();
-        if (request.equalsIgnoreCase("quit")) {
-          break;
-        } else if(request.equalsIgnoreCase("stop")) {
-          stop = true;
-          break;
-        }
+        out.flush();
+        return;
       }
+      Command command = (Command) context.get(request);
+      if (command != null) {
+        command.execute(out, in);
+      } else {
+        out.println("그건 안됨");
+      }
+
+      out.println();
+      out.flush();
+
     } catch (Exception e) {
       System.out.println("나가");
     }
@@ -96,9 +106,4 @@ public class ServerApp {
     System.out.println(address.getHostAddress()+ " 님이 퇴장하였습니다!");
   }
 
-  private static void sendResponse(PrintStream out, String message) {
-    out.println(message);
-    out.println();
-    out.flush();
-  }
 }

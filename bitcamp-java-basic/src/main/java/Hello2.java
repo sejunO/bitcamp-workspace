@@ -8,4 +8,3 @@ class Hello2 {
     System.out.println(b);
   }
 }
-
