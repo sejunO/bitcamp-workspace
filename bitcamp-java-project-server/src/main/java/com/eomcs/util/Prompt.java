@@ -14,19 +14,26 @@ public class Prompt {
     return keyboardScan.nextLine();
   }
 
-  public static String inputString(String title, PrintWriter out, BufferedReader in) throws Exception{
-    out.println(title);
-    out.println("!{}!");
-    out.flush();
-    return in.readLine();
+  public static String inputString(
+      String title,
+      PrintWriter out,
+      BufferedReader in) throws Exception {
+    // 클라이언트로 출력할 때는 제목 다음에 "!{}!" 문자열을 보내
+    // 클라이언트가 사용자로부터 값을 입력 받아 다시 서버에 보내도록 요청한다.
+    out.println(title); // 클라이언트가 출력할 프롬프트 제목
+    out.println("!{}!"); // 클라이언트에게 값을 보내라는 요청
+    out.flush(); // 주의! 출력하면 버퍼에 쌓인다. 서버로 보내고 싶다면 flush()를 호출하라!
+    return in.readLine(); // 클라이언트가 보낸 값을 읽기
   }
 
   public static int inputInt(String title) {
     return Integer.parseInt(inputString(title));
   }
 
-
-  public static int inputInt(String title, PrintWriter out, BufferedReader in) throws Exception {
+  public static int inputInt(
+      String title,
+      PrintWriter out,
+      BufferedReader in) throws Exception {
     return Integer.parseInt(inputString(title, out, in));
   }
 
@@ -34,7 +41,10 @@ public class Prompt {
     return Date.valueOf(inputString(title));
   }
 
-  public static Date inputDate(String title, PrintWriter out, BufferedReader in) throws Exception {
+  public static Date inputDate(
+      String title,
+      PrintWriter out,
+      BufferedReader in) throws Exception {
     return Date.valueOf(inputString(title, out, in));
   }
 

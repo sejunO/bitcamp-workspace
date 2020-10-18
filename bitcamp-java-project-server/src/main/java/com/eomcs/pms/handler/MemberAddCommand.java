@@ -29,8 +29,9 @@ public class MemberAddCommand implements Command {
       member.setRegisteredDate(new java.sql.Date(System.currentTimeMillis()));
 
       memberList.add(member);
+
     } catch (Exception e) {
-      out.printf("오류 발생! - %s\n", e.getMessage());
+      out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
     }
   }
 }

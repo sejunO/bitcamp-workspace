@@ -31,7 +31,7 @@ public class BoardUpdateCommand implements Command {
       String content = Prompt.inputString(
           String.format("내용(%s)? ", board.getContent()), out, in);
       String writer = Prompt.inputString(
-          String.format("작성자(%s)? ", board.getWriter()), out, in );
+          String.format("작성자(%s)? ", board.getWriter()), out, in);
 
       String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ", out, in);
       if (!response.equalsIgnoreCase("y")) {
@@ -43,8 +43,9 @@ public class BoardUpdateCommand implements Command {
       board.setContent(content);
       board.setWriter(writer);
       out.println("게시글을 변경하였습니다.");
+
     } catch (Exception e) {
-      out.printf("오류 발생! - %s\n", e.getMessage());
+      out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
     }
   }
 

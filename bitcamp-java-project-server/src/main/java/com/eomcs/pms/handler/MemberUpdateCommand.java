@@ -17,8 +17,6 @@ public class MemberUpdateCommand implements Command {
   @Override
   public void execute(PrintWriter out, BufferedReader in) {
     try {
-
-
       out.println("[회원 변경]");
       int no = Prompt.inputInt("번호? ", out, in);
       Member member = findByNo(no);
@@ -51,8 +49,9 @@ public class MemberUpdateCommand implements Command {
       member.setTel(tel);
 
       out.println("회원을 변경하였습니다.");
+
     } catch (Exception e) {
-      out.printf("오류 발생! - %s\n", e.getMessage());
+      out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
     }
   }
 

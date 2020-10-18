@@ -34,8 +34,9 @@ public class BoardDeleteCommand implements Command {
 
       boardList.remove(index);
       out.println("게시글을 삭제하였습니다.");
+
     } catch (Exception e) {
-      out.printf("오류 발생! - %s\n", e.getMessage());
+      out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
     }
   }
 

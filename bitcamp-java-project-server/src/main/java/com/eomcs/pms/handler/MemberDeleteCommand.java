@@ -34,8 +34,9 @@ public class MemberDeleteCommand implements Command {
 
       memberList.remove(index);
       out.println("회원을 삭제하였습니다.");
+
     } catch (Exception e) {
-      out.printf("오류 발생! - %s\n", e.getMessage());
+      out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
     }
   }
 
