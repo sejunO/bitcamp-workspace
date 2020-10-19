@@ -4,9 +4,19 @@ package com.eomcs.concurrent.ex3;
 public class Exam0120 {
 
   public static void main(String[] args) {
-    new Thread(() -> {
+    new Thread() {
+      @Override
+      public void run() {
+        for (int i = 0; i < 1000; i++) {
+          System.out.println("===> " + i);
+        }
+      }
+    }.start();
 
-    }).start();
+    for (int i = 0; i < 1000; i++) {
+      System.out.println(">>>> " + i);
+    }
+
   }
 
 }
