@@ -4,6 +4,15 @@
 
 2020-07-13 ~ 2020-12-21
 
+## 교육 자료
+- github.com
+  - https://github.com/eomjinyoung/bitcamp-20200713.git (비트캠프 연습 저장소)
+  - https://github.com/eomcs/eomcs-java-basic.git (자바 기초)
+  - https://github.com/eomcs/eomcs-java-project-2020.git (자바 프로젝트)
+- 칠판 필기
+  - bitcamp-20200713/note-.pdf (칠판 필기)
+  - https://1drv.ms/u/s!AgmhgidPG32dg-E3BWScH-4X85tkQg (MS-OneNote 칠판 필기)
+
 ## 교육 내용
 
 ### 1일차(2020-07-13,월)
@@ -593,6 +602,52 @@ macOS 개발 환경 구축하기
 - 디자인패턴: Observer 패턴
   - com.eomcs.design_pattern.observer 패키지 예제
 - 예제 프로젝트 수행(bitcamp-java-project)
-  - 33 버전 수행 : `Observer` 디자인 패턴을 적용하기
+  - 33-a 버전 수행 : `Observer` 디자인 패턴을 적용하기
+
+## 56일차(2020-10-13,화)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 33-b 버전 수행 : `Observer` 객체를 통해 데이터를 로딩하고 저장하기
+  - 34-a 버전 수행 : 네트워크 API를 활용하여 C/S 구조로 전환하기 : 클라이언트/서버 프로젝트 준비
+  - 34-b 버전 수행 : 네트워크 API를 활용하여 C/S 구조로 전환하기 : 간단한 메시지 송수신
 - 과제
   - UI 프로토타입 작성하기
+- 평가
+  - 응용S/W기초기술활용
+  - 프로그래밍언어활용
+
+## 57일차(2020-10-14,수)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 34-c ~ g 버전 수행 : 네트워크 API를 활용한 C/S 아키텍처
+- 과제
+  - UI 프로토타입 작성하기(계속)
+
+## 58일차(2020-10-15,목)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 34-g 버전 수행 : 네트워크 API를 활용한 C/S 아키텍처(계속)
+  - 35 버전 수행 : 동일한 자원으로 더 많은 클라이언트 요청을 처리하는 방법 : Stateful을 Stateless로 전환하기
+- 과제
+  - UI 프로토타입 작성하기(계속)
+
+## 59일차(2020-10-16,금)
+
+- 디자인 패턴 : Flyweight 패턴
+  - com.eomcs.design_pattern.flyweight 패키지 예제
+- 스레드 : 스레드풀
+  - com.eomcs.concurrent.ex6.Exam0210.java
+- 과제
+  - UI 프로토타입 발표
+- Use-case 모델링
+  - Actor 식별 방법 및 표기법
+
+## 60일차(2020-10-19,월)
+
+- Use-case 모델링(계속)
+  - Use-case 식별 방법 및 표기법
+  - Use-case 모델 작성법
+- 과제
+  - 요구사항분석 및 설계, UI 디자인 수행
+- 스레드 : 자바에서 제공한 스레드풀 프레임워크 사용하기
+  - com.eomcs.concurrent.ex7 패키지 예제
