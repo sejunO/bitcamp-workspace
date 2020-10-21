@@ -29,11 +29,17 @@ public class Worker extends Thread{
       }
 
       task.run();
+
+
       System.out.printf(" %s 작업완료 \n", this.getName());
+
       workers.add(this);
+
       System.out.printf(" %s 복귀 완료 \n", this.getName());
+
     }
   }
+
   public void execute(Runnable task) throws Exception {
     Worker t;
     if (workers.isEmpty()) {
