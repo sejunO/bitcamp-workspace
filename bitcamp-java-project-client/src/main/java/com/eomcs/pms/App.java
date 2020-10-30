@@ -105,14 +105,14 @@ public class App {
 
     Map<String,Command> commandMap = new HashMap<>();
 
-    commandMap.put("/board/add", new BoardAddCommand(boardList));
-    commandMap.put("/board/list", new BoardListCommand(boardList));
-    commandMap.put("/board/detail", new BoardDetailCommand(boardList));
-    commandMap.put("/board/update", new BoardUpdateCommand(boardList));
-    commandMap.put("/board/delete", new BoardDeleteCommand(boardList));
+    commandMap.put("/board/add", new BoardAddCommand());
+    commandMap.put("/board/list", new BoardListCommand());
+    commandMap.put("/board/detail", new BoardDetailCommand());
+    commandMap.put("/board/update", new BoardUpdateCommand());
+    commandMap.put("/board/delete", new BoardDeleteCommand());
 
     MemberListCommand memberListCommand = new MemberListCommand(memberList);
-    commandMap.put("/member/add", new MemberAddCommand(memberList));
+    commandMap.put("/member/add", new MemberAddCommand());
     commandMap.put("/member/list", memberListCommand);
     commandMap.put("/member/detail", new MemberDetailCommand(memberList));
     commandMap.put("/member/update", new MemberUpdateCommand(memberList));
@@ -163,7 +163,7 @@ public class App {
                 // 오류가 발생하면 그 정보를 갖고 있는 객체의 클래스 이름을 출력한다.
                 System.out.println("--------------------------------------------------------------");
                 System.out.printf("명령어 실행 중 오류 발생: %s\n", e);
-                System.out.println("--------------------------------------------------------------");
+                System.out.println("-------------------------------------------------------     -------");
               }
             } else {
               System.out.println("실행할 수 없는 명령입니다.");
