@@ -118,11 +118,11 @@ public class App {
     commandMap.put("/member/update", new MemberUpdateCommand(memberList));
     commandMap.put("/member/delete", new MemberDeleteCommand(memberList));
 
-    commandMap.put("/project/add", new ProjectAddCommand(projectList, memberListCommand));
+    commandMap.put("/project/add", new ProjectAddCommand());
     commandMap.put("/project/list", new ProjectListCommand(projectList));
-    commandMap.put("/project/detail", new ProjectDetailCommand(projectList));
-    commandMap.put("/project/update", new ProjectUpdateCommand(projectList, memberListCommand));
-    commandMap.put("/project/delete", new ProjectDeleteCommand(projectList));
+    commandMap.put("/project/detail", new ProjectDetailCommand());
+    commandMap.put("/project/update", new ProjectUpdateCommand());
+    commandMap.put("/project/delete", new ProjectDeleteCommand());
 
     commandMap.put("/task/add", new TaskAddCommand(taskList, memberListCommand));
     commandMap.put("/task/list", new TaskListCommand(taskList));

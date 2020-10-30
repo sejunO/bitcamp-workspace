@@ -77,7 +77,6 @@ a {
 .center {
     display: flex;
     align-items: center;
-    justify-content: center;
     width: 100%;
     padding-top: 20%;
     
@@ -87,36 +86,37 @@ a {
     opacity: 1;
     border: 0;
     font-size: 6em;
+    margin: auto 150px;
     color: white;
     text-align: left;
 }
+
 .center_btn {
-    width:100px;
-
+    width:250px;
+    
     background-color: #368AFF;
-
     border: none;
-
     color:#fff;
-
-    padding: 15px 0;
-
+    padding: 20px 0;
     text-align: center;
-
-    text-decoration: none;
-
-    display: inline-block;
-
     font-size: 15px;
-
     margin: 4px;
+}
 
-    cursor: pointer;
+.center_btn {
 
+    background-color: #87CEEB;
+
+    -webkit-transition-duration: 0.4s;
+
+    transition-duration: 0.4s;
 
 }
 
-a.center_btn:hover {
-	color: rgba(255, 255, 255, 0.85);
-	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+.btn1:hover{
+
+    background-color: #4169E1;
+
+    color: white;
+
 }

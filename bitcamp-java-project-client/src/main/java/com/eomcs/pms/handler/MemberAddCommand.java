@@ -14,7 +14,6 @@ public class MemberAddCommand implements Command {
     System.out.println("[회원 등록]");
 
     Member member = new Member();
-    member.setNo(Prompt.inputInt("번호? "));
     member.setName(Prompt.inputString("이름? "));
     member.setEmail(Prompt.inputString("이메일? "));
     member.setPassword(Prompt.inputString("암호? "));
@@ -24,16 +23,15 @@ public class MemberAddCommand implements Command {
 
     try (Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
         PreparedStatement pstmt  = con.prepareStatement(
-            "insert into pms_member(no,name,email,password,photo,tel,cdt) values(?,?,?,?,?,?,?)");
+            "insert into pms_member(name,email,password,photo,tel,cdt) values(?,?,?,?,?,?)");
         ) {
 
-      pstmt.setInt(1, member.getNo());
-      pstmt.setString(2, member.getName());
-      pstmt.setString(3, member.getEmail());
-      pstmt.setString(4, member.getPassword());
-      pstmt.setString(5, member.getPhoto());
-      pstmt.setString(6, member.getTel());
-      pstmt.setDate(7, member.getRegisteredDate());
+      pstmt.setString(1, member.getName());
+      pstmt.setString(2, member.getEmail());
+      pstmt.setString(3, member.getPassword());
+      pstmt.setString(4, member.getPhoto());
+      pstmt.setString(5, member.getTel());
+      pstmt.setDate(6, member.getRegisteredDate());
 
       pstmt.executeUpdate();
       System.out.println("member 등록");
