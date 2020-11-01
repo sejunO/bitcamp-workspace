@@ -5,6 +5,7 @@ html {
     width: 100%;
     margin:0;
     padding: 0;
+    font-family: 'Bebas Neue', cursive;
 }
 
 html {
@@ -46,21 +47,37 @@ a {
 .navbar_logo {
     font-size: 24px;
     color: white;
-}
-
-.navbar_logo i {
-   
+    margin-left: 50px;
 }
 
 .navbar_menu {
     display: flex;
     list-style: none;
     padding-left: 0;
+    font-size: 18px;
+    margin-left: 100px;
+}
+
+.navbar_menu li:hover {
+    background-color: #d49446;
+    border-radius: 4px;
 
 }
 
+.navbar_links {
+    display: flex;
+    list-style: none;
+    margin-right: 50px;
+    font-size: 18px;
+}
+.navbar_links li{
+    padding : 8px 12px;
+    
+}
+
 .navbar_menu li {
-    padding: 8px 12px;
+    padding: 8px 20px;
+    align-items: center;
 }
 
 .bgimage {
@@ -85,38 +102,13 @@ a {
 .center_div {
     opacity: 1;
     border: 0;
-    font-size: 6em;
+    font-size: 5em;
     margin: auto 150px;
     color: white;
     text-align: left;
 }
 
-.center_btn {
-    width:250px;
-    
-    background-color: #368AFF;
-    border: none;
-    color:#fff;
-    padding: 20px 0;
-    text-align: center;
-    font-size: 15px;
-    margin: 4px;
-}
 
-.center_btn {
 
-    background-color: #87CEEB;
 
-    -webkit-transition-duration: 0.4s;
 
-    transition-duration: 0.4s;
-
-}
-
-.btn1:hover{
-
-    background-color: #4169E1;
-
-    color: white;
-
-}

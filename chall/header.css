@@ -1,0 +1,61 @@
+body,
+html {
+    margin:0;
+    padding: 0;
+    font-family: 'Bebas Neue', cursive;
+}
+.link {
+    color: black;
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #263343;
+    padding: 8px 12px;
+} 
+
+.navbar_logo {
+    font-size: 24px;
+    color: white;
+    margin-left: 50px;
+}
+
+.navbar_menu {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    font-size: 18px;
+    margin-left: 100px;
+}
+
+.navbar_menu li:hover {
+    background-color: #d49446;
+    border-radius: 4px;
+
+}
+
+.navbar_links {
+    display: flex;
+    list-style: none;
+    margin-right: 50px;
+    font-size: 18px;
+}
+.navbar_links li{
+    padding : 8px 12px;
+    
+}
+
+.navbar_menu li {
+    padding: 8px 20px;
+    align-items: center;
+}
+
+
+
+
