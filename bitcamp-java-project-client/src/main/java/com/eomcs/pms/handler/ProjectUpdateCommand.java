@@ -1,103 +1,107 @@
 package com.eomcs.pms.handler;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
+import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.domain.Project;
 import com.eomcs.util.Prompt;
 
 public class ProjectUpdateCommand implements Command {
 
+  MemberListCommand memberListCommand;
+
+  public ProjectUpdateCommand(MemberListCommand memberListCommand) {
+    this.memberListCommand = memberListCommand;
+  }
 
   @Override
   public void execute() {
     System.out.println("[프로젝트 변경]");
     int no = Prompt.inputInt("번호? ");
-    ArrayList<String> names = new ArrayList<>();
-    try (Connection con =DriverManager.getConnection(
-        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
-        PreparedStatement pstmt = con.prepareStatement("select name from pms_member");
-        ResultSet rs = pstmt.executeQuery()){
 
-      while (rs.next()) {
-        names.add(rs.getString("name"));
+    Project project = new Project();
+
+    try (Connection con = DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
+        PreparedStatement stmt = con.prepareStatement(
+            "select p.title, p.content, p.sdt, p.edt, p.owner, m.name owner_name"
+                + " from pms_project p inner join pms_member m on p.owner=m.no"
+                + " where p.no = ?")) {
+
+      stmt.setInt(1, no);
+      try (ResultSet rs = stmt.executeQuery()) {
+        if (rs.next()) {
+          project.setNo(no);
+          project.setTitle(rs.getString("title"));
+          project.setContent(rs.getString("content"));
+          project.setStartDate(rs.getDate("sdt"));
+          project.setEndDate(rs.getDate("edt"));
+
+          Member owner = new Member();
+          owner.setNo(rs.getInt("owner"));
+          owner.setName(rs.getString("owner_name"));
+          project.setOwner(owner);
+
+
+        } else {
+          System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
+          return;
+        }
       }
     } catch (Exception e) {
-      e.printStackTrace();
-      return;
-    }
-    String title = null;
-    String content = null;
-    Date sdt = null;
-    Date edt = null;
-    String owner = null;
-    String members = null;
-
-    try (Connection con =DriverManager.getConnection(
-        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
-        PreparedStatement pstmt = con.prepareStatement("select title, content, sdt, edt, owner, members"
-            + " from pms_project"
-            + " where no= " + no);
-        ResultSet rs = pstmt.executeQuery()){
-
-      if (rs.next()) {
-        title = rs.getString("title");
-        content = rs.getString("content");
-        sdt = rs.getDate("sdt");
-        edt = rs.getDate("edt");
-        owner = rs.getString("owner");
-        members = rs.getString("members");
-
-      } else {
-        System.out.println("그건 없는데용");
-        return;
-      }
-    } catch (Exception e) {
+      System.out.println("프로젝트 조회 중 오류 발생!");
       e.printStackTrace();
       return;
     }
 
-
-
-    title = Prompt.inputString(
-        String.format("프로젝트명(%s)? ", title));
-    content = Prompt.inputString(
-        String.format("내용(%s)? ", content));
-    sdt = Prompt.inputDate(
-        String.format("시작일(%s)? ", sdt));
-    edt = Prompt.inputDate(
-        String.format("종료일(%s)? ", edt));
+    project.setTitle(Prompt.inputString(String.format(
+        "프로젝트명(%s)? ", project.getTitle())));
+    project.setContent(Prompt.inputString(String.format(
+        "내용(%s)? ", project.getContent())));
+    project.setStartDate(Prompt.inputDate(String.format(
+        "시작일(%s)? ", project.getStartDate())));
+    project.setEndDate(Prompt.inputDate(String.format(
+        "종료일(%s)? ", project.getEndDate())));
 
     while (true) {
-      String name = Prompt.inputString(
-          String.format("만든이(%s)?(취소: 빈 문자열) ", owner));
+      String name = Prompt.inputString(String.format(
+          "만든이(%s)?(취소: 빈 문자열) ", project.getOwner().getName()));
       if (name.length() == 0) {
         System.out.println("프로젝트 등록을 취소합니다.");
         return;
-      } else if (findByName(names, name) != null) {
-        owner = name;
+      } else {
+        Member member = memberListCommand.findByName(name);
+        if (member == null) {
+          System.out.println("등록된 회원이 아닙니다");
+          continue;
+        }
+        project.setOwner(member);
         break;
       }
-      System.out.println("등록된 회원이 아닙니다.");
     }
 
-    StringBuilder newMembers = new StringBuilder();
+    List<Member> members = new ArrayList<>();
     while (true) {
-      String name = Prompt.inputString(
-          String.format("팀원(%s)?(완료: 빈 문자열) ", members));
+      String name = Prompt.inputString("팀원?(완료: 빈 문자열) ");
+
       if (name.length() == 0) {
         break;
-      } else if (findByName(names, name) != null) {
-        if (members.length() > 0) {
-          newMembers.append(",");
-        }
-        newMembers.append(name);
       } else {
-        System.out.println("등록된 회원이 아닙니다.");
+        Member member = memberListCommand.findByName(name);
+        if (member == null) {
+          System.out.println("등록된 회원이 아닙니다.");
+          continue;
+        }
+        members.add(member);
+
       }
     }
+    project.setMembers(members);
+
 
     String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (!response.equalsIgnoreCase("y")) {
@@ -105,41 +109,48 @@ public class ProjectUpdateCommand implements Command {
       return;
     }
 
-    try (Connection con =DriverManager.getConnection(
-        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
-        PreparedStatement pstmt = con.prepareStatement(
-            "update pms_project set title=?,content=?,sdt=?,edt=?,owner=?,members=?"
-                + " where no=?")){
+    try (Connection con = DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
+        PreparedStatement stmt = con.prepareStatement(
+            "update pms_project set"
+                + " title = ?,"
+                + " content = ?,"
+                + " sdt = ?,"
+                + " edt = ?,"
+                + " owner = ?"
+                + " where no = ?")) {
 
-      pstmt.setString(1, title);
-      pstmt.setString(2, content);
-      pstmt.setDate(3, sdt);
-      pstmt.setDate(4, edt);
-      pstmt.setString(5, owner);
-      pstmt.setString(6, newMembers.toString());
-      pstmt.setInt(7, no);
-
-
-      int count = pstmt.executeUpdate();
+      stmt.setString(1, project.getTitle());
+      stmt.setString(2, project.getContent());
+      stmt.setDate(3, project.getStartDate());
+      stmt.setDate(4, project.getEndDate());
+      stmt.setInt(5, project.getOwner().getNo());
+      stmt.setInt(6, project.getNo());
+      int count = stmt.executeUpdate();
 
       if (count == 0) {
-        System.out.println("그건 없는데용");
-      } else {
-        System.out.println("변경 !");
+        System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
+        return;
+      }
+      try (PreparedStatement stmt2 = con.prepareStatement(
+          "delete from pms_member_project where project_no=" + project.getNo());) {
+        stmt2.executeUpdate();
       }
 
+      try (PreparedStatement stmt2 = con.prepareStatement(
+          "insert into pms_member_project(member_no,project_no) values(?,?)")) {
+        for (Member member : project.getMembers()) {
+          stmt2.setInt(1, member.getNo());
+          stmt2.setInt(2, project.getNo());
+        }
+
+        stmt2.executeUpdate();
+      }
+
+      System.out.println("프로젝트를 변경하였습니다.");
     } catch (Exception e) {
+      System.out.println("프로젝트 변경 중 오류 발생!");
       e.printStackTrace();
     }
-
-  }
-
-  private String findByName(ArrayList<String> names, String name){
-    for (int i = 0; i < names.size(); i++) {
-      if(name.equalsIgnoreCase(names.get(i))) {
-        return name;
-      }
-    }
-    return null;
   }
 }

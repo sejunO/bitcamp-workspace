@@ -4,30 +4,24 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.util.Prompt;
 
 public class ProjectAddCommand implements Command {
 
+  MemberListCommand memberListCommand;
+
+  public ProjectAddCommand(MemberListCommand memberListCommand) {
+    this.memberListCommand = memberListCommand;
+  }
 
   @Override
   public void execute() {
     System.out.println("[프로젝트 등록]");
-    ArrayList<String> names = new ArrayList<>();
-    try (Connection con =DriverManager.getConnection(
-        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
-        PreparedStatement pstmt = con.prepareStatement("select name from pms_member");
-        ResultSet rs = pstmt.executeQuery()){
-
-      while (rs.next()) {
-        names.add(rs.getString("name"));
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-      return;
-    }
-
 
     Project project = new Project();
     project.setTitle(Prompt.inputString("프로젝트명? "));
@@ -36,64 +30,75 @@ public class ProjectAddCommand implements Command {
     project.setEndDate(Prompt.inputDate("종료일? "));
 
     while (true) {
-      String name = Prompt.inputString("만든이?(취소: 빈 문자열) ");
+      String name = Prompt.inputString("관리자?(취소: 빈 문자열) ");
 
       if (name.length() == 0) {
         System.out.println("프로젝트 등록을 취소합니다.");
         return;
-      } else if (findByName(names, name) != null) {
-        project.setOwner(name);
+      } else {
+        Member member = memberListCommand.findByName(name);
+        if (member == null) {
+          System.out.println("등록된 회원이 아닙니다");
+          continue;
+        }
+        project.setOwner(member);
         break;
       }
-
-      System.out.println("등록된 회원이 아닙니다.");
     }
 
-    StringBuilder members = new StringBuilder();
+    List<Member> members = new ArrayList<>();
     while (true) {
       String name = Prompt.inputString("팀원?(완료: 빈 문자열) ");
 
       if (name.length() == 0) {
         break;
-      } else if (findByName(names, name) != null) {
-        if (members.length() > 0) {
-          members.append(",");
-        }
-        members.append(name);
       } else {
-        System.out.println("등록된 회원이 아닙니다.");
+        Member member = memberListCommand.findByName(name);
+        if (member == null) {
+          System.out.println("등록된 회원이 아닙니다.");
+          continue;
+        }
+        members.add(member);
+
       }
     }
-    project.setMembers(members.toString());
 
+    project.setMembers(members);
 
-    try (Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
-        PreparedStatement pstmt  = con.prepareStatement(
-            "insert into pms_project(title,content,sdt,edt,owner,members) values(?,?,?,?,?,?)");
-        ) {
+    try (Connection con = DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
+        PreparedStatement stmt = con.prepareStatement(
+            "insert into pms_project(title,content,sdt,edt,owner)"
+                + " values(?,?,?,?,?)",
+                Statement.RETURN_GENERATED_KEYS)) {
 
-      pstmt.setString(1, project.getTitle());
-      pstmt.setString(2, project.getContent());
-      pstmt.setDate(3, project.getStartDate());
-      pstmt.setDate(4, project.getEndDate());
-      pstmt.setString(5, project.getOwner());
-      pstmt.setString(6, project.getMembers());
+      stmt.setString(1, project.getTitle());
+      stmt.setString(2, project.getContent());
+      stmt.setDate(3, project.getStartDate());
+      stmt.setDate(4, project.getEndDate());
+      stmt.setInt(5, project.getOwner().getNo());
+      stmt.executeUpdate();
 
-      pstmt.executeUpdate();
-      System.out.println("project 등록");
+      try (ResultSet keyRs = stmt.getGeneratedKeys()) {
+        keyRs.next();
+        project.setNo(keyRs.getInt(1));
+      }
+
+      try (PreparedStatement stmt2 = con.prepareStatement(
+          "insert into pms_member_project(member_no,project_no) values(?,?)")) {
+        for (Member member : project.getMembers()) {
+          stmt2.setInt(1, member.getNo());
+          stmt2.setInt(2, project.getNo());
+        }
+
+        stmt2.executeUpdate();
+      }
+
+      System.out.println("프로젝트를 등록하였습니다.");
 
     } catch (Exception e) {
-      System.out.println("member 등록 중 오류");
+      System.out.println("프로젝트 등록 중 오류 발생!");
       e.printStackTrace();
     }
-  }
-
-  private String findByName(ArrayList<String> names, String name){
-    for (int i = 0; i < names.size(); i++) {
-      if(name.equalsIgnoreCase(names.get(i))) {
-        return name;
-      }
-    }
-    return null;
   }
 }
