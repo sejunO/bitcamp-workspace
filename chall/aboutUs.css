@@ -55,7 +55,7 @@ margin:0;
     
 }
 .banner > div {
-    margin-top: 50px;
+    margin: 50px 0;
 }
  .banner2 .left {
      width: 300px;
@@ -77,4 +77,7 @@ margin:0;
 
  .banner__ > p {
      padding-left: 50px;
+ }
+ .link {
+     padding-bottom: 15px;
  }

@@ -33,6 +33,7 @@ public class ProjectUpdateCommand implements Command {
                 + " where p.no = ?")) {
 
       stmt.setInt(1, no);
+
       try (ResultSet rs = stmt.executeQuery()) {
         if (rs.next()) {
           project.setNo(no);
@@ -41,11 +42,11 @@ public class ProjectUpdateCommand implements Command {
           project.setStartDate(rs.getDate("sdt"));
           project.setEndDate(rs.getDate("edt"));
 
+          // 관리자 정보를 가져와서 프로젝트 객체에 담는다.
           Member owner = new Member();
           owner.setNo(rs.getInt("owner"));
           owner.setName(rs.getString("owner_name"));
           project.setOwner(owner);
-
 
         } else {
           System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
@@ -69,14 +70,14 @@ public class ProjectUpdateCommand implements Command {
 
     while (true) {
       String name = Prompt.inputString(String.format(
-          "만든이(%s)?(취소: 빈 문자열) ", project.getOwner().getName()));
+          "관리자(%s)?(취소: 빈 문자열) ", project.getOwner().getName()));
       if (name.length() == 0) {
         System.out.println("프로젝트 등록을 취소합니다.");
         return;
       } else {
         Member member = memberListCommand.findByName(name);
         if (member == null) {
-          System.out.println("등록된 회원이 아닙니다");
+          System.out.println("등록된 회원이 아닙니다.");
           continue;
         }
         project.setOwner(member);
@@ -84,10 +85,10 @@ public class ProjectUpdateCommand implements Command {
       }
     }
 
+    // 프로젝트에 참여할 회원 정보를 담는다.
     List<Member> members = new ArrayList<>();
     while (true) {
       String name = Prompt.inputString("팀원?(완료: 빈 문자열) ");
-
       if (name.length() == 0) {
         break;
       } else {
@@ -97,11 +98,9 @@ public class ProjectUpdateCommand implements Command {
           continue;
         }
         members.add(member);
-
       }
     }
     project.setMembers(members);
-
 
     String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (!response.equalsIgnoreCase("y")) {
@@ -132,22 +131,25 @@ public class ProjectUpdateCommand implements Command {
         System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
         return;
       }
+
+      // 프로젝트 팀원 변경한다.
+      // => 기존에 설정된 모든 팀원을 삭제한다.
       try (PreparedStatement stmt2 = con.prepareStatement(
-          "delete from pms_member_project where project_no=" + project.getNo());) {
+          "delete from pms_member_project where project_no=" + project.getNo())) {
         stmt2.executeUpdate();
       }
-
+      // => 새로 팀원을 입력한다.
       try (PreparedStatement stmt2 = con.prepareStatement(
-          "insert into pms_member_project(member_no,project_no) values(?,?)")) {
+          "insert into pms_member_project(member_no, project_no) values(?,?)")) {
         for (Member member : project.getMembers()) {
           stmt2.setInt(1, member.getNo());
           stmt2.setInt(2, project.getNo());
+          stmt2.executeUpdate();
         }
-
-        stmt2.executeUpdate();
       }
 
       System.out.println("프로젝트를 변경하였습니다.");
+
     } catch (Exception e) {
       System.out.println("프로젝트 변경 중 오류 발생!");
       e.printStackTrace();

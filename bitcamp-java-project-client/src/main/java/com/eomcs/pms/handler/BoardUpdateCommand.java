@@ -4,10 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.util.Prompt;
 
 public class BoardUpdateCommand implements Command {
+  BoardDao boardDao;
 
+  public BoardUpdateCommand(BoardDao boardDao) {
+    this.boardDao = boardDao;
+  }
   @Override
   public void execute() {
     System.out.println("[게시물 변경]");
