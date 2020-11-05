@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.dao.TaskDao;
@@ -26,7 +27,7 @@ public class TaskUpdateCommand implements Command {
 
 
   @Override
-  public void execute() {
+  public void execute(Map<String, Object> context) {
     System.out.println("[작업 변경]");
     int no = Prompt.inputInt("번호? ");
     try {
