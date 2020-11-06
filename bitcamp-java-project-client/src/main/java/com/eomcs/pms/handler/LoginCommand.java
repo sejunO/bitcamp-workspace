@@ -15,15 +15,18 @@ public class LoginCommand implements Command {
   @Override
   public void execute(Map<String, Object> context) {
     System.out.println("[로그인]");
-
+    if (context.get("loginUser") != null) {
+      System.out.println("로그인 되어 있습니다.");
+      return;
+    }
     String email = Prompt.inputString("이메일? ");
     String password = Prompt.inputString("암호? ");
     try {
       Member member = memberDao.findByEmailPassword(email, password);
       if (member == null) {
-        context.put("loginUser", member);
         System.out.println("사용자 정보가 맞지 않습니다.");
       } else {
+        context.put("loginUser", member);
         System.out.printf("%s님 반갑습니다.\n", member.getName());
       }
     } catch (Exception e) {
