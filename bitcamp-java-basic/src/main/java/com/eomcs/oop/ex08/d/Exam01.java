@@ -11,11 +11,11 @@ package com.eomcs.oop.ex08.d;
 public class Exam01 {
 
   public static void main(String[] args) {
-    Car suv = new Suv();
-
-    suv.run();
   }
 
 }
+
+
+
 
 

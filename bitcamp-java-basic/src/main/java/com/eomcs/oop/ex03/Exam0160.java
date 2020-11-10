@@ -1,59 +1,37 @@
+// 클래스 변수의 응용: 클래스 변수 활용 전
+//
 package com.eomcs.oop.ex03;
 
 public class Exam0160 {
-  public static void main(String[] args) throws Exception {
-    Po po = new Po("admin");
 
-    Member m1 = new Member("이름", po);
-    Member m2 = m1.clone();
-    System.out.println(m1);
-
-    System.out.println(m1.po.posi);
-    System.out.println(m2.po.posi);
-
-    m2.po.posi = "CEO";
-    System.out.println(m1.po.posi);
-    System.out.println(m2.po.posi);
-
-  }
-
-  static class Member implements Cloneable {
+  static class Member {
     String id;
     String password;
-    Po po;
-    Member(String id, Po po) {
-      this.id = id;
-      this.po = po;
-    }
-
-    @Override
-    public Member clone() throws CloneNotSupportedException {
-      Member copy = (Member) super.clone();
-      copy.po = this.po.clone();
-      return copy;
-    }
-
-    @Override
-    public String toString() {
-      return "Member [id=" + id + ", password=" + password + ", po=" + po + "]";
-    }
-
+    int type; // 0: 손님, 1: 회원, 2: 관리자
   }
 
-  static class Po implements Cloneable {
-    String posi;
+  public static void main(String[] args) {
+    Member m1 = new Member();
+    m1.id = "aaa";
+    m1.password = "1111";
+    m1.type = 0;
 
-    Po (String posi) {
-      this.posi = posi;
-    }
-    @Override
-    public Po clone() throws CloneNotSupportedException {
-      return (Po) super.clone();
-    }
-    @Override
-    public String toString() {
-      return "Po [posi=" + posi + "]";
-    }
+    Member m2 = new Member();
+    m2.id = "bbb";
+    m2.password = "1111";
+    m2.type = 2;
 
+    Member m3 = new Member();
+    m3.id = "ccc";
+    m3.password = "1111";
+    m3.type = 1;
+
+    // 회원의 타입을 지정할 때 숫자를 이용하였다.
+    // 그런데 소스 코드를 작성한 후 시간이 오래 지나면 숫자의 의미를 기억하기가 쉽지 않다.
+    // 소스 코드를 작성한 사람도 숫자의 의미를 기억하기가 쉽지 않은데,
+    // 남의 소스 코드를 유지보수하는 사람은 더더욱 숫자의 의미를 파악하기란 어렵다.
+    // 주석이나 개발 문서를 자세히 살펴보지 않는 이상에는 숫자의 의미를 파악하기 쉽지 않다.
   }
 }
+
+

@@ -7,35 +7,30 @@ import java.net.Socket;
 
 // 역할:
 // - 소켓에 연결된 클라이언트 요청을 처리한다.
-public class RequestProcessor extends Thread {
+public class RequestProcessor {
   Socket socket;
 
   public RequestProcessor(Socket socket) {
     this.socket = socket;
   }
 
-  @Override
-  public void run() {
+  public void service() throws Exception {
     try (Socket socket = this.socket;
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintStream out = new PrintStream(socket.getOutputStream());) {
-      // GET /plus?a=100&b=200
 
-      String request = in.readLine().split(" ")[1];
-      String[] values = request.split("\\?");
-      String op = values[0];
-
-
+      sendIntroMessage(out);
 
       while (true) {
-        if (in.readLine().length() == 0) {
+        String request = in.readLine();
+        if (request.equalsIgnoreCase("quit")) {
+          sendResponse(out, "안녕히 가세요!");
           break;
         }
 
-        sendResponse(out, compute(request)); // 클라리언트에게 응답한다.
+        String message = compute(request);
+        sendResponse(out, message); // 클라리언트에게 응답한다.
       }
-    } catch (Exception e) {
-      e.printStackTrace();
     }
   }
 
@@ -49,18 +44,10 @@ public class RequestProcessor extends Thread {
       int result = 0;
 
       switch (op) {
-        case "+":
-          result = a + b;
-          break;
-        case "-":
-          result = a - b;
-          break;
-        case "*":
-          result = a * b;
-          break;
-        case "/":
-          result = a / b;
-          break;
+        case "+": result = a + b; break;
+        case "-": result = a - b; break;
+        case "*": result = a * b; break;
+        case "/": result = a / b; break;
         default:
           return String.format("%s 연산자를 지원하지 않습니다.", op);
       }
@@ -72,12 +59,18 @@ public class RequestProcessor extends Thread {
   }
 
   private void sendResponse(PrintStream out, String message) {
-    out.println("HTTP/1.1 200 OK");
-    out.println("Content-Type: text/plain;charset=UTF-8");
-    out.println();
     out.println(message);
+    out.println();
     out.flush();
   }
 
 
+  private void sendIntroMessage(PrintStream out) throws Exception {
+    out.println("[비트캠프 계산기]");
+    out.println("계산기 서버에 오신 걸 환영합니다!");
+    out.println("계산식을 입력하세요!");
+    out.println("예) 23 + 7");
+    out.println(); // 응답의 끝을 표시하는 빈 줄을 보낸다.
+    out.flush();
+  }
 }

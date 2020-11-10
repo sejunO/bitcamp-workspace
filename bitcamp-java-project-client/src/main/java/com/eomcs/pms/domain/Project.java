@@ -14,6 +14,14 @@ public class Project {
   private Member owner;
   private List<Member> members;
 
+  public Date getStartDate() {
+    return startDate;
+  }
+
+  public void setStartDate(Date startDate) {
+    this.startDate = startDate;
+  }
+
   public int getNo() {
     return no;
   }
@@ -33,12 +41,7 @@ public class Project {
   public void setContent(String content) {
     this.content = content;
   }
-  public Date getStartDate() {
-    return startDate;
-  }
-  public void setStartDate(Date startDate) {
-    this.startDate = startDate;
-  }
+
   public Date getEndDate() {
     return endDate;
   }

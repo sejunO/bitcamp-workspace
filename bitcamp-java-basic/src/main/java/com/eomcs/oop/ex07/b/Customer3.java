@@ -48,7 +48,7 @@ public class Customer3 {
   public void setWeight(int weight) {
     if (weight < 1 || weight > 200) {
       this.weight = 0;
-      throw new RuntimeException("ㅈㄹㅇㄴㅁ");
+      return;
     }
     this.weight = weight;
   }

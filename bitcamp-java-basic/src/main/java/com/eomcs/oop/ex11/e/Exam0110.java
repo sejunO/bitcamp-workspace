@@ -16,7 +16,7 @@ public class Exam0110 {
       }
     }
 
-    final A obj = new My();
+    A obj = new My();
     obj.print();
   }
 }

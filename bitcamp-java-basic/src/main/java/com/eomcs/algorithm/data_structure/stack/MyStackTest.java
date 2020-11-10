@@ -6,10 +6,19 @@ public class MyStackTest {
     stack.push("aaa");
     stack.push("bbb");
     stack.push("ccc");
+    System.out.println("==> " + stack.peek());
     stack.push("ddd");
     stack.push("eee");
-    stack.pop();
     print(stack);
+
+    System.out.println(stack.pop());
+    System.out.println(stack.pop());
+    System.out.println("==> " + stack.peek());
+    System.out.println(stack.pop());
+    System.out.println(stack.pop());
+    System.out.println(stack.pop());
+    System.out.println(stack.pop());
+    System.out.println(stack.pop());
   }
 
   static void print(MyStack stack) {

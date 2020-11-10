@@ -10,17 +10,19 @@ import java.util.Scanner;
 public class CalculatorClient {
   public static void main(String[] args) {
 
-    try (Scanner keyboardScanner = new Scanner(System.in);
+    try (
+        Scanner keyboardScanner = new Scanner(System.in);
         Socket socket = new Socket("localhost", 8888);
         PrintStream out = new PrintStream(socket.getOutputStream());
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-      receiveResponse(in); // 서버의 인사말을 출력
+      readResponse(in); // 서버의 인사말을 읽기
 
       while (true) {
         String input = keyboardScanner.nextLine();
-        sendRequest(out, input);
-        receiveResponse(in); // 서버의 실행 결과를 출력
+        out.println(input);
+        out.flush();
+        readResponse(in); // 서버의 실행 결과를 출력
       }
 
     } catch (Exception e) {
@@ -29,12 +31,7 @@ public class CalculatorClient {
 
   }
 
-  static void sendRequest(PrintStream out, String message) throws Exception {
-    out.println(message);
-    out.flush();
-  }
-
-  static void receiveResponse(BufferedReader in) throws Exception {
+  static void readResponse(BufferedReader in) throws Exception {
     while (true) {
       String input = in.readLine();
       if (input.length() == 0) {

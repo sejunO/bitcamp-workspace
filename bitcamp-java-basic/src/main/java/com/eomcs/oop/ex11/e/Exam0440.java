@@ -14,20 +14,31 @@ public class Exam0440 {
   public static void main(String[] args) {
     Exam0440 r = new Exam0440();
 
-    A a = new A() {
+    // 1) 로컬 클래스 만들기
+    class X implements A {
       @Override
       public void print() {
-        System.out.println("안녕!");
+        System.out.println("XXXXX");
+      }
+    }
+    r.m1(new X());
+
+    // 2) 익명 클래스 만들기
+    A obj = new A() {
+      @Override
+      public void print() {
+        System.out.println("익명 클래스!!!");
       }
     };
-    r.m1(a);
+    r.m1(obj);
 
-
+    // 3) 익명 클래스를 파라미터 자리에 바로 삽입
     r.m1(new A() {
       @Override
       public void print() {
-        System.out.println("안녕!");
+        System.out.println("안녕!!!");
       }
     });
+
   }
 }

@@ -18,7 +18,6 @@ public class Exam0120 {
     Encoder encoder = Base64.getEncoder();
     byte[] encodedBytes = encoder.encode(bytes);
     System.out.println(new String(encodedBytes));
-
   }
 
 }

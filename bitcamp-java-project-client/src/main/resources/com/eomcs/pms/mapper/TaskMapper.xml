@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TaskDao">
+  
+  <resultMap type="com.eomcs.pms.domain.Task" id="TaskMap">
+    <id column="no"           property="no"/>
+    <result column="title"    property="title"/>
+    <result column="content"  property="content"/>
+    <result column="cdt"      property="registeredDate"/>
+    <result column="vw_cnt"   property="viewCount"/>
+    
+  </resultMap>
+  
+  <delete id="deleteByProjectNo" parameterType="int">
+	  delete 
+	  from 
+	    pms_task where project_no=#{project_no}
+  </delete>
+  
+  <delete id="delete" parameterType="int">
+	  delete 
+	  from 
+	    pms_task where no=#{no}
+  </delete>
+  
+</mapper>

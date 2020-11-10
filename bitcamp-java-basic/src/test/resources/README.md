@@ -1,1 +1,0 @@
-id 'eclipse'# /src/test/resources 폴더

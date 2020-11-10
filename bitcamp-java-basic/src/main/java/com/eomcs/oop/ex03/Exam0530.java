@@ -18,7 +18,7 @@ public class Exam0530 {
 
     // 다음과 같이 초기화시키지 않은 로컬 변수를 사용하려고 하면 컴파일 오류가 발생한다!
     // System.out.println(i); // 컴파일 오류!
-    //     System.out.println(str); // 컴파일 오류!
+    // System.out.println(str); // 컴파일 오류!
     // System.out.println(date); // 컴파일 오류!
   }
 }

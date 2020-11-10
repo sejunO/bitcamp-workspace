@@ -12,10 +12,10 @@ public class Exam0210 {
     // 문법:
     // => 클래스명 레퍼런스 = new 클래스명(생성자 파라미터, ...) {};
     //
-    final A obj = new A() {
+    A obj = new A() {
       @Override
       public void print() {
-        System.out.println("Hello2!");
+        System.out.println("Hello!");
       }
     };
     obj.print();

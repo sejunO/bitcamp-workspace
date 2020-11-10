@@ -4,6 +4,7 @@ public class A4 extends A3 {
   // 필드 오버라이딩
   String age;
   boolean working = false;
+
   // this.필드명 => 현재 클래스에서 해당 필드를 찾는다. 없으면 상위 클래스로 따라 올라가면서 찾는다.
   // super.필드명 => 상위 클래스에서부터 해당 필드를 찾는다. 없으면 계속 상위 클래스로 따라 올라간다.
   void print3() {
@@ -11,10 +12,10 @@ public class A4 extends A3 {
   }
 
   void test() {
-    System.out.printf("this.tle = %s, this.working = %s \n",this.tel, this.working);
-    System.out.printf("this.tle = %s, this.working = %s \n",super.tel, super.working);
-  }
+    System.out.printf("this.tel = %s, this.working = %s\n", this.tel, this.working);
+    System.out.printf("super.tel = %s, super.working = %s\n", super.tel, super.working);
 
+  }
 }
 
 

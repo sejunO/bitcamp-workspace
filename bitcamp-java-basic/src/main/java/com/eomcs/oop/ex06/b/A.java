@@ -6,7 +6,7 @@ public class A {
   }
 
   // 파라미터의 타입이나 개수가 다르지만 이름이 같은 메서드를 여러 개 만들 수 있다.
-  static void m(int a) {
+  static public void m(int a) {
     System.out.println("m(int)");
   }
 

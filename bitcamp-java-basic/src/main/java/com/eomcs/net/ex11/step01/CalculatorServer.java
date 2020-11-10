@@ -25,7 +25,6 @@ public class CalculatorServer {
 
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("클라이언트 대기중 오류");
     }
   }
 }

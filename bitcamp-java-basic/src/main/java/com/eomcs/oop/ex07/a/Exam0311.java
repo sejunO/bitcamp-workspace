@@ -71,11 +71,12 @@ class Score4 {
     return this.aver;
   }
 
-  void compute() {
+  private void compute() {
     this.sum = this.kor + this.eng + this.math;
     this.aver = this.sum / 3f;
   }
 }
+
 public class Exam0311 {
   public static void main(String[] args) {
 
@@ -92,3 +93,14 @@ public class Exam0311 {
         s1.getSum(), s1.getAver());
   }
 }
+
+
+
+
+
+
+
+
+
+
+

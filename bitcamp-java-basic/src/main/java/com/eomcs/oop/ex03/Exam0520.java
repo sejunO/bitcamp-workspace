@@ -9,7 +9,7 @@ public class Exam0520 {
     short s2;
     int i2;
     long l2;
-    char c2 = ' ';
+    char c2;
     float f2;
     double d2;
     boolean bool2;

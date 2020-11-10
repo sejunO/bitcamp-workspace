@@ -2,12 +2,15 @@ package com.eomcs.pms.handler;
 
 import java.util.Map;
 import com.eomcs.pms.dao.ProjectDao;
+import com.eomcs.pms.dao.TaskDao;
 import com.eomcs.util.Prompt;
 
 public class ProjectDeleteCommand implements Command {
   ProjectDao projectDao;
-  public ProjectDeleteCommand(ProjectDao projectDao) {
+  TaskDao taskDao;
+  public ProjectDeleteCommand(ProjectDao projectDao, TaskDao taskDao) {
     this.projectDao = projectDao;
+    this.taskDao = taskDao;
   }
   @Override
   public void execute(Map<String, Object> context) {
@@ -19,7 +22,10 @@ public class ProjectDeleteCommand implements Command {
       System.out.println("프로젝트 삭제를 취소하였습니다.");
       return;
     }
+
+
     try {
+      taskDao.deleteByProjectNo(no);
       if (projectDao.delete(no) == 0) {
         System.out.println("그건 없는데용");
         return;

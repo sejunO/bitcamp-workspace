@@ -1,87 +1,57 @@
+// java.util.HashSet 클래스 사용 - 값을 꺼내는 방법
 package com.eomcs.basic.ex07;
+
+import java.util.HashSet;
+import java.util.Iterator;
 
 public class Exam0210 {
   public static void main(String[] args) {
-    m1();
-    m2("Steven Gerrard");
-    String message = m3();
-    message = m4("홍길동");
-    System.out.println(message);
+    String v1 = new String("aaa");
+    String v2 = new String("bbb");
+    String v3 = new String("ccc");
+    String v4 = new String("ddd");
+    String v5 = new String("ccc");
 
-    message = m5("홍길동", 20, false);
-    System.out.println(message);
+    HashSet set = new HashSet();
+    set.add(v1);
+    set.add(v2);
+    set.add(v3);
+    set.add(v4);
+    set.add(v5);
 
-    m6("홍길동", 100, 90, 80);
+    // 저장한 순서대로 꺼낼 수 없기 때문에 index를 이용하여 값을 꺼낼 수 없다.
+    // set.get(0); //<== 이런 메서드가 없다.
 
-    int[] values = {100, 90, 80, 70, 60};
-    m7("홍길동", values);
-
-    m8("홍길동",100, 90, 80, 70, 60);
-    m8("홍길동",100, 90, 80, 70);
-    m8("홍길동",100, 90, 80);
-    m10(new int[] {100, 90, 80}, new String[] {"국어", "영어", "수학"}, "오세준");
-
-    int sum = 0;
-
-
-    sum = plus(plus(plus(2,3),7),4);
-    System.out.println(sum);
-  }
-  static void m1() {
-    System.out.println("Hello");
-  }
-
-  static void m2(String name) {
-    System.out.println(name +" 님 반갑습니다!");
-  }
-  static String m3() {
-    return "안녕";
-  }
-  static String m4(String name) {
-    return name + "님 반갑습니다";
-  }
-  static String m5(String name, int age, boolean working) {
-    return age + "살" + name + "님은 현재 재직상태가 " + working + " 입니다";
-  }
-
-  static void m6(String name, int a, int b, int c) {
-    int sum = a + b + c;
-    int aver = sum / 3;
-    System.out.printf("%s: %d(%d)\n", name, sum, aver);
-  }
-  static void m7(String name, int[] scores) {
-    int sum = 0;
-    for (int i = 0; i < scores.length; i++) {
-      sum += scores[i];
+    // 값을 꺼내는 방법
+    // 1) HashSet에 들어있는 값을 배열로 받아 사용한다.
+    Object[] values = set.toArray();
+    for (Object value : values) {
+      System.out.print(value + ", ");
     }
-    double aver = 0;
-    if (scores.length > 0) {
-      aver = (double)sum / scores.length;
+    System.out.println();
+
+    // 2) 창고에서 값을 꺼내주는 객체의 도움을 받는다.
+    // => HashSet에서 값을 꺼내는 객체를 얻는다.
+    Iterator 컬렉션에서값을꺼내주는객체 = set.iterator();
+
+    // => 값을 꺼내주는 객체를 통해 값을 꺼낸다.
+    while (컬렉션에서값을꺼내주는객체.hasNext()) {
+      // => 꺼낼 데이터가 있다면 값을 꺼내달라고 명령한다.
+      System.out.print(컬렉션에서값을꺼내주는객체.next() + ", ");
     }
-    System.out.printf("%s: %d(%f)\n", name, sum, aver);
+    System.out.println();
+
+
   }
-  static void m8(String name, int... scores) {
-    int sum = 0;
-    for (int i = 0; i < scores.length; i++) {
-      sum += scores[i];
-    }
-    double aver = 0;
-    if (scores.length > 0) {
-      aver = (double)sum / scores.length;
-    }
-    System.out.printf("%s: %d(%f)\n", name, sum, aver);
-  }
-  static void m10 (int[] scores, String[] titles, String name) {
-    if (scores.length != titles.length) {
-      System.out.println("과목 수와 점수의 개수가 다릅니다.");
-      return;
-    }
-    System.out.println(name + "님 점수!");
-    for (int i = 0; i < scores.length; i++) {
-      System.out.printf("%s = %d 점\n", titles[i], scores[i]);
-    }
-  }
-  static int plus(int a, int b) {
-    return a + b;
-  }
+
 }
+
+// Iterator 패턴
+// => 컬렉션에서 값을 꺼내는 기능을 객체화시키는 방법
+// => 즉 별도의 클래스로 정의하여 사용한다.
+// => 이점
+// 컬렉션의 타입에 상관없이 일관된 방식으로 값을 꺼낼 수 있다.
+// 예) ArrayList => get(), Stack => pop(), Queue => poll()
+// Iterator를 사용하면 hasNext(), next()만 사용하면 된다.
+
+

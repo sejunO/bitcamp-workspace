@@ -6,19 +6,20 @@ public class MyQueueTest {
     queue.offer("aaa");
     queue.offer("bbb");
     queue.offer("ccc");
-    System.out.println(queue.peek());
+    System.out.println("==> " + queue.peek()); // aaa
     queue.offer("ddd");
     queue.offer("eee");
-
-    System.out.println(queue.poll());
-    System.out.println(queue.poll());
-    System.out.println(queue.poll());
-    System.out.println(queue.poll());
-    System.out.println(queue.poll());
-    System.out.println(queue.poll());
-    System.out.println(queue.poll());
-
     print(queue);
+
+    System.out.println(queue.poll());
+    System.out.println(queue.poll());
+    System.out.println("==> " + queue.peek()); // ccc
+    System.out.println(queue.poll());
+    System.out.println(queue.poll());
+    System.out.println(queue.poll());
+    System.out.println(queue.poll());
+    System.out.println(queue.poll());
+    System.out.println(queue.size());
   }
 
   static void print(MyQueue queue) {
@@ -27,5 +28,4 @@ public class MyQueueTest {
     }
     System.out.println();
   }
-
 }

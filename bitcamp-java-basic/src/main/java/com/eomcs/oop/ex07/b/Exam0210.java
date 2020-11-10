@@ -14,6 +14,7 @@ public class Exam0210 extends C {
     obj1.protectedVar = 100; // OK! 비록 이 클래스가 자식클래스는 아니지만
     // 같은 패키지에 소속되어 있다.
     obj1.publicVar = 100; // OK! 모두 다 접근 가능!
+
     B obj2 = new B();
 
     //obj2.privateVar = 100; // 접근 불가! 오직 그 클래스 안에서만 사용 가능.
@@ -29,12 +30,12 @@ public class Exam0210 extends C {
     //obj3.protectedVar = 100; // 접근 불가! 같은 패키지 또는 자식 클래스 접근 가능
     // 자식 클래스인데 접근 불가?
     // 이유 => 자기의 인스턴스 변수가 아니다.
-    obj2.publicVar = 100; // OK! 모두 다 접근 가능.
+    obj3.publicVar = 100; // OK! 모두 다 접근 가능.
 
     Exam0210 obj4 = new Exam0210();
     //obj4.privateVar = 100; // 접근 불가! C 클래스에서만 접근 가능
     //obj4.defaultVar = 100; // 접근 불가! C 클래스와 같은 패키지가 아니다.
-    obj4.protectedVar = 100; // OK! Exam02_1는 C의 자식 클래스이며,
+    obj4.protectedVar = 100; // OK! Exam0210은 C의 자식 클래스이며,
     // 또한 C로부터 상속 받아서 만든 자기 변수이다.
     obj4.publicVar = 100;
   }
@@ -65,7 +66,7 @@ public class Exam0210 extends C {
 
 // private      : 클래스 안에서만 접근 가능
 // (default)    : private + 같은 패키지 소속
-// protected    : (default) + 자식 클래스에서 자신이 만든 변수일 경우
+// protected    : (default) + 서브 클래스로 만든 변수인 경우 서브 클래스에서 접근 가능
 // public       : 모두 접근 가능
 //
 // 실무

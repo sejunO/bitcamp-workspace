@@ -2,7 +2,7 @@ package com.eomcs.oop.ex09.h;
 
 public interface CarCheckInfo {
   int getGas();
-  int getBrakeOil(); 
+  int getBrakeOil();
   int getEngineOil();
 
   // 인터페이스에서 스태틱 메서드는 보통 

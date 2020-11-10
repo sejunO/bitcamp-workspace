@@ -5,10 +5,11 @@
 <mapper namespace="BoardDao">
   
   <resultMap type="com.eomcs.pms.domain.Board" id="BoardMap">
-    <id column="no"         property="no"/>
-    <result column="title"  property="title"/>
-    <result column="cdt"    property="registeredDate"/>
-    <result column="vw_cnt" property="viewCount"/>
+    <id column="no"           property="no"/>
+    <result column="title"    property="title"/>
+    <result column="content"  property="content"/>
+    <result column="cdt"      property="registeredDate"/>
+    <result column="vw_cnt"   property="viewCount"/>
     
     <association property="writer" javaType="com.eomcs.pms.domain.Member">
       <id column="writer_no"  property="no"/>
@@ -31,7 +32,8 @@
   </select>
   
   <insert id="insert" parameterType="com.eomcs.pms.domain.Board">
-     insert into pms_board(title,content,writer) 
+     insert into 
+      pms_board(title,content,writer) 
      values(#{title},#{content},#{writer.no})
   </insert>
   
@@ -42,8 +44,19 @@
   where no=#{no}
   </delete>
   
+  <update id="updateViewCount" parameterType="int">
+    update pms_board set 
+      vw_cnt = vw_cnt + 1 
+    where 
+      no = #{no}
+  </update>
+  
   <update id="update" parameterType="com.eomcs.pms.domain.Board">
-    update pms_board set title = #{title}, content = #{content} where no = #{no}
+    update pms_board set 
+      title = #{title}, 
+      content = #{content} 
+    where 
+      no = #{no}
   </update>
   
   <select id="findByNo" resultMap="BoardMap" parameterType="int">
