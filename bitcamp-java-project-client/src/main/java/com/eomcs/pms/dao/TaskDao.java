@@ -10,5 +10,4 @@ public interface TaskDao {
   Task findByNo(int no) throws Exception;
   List<Task> findAll() throws Exception;
   int update(Task task) throws Exception;
-
 }

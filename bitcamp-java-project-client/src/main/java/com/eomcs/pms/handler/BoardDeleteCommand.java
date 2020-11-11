@@ -13,7 +13,7 @@ public class BoardDeleteCommand implements Command {
   }
 
   @Override
-  public void execute(Map<String, Object> context) {
+  public void execute(Map<String,Object> context) {
     System.out.println("[게시물 삭제]");
     int no = Prompt.inputInt("번호? ");
 

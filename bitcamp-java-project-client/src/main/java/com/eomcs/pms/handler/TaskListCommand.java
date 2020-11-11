@@ -11,14 +11,16 @@ public class TaskListCommand implements Command {
   public TaskListCommand(TaskDao taskDao) {
     this.taskDao = taskDao;
   }
+
   @Override
-  public void execute(Map<String, Object> context) {
+  public void execute(Map<String,Object> context) {
     System.out.println("[작업 목록]");
 
     try {
-      List<Task> taskList = taskDao.findAll();
+      List<Task> list = taskDao.findAll();
+      System.out.println("번호, 작업내용, 마감일, 작업자, 상태");
 
-      for (Task task : taskList) {
+      for (Task task : list) {
         String stateLabel = null;
         switch (task.getStatus()) {
           case 1:
@@ -34,12 +36,9 @@ public class TaskListCommand implements Command {
             task.getNo(),
             task.getContent(),
             task.getDeadline(),
-            stateLabel,
-            task.getOwner().getName());
+            task.getOwner().getName(),
+            stateLabel);
       }
-
-
-
     } catch (Exception e) {
       System.out.println("작업 목록 조회 중 오류 발생!");
       e.printStackTrace();

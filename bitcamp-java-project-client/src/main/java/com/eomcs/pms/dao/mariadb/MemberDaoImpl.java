@@ -2,19 +2,18 @@ package com.eomcs.pms.dao.mariadb;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
 
-public class MemberDaoImpl implements MemberDao {
+public class MemberDaoImpl implements com.eomcs.pms.dao.MemberDao {
 
   SqlSessionFactory sqlSessionFactory;
 
   public MemberDaoImpl(SqlSessionFactory sqlSessionFactory) {
     this.sqlSessionFactory = sqlSessionFactory;
   }
+
   @Override
   public int insert(Member member) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
@@ -39,7 +38,12 @@ public class MemberDaoImpl implements MemberDao {
   @Override
   public Member findByName(String name) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
-      return sqlSession.selectOne("MemberDao.findByName", name);
+      List<Member> members = sqlSession.selectList("MemberDao.findByName", name);
+      if (members.size() > 0) {
+        return members.get(0);
+      } else {
+        return null;
+      }
     }
   }
 
@@ -59,21 +63,19 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public List<Member> findByProjectNo(int projectNo) throws Exception {
-    try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       return sqlSession.selectList("MemberDao.findByProjectNo", projectNo);
     }
   }
 
   @Override
-  public Member findByEmailPassword(String email, String password) throws Exception{
-    Map<String, Object> map = new HashMap<>();
+  public Member findByEmailPassword(String email, String password) throws Exception {
+    HashMap<String,Object> map = new HashMap<>();
     map.put("email", email);
     map.put("password", password);
-    try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
+
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       return sqlSession.selectOne("MemberDao.findByEmailPassword", map);
     }
   }
-
-
-
 }

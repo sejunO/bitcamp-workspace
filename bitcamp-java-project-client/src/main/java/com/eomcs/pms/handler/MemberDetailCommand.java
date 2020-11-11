@@ -13,7 +13,7 @@ public class MemberDetailCommand implements Command {
   }
 
   @Override
-  public void execute(Map<String, Object> context) {
+  public void execute(Map<String,Object> context) {
     System.out.println("[회원 상세보기]");
     int no = Prompt.inputInt("번호? ");
 

@@ -24,7 +24,7 @@ public class TaskAddCommand implements Command {
   }
 
   @Override
-  public void execute(Map<String, Object> context) {
+  public void execute(Map<String,Object> context) {
     System.out.println("[작업 등록]");
 
     // 작업 정보를 입력 받을 객체 준비

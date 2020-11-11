@@ -4,7 +4,6 @@ import java.util.List;
 import com.eomcs.pms.domain.Member;
 
 public interface MemberDao {
-
   int insert(Member member) throws Exception;
   int delete(int no) throws Exception;
   Member findByNo(int no) throws Exception;
@@ -14,3 +13,7 @@ public interface MemberDao {
   List<Member> findByProjectNo(int projectNo) throws Exception;
   Member findByEmailPassword(String email, String password) throws Exception;
 }
+
+
+
+

@@ -15,13 +15,14 @@ public class ProjectAddCommand implements Command {
   MemberDao memberDao;
 
   public ProjectAddCommand(ProjectDao projectDao, MemberDao memberDao) {
-    this.memberDao = memberDao;
     this.projectDao = projectDao;
+    this.memberDao = memberDao;
   }
 
   @Override
-  public void execute(Map<String, Object> context) {
+  public void execute(Map<String,Object> context) {
     System.out.println("[프로젝트 등록]");
+
     try {
       Project project = new Project();
       project.setTitle(Prompt.inputString("프로젝트명? "));
@@ -32,6 +33,7 @@ public class ProjectAddCommand implements Command {
       Member loginUser = (Member) context.get("loginUser");
       project.setOwner(loginUser);
 
+      // 프로젝트에 참여할 회원 정보를 담는다.
       List<Member> members = new ArrayList<>();
       while (true) {
         String name = Prompt.inputString("팀원?(완료: 빈 문자열) ");
@@ -51,7 +53,9 @@ public class ProjectAddCommand implements Command {
       project.setMembers(members);
 
       projectDao.insert(project);
-      System.out.println("프로젝트 등록 완료");
+
+      System.out.println("프로젝트가 등록되었습니다!");
+
     } catch (Exception e) {
       System.out.println("프로젝트 등록 중 오류 발생!");
       e.printStackTrace();

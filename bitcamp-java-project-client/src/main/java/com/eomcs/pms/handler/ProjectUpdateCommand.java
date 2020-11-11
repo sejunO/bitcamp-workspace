@@ -15,20 +15,19 @@ public class ProjectUpdateCommand implements Command {
   MemberDao memberDao;
 
   public ProjectUpdateCommand(ProjectDao projectDao, MemberDao memberDao) {
-    this.memberDao = memberDao;
     this.projectDao = projectDao;
+    this.memberDao = memberDao;
   }
 
   @Override
-  public void execute(Map<String, Object> context) {
+  public void execute(Map<String,Object> context) {
     System.out.println("[프로젝트 변경]");
     int no = Prompt.inputInt("번호? ");
-
 
     try {
       Project project = projectDao.findByNo(no);
       if (project == null) {
-        System.out.println("그건 없는데용");
+        System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
         return;
       }
 
@@ -41,6 +40,7 @@ public class ProjectUpdateCommand implements Command {
       project.setEndDate(Prompt.inputDate(String.format(
           "종료일(%s)? ", project.getEndDate())));
 
+      // 프로젝트에 참여할 회원 정보를 담는다.
       List<Member> members = new ArrayList<>();
       while (true) {
         String name = Prompt.inputString("팀원?(완료: 빈 문자열) ");
@@ -55,7 +55,6 @@ public class ProjectUpdateCommand implements Command {
           members.add(member);
         }
       }
-      // 사용자로부터 입력 받은 멤버 정보를 프로젝트에 저장한다.
       project.setMembers(members);
 
       String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
@@ -65,15 +64,10 @@ public class ProjectUpdateCommand implements Command {
       }
 
       if (projectDao.update(project) == 0) {
-        System.out.println("그건 없는데용");
+        System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
       } else {
-        System.out.println("프로젝트 변경 완료");
+        System.out.println("프로젝트를 변경하였습니다.");
       }
-
-
-
-      System.out.println("프로젝트를 변경하였습니다.");
-
     } catch (Exception e) {
       System.out.println("프로젝트 변경 중 오류 발생!");
       e.printStackTrace();

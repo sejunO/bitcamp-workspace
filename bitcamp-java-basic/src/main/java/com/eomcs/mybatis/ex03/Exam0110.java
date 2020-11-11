@@ -39,7 +39,7 @@ public class Exam0110 {
     } catch (Exception e) {
       // => 게시글 번호가 없으면 전체 게시글을 조회하는
       // select2 SQL을 실행한다.
-      list = sqlSession.selectList("BoardMapper.select2");
+      list = sqlSession.selectList("BoardMapper.select1");
     }
 
     for (Board board : list) {

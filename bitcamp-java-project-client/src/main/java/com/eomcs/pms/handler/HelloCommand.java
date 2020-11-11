@@ -6,7 +6,7 @@ import java.util.Map;
 public class HelloCommand implements Command {
 
   @Override
-  public void execute(Map<String, Object> context) {
+  public void execute(Map<String,Object> context) {
     System.out.println("안녕하세요!");
   }
 }
