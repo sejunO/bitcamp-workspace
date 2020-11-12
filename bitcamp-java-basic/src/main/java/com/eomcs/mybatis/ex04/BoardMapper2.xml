@@ -33,7 +33,7 @@
       f.board_file_id,
       f.file_path 
     from x_board b 
-      left outer join x_board_file f on b.board_id=f.board_id
+      inner join x_board_file f on b.board_id=f.board_id
     where b.board_id = #{no}
   </select>
 </mapper>

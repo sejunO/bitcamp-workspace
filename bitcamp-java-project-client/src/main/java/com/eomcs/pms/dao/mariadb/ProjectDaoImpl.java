@@ -38,17 +38,8 @@ public class ProjectDaoImpl implements com.eomcs.pms.dao.ProjectDao {
 
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
 
-      // 프로젝트 정보 입력
       int count = sqlSession.insert("ProjectDao.insert", project);
-
-      // 프로젝트의 멤버 정보 입력
-      for (Member member : project.getMembers()) {
-        HashMap<String,Object> map = new HashMap<>();
-        map.put("memberNo", member.getNo());
-        map.put("projectNo", project.getNo());
-        sqlSession.insert("ProjectDao.insertMember", map);
-      }
-
+      sqlSession.insert("ProjectDao.insertMembers", project);
       sqlSession.commit();
       return count;
     }
