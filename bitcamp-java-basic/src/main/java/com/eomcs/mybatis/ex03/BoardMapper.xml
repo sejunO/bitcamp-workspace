@@ -250,7 +250,7 @@
       title, 
       contents, 
       created_date, <!-- comments -->
-      view_count /* comments */
+      view_count
     from x_board
     <where>
       board_id in /* (1, 2, 11, 12) */
