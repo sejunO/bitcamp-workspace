@@ -2,24 +2,25 @@ package com.eomcs.pms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.Map;
 import com.eomcs.pms.domain.Project;
+import com.eomcs.pms.service.ProjectService;
 import com.eomcs.util.Prompt;
 
 public class ProjectDetailCommand implements Command {
 
-  List<Project> projectList;
+  ProjectService projectService;
 
-  public ProjectDetailCommand(List<Project> list) {
-    this.projectList = list;
+  public ProjectDetailCommand(ProjectService projectService) {
+    this.projectService = projectService;
   }
 
   @Override
-  public void execute(PrintWriter out, BufferedReader in) {
+  public void execute(PrintWriter out, BufferedReader in, Map<String,Object> context) {
     try {
       out.println("[프로젝트 상세보기]");
       int no = Prompt.inputInt("번호? ", out, in);
-      Project project = findByNo(no);
+      Project project = projectService.get(no);
 
       if (project == null) {
         out.println("해당 번호의 프로젝트가 없습니다.");
@@ -35,15 +36,5 @@ public class ProjectDetailCommand implements Command {
     } catch (Exception e) {
       out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
     }
-  }
-
-  private Project findByNo(int no) {
-    for (int i = 0; i < projectList.size(); i++) {
-      Project project = projectList.get(i);
-      if (project.getNo() == no) {
-        return project;
-      }
-    }
-    return null;
   }
 }

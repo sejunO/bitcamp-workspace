@@ -2,26 +2,26 @@ package com.eomcs.pms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
-import java.util.List;
-import com.eomcs.pms.domain.Project;
+import java.util.Map;
+import com.eomcs.pms.service.ProjectService;
 import com.eomcs.util.Prompt;
 
 public class ProjectDeleteCommand implements Command {
 
-  List<Project> projectList;
+  ProjectService projectService;
 
-  public ProjectDeleteCommand(List<Project> list) {
-    this.projectList = list;
+  public ProjectDeleteCommand(ProjectService projectService) {
+    this.projectService = projectService;
   }
 
   @Override
-  public void execute(PrintWriter out, BufferedReader in) {
+  public void execute(PrintWriter out, BufferedReader in, Map<String,Object> context) {
     try {
       out.println("[프로젝트 삭제]");
       int no = Prompt.inputInt("번호? ", out, in);
-      int index = indexOf(no);
 
-      if (index == -1) {
+
+      if (projectService.get(no) == null) {
         out.println("해당 번호의 프로젝트가 없습니다.");
         return;
       }
@@ -32,7 +32,7 @@ public class ProjectDeleteCommand implements Command {
         return;
       }
 
-      projectList.remove(index);
+      projectService.delete(no);
       out.println("프로젝트를 삭제하였습니다.");
 
     } catch (Exception e) {
@@ -40,13 +40,4 @@ public class ProjectDeleteCommand implements Command {
     }
   }
 
-  private int indexOf(int no) {
-    for (int i = 0; i < projectList.size(); i++) {
-      Project project = projectList.get(i);
-      if (project.getNo() == no) {
-        return i;
-      }
-    }
-    return -1;
-  }
 }

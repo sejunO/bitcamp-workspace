@@ -2,26 +2,25 @@ package com.eomcs.pms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
-import java.util.List;
-import com.eomcs.pms.domain.Board;
+import java.util.Map;
+import com.eomcs.pms.service.BoardService;
 import com.eomcs.util.Prompt;
 
 public class BoardDeleteCommand implements Command {
 
-  List<Board> boardList;
+  BoardService boardService;
 
-  public BoardDeleteCommand(List<Board> list) {
-    this.boardList = list;
+  public BoardDeleteCommand(BoardService boardService) {
+    this.boardService = boardService;
   }
 
   @Override
-  public void execute(PrintWriter out, BufferedReader in) {
+  public void execute(PrintWriter out, BufferedReader in, Map<String,Object> context) {
     try {
       out.println("[게시물 삭제]");
       int no = Prompt.inputInt("번호? ", out, in);
-      int index = indexOf(no);
 
-      if (index == -1) {
+      if (boardService.get(no) == null) {
         out.println("해당 번호의 게시글이 없습니다.");
         return;
       }
@@ -32,7 +31,7 @@ public class BoardDeleteCommand implements Command {
         return;
       }
 
-      boardList.remove(index);
+      boardService.delete(no);
       out.println("게시글을 삭제하였습니다.");
 
     } catch (Exception e) {
@@ -40,13 +39,4 @@ public class BoardDeleteCommand implements Command {
     }
   }
 
-  private int indexOf(int no) {
-    for (int i = 0; i < boardList.size(); i++) {
-      Board board = boardList.get(i);
-      if (board.getNo() == no) {
-        return i;
-      }
-    }
-    return -1;
-  }
 }
