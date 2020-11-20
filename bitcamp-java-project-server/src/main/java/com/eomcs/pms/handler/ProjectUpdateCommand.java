@@ -3,27 +3,28 @@ package com.eomcs.pms.handler;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.util.Map;
-import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
-import com.eomcs.pms.service.MemberService;
 import com.eomcs.pms.service.ProjectService;
 import com.eomcs.util.Prompt;
 
+@CommandAnno("/project/update")
 public class ProjectUpdateCommand implements Command {
 
   ProjectService projectService;
-  MemberService memberService;
-  public ProjectUpdateCommand(ProjectService projectService, MemberService memberService) {
-    this.memberService = memberService;
+
+  public ProjectUpdateCommand(ProjectService projectService) {
     this.projectService = projectService;
   }
 
   @Override
-  public void execute(PrintWriter out, BufferedReader in, Map<String,Object> context) {
+  public void execute(Request request) {
+    PrintWriter out = request.getWriter();
+    BufferedReader in = request.getReader();
+
     try {
       out.println("[프로젝트 변경]");
       int no = Prompt.inputInt("번호? ", out, in);
+
       Project project = projectService.get(no);
 
       if (project == null) {
@@ -31,42 +32,46 @@ public class ProjectUpdateCommand implements Command {
         return;
       }
 
-      String title = Prompt.inputString(
-          String.format("프로젝트명(%s)? ", project.getTitle()), out, in);
-      String content = Prompt.inputString(
-          String.format("내용(%s)? ", project.getContent()), out, in);
-      Date startDate = Prompt.inputDate(
-          String.format("시작일(%s)? ", project.getStartDate()), out, in);
-      Date endDate = Prompt.inputDate(
-          String.format("종료일(%s)? ", project.getEndDate()), out, in);
+      String value = Prompt.inputString(String.format(
+          "프로젝트명(%s)? ", project.getTitle()), out, in);
+      if (value.length() > 0) {
+        project.setTitle(value);
+      }
 
-      String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ", out, in);
+      value = Prompt.inputString(String.format(
+          "내용(%s)? ", project.getContent()), out, in);
+      if (value.length() > 0) {
+        project.setContent(value);
+      }
+
+      value = Prompt.inputString(String.format(
+          "시작일(%s)? ", project.getStartDate()), out, in);
+      if (value.length() > 0) {
+        project.setStartDate(Date.valueOf(value));
+      }
+
+      value = Prompt.inputString(String.format(
+          "종료일(%s)? ", project.getEndDate()), out, in);
+      if (value.length() > 0) {
+        project.setEndDate(Date.valueOf(value));
+      }
+
+      String response = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
       if (!response.equalsIgnoreCase("y")) {
         out.println("프로젝트 변경을 취소하였습니다.");
         return;
       }
 
-      project.setTitle(title);
-      project.setContent(content);
-      project.setStartDate(startDate);
-      project.setEndDate(endDate);
-      project.setOwner((Member)context.get("loginUser"));
-      project.setMembers(members.toString());
+      if (projectService.update(project) == 0) {
+        out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
+        return;
+      }
 
       out.println("프로젝트를 변경하였습니다.");
 
     } catch (Exception e) {
       out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
+      e.printStackTrace();
     }
-  }
-
-  private Project findByNo(int no) {
-    for (int i = 0; i < projectList.size(); i++) {
-      Project project = projectList.get(i);
-      if (project.getNo() == no) {
-        return project;
-      }
-    }
-    return null;
   }
 }

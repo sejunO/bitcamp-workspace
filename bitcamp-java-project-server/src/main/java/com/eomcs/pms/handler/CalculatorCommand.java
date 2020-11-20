@@ -4,11 +4,14 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import com.eomcs.util.Prompt;
 
-// Command 규칙에 따라 클래스를 정의한다.
+@CommandAnno("/calc")
 public class CalculatorCommand implements Command {
 
   @Override
-  public void execute(PrintWriter out, BufferedReader in) {
+  public void execute(Request request) {
+    PrintWriter out = request.getWriter();
+    BufferedReader in = request.getReader();
+
     try {
       out.println("[계산기]");
 
