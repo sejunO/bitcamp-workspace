@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Repository;
 import com.eomcs.pms.domain.Project;
-
+@Repository
 public class ProjectDaoImpl implements com.eomcs.pms.dao.ProjectDao {
 
   SqlSessionFactory sqlSessionFactory;
@@ -25,6 +26,13 @@ public class ProjectDaoImpl implements com.eomcs.pms.dao.ProjectDao {
   public int delete(int no) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       return sqlSession.delete("ProjectDao.delete", no);
+    }
+  }
+
+  @Override
+  public int inactive(int no) throws Exception {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.delete("ProjectDao.inactive", no);
     }
   }
 
@@ -67,6 +75,20 @@ public class ProjectDaoImpl implements com.eomcs.pms.dao.ProjectDao {
   public int insertMembers(Project project) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       return sqlSession.insert("ProjectDao.insertMembers", project);
+    }
+  }
+
+  @Override
+  public int updateInactiveMembers(Project project) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.update("ProjectDao.updateInactiveMembers", project);
+    }
+  }
+
+  @Override
+  public int updateActiveMembers(Project project) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.update("ProjectDao.updateActiveMembers", project);
     }
   }
 }

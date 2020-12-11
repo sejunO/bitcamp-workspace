@@ -43,7 +43,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<C:
 <h2>오호라!!!</h2>
 
 <%

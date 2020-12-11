@@ -8,12 +8,14 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 
-// @WebFilter(
-// value="/ex06/*",
-// initParams={
-// @WebInitParam(name="encoding", value="EUC-KR")
-// })
+@WebFilter(
+    value="/ex06/*",
+    initParams={
+        @WebInitParam(name="encoding", value="EUC-KR")
+    })
 public class Filter02 implements Filter {
 
   FilterConfig filterConfig;
