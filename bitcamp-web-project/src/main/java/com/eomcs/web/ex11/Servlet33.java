@@ -26,5 +26,3 @@ public class Servlet33 extends HttpServlet {
     out.println("세션을 무효화시켰습니다.");
   }
 }
-
-
