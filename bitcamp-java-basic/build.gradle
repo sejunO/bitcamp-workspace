@@ -9,6 +9,7 @@ repositories {
 }
 
 dependencies {
+		implementation 'org.springframework:spring-context:5.3.2'
     implementation 'com.oracle.database.jdbc:ojdbc10-production:19.8.0.0'
     implementation 'com.microsoft.sqlserver:mssql-jdbc:8.4.1.jre11'
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.0'

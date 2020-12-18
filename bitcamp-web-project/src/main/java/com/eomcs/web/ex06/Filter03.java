@@ -7,8 +7,9 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 
-// @WebFilter("/ex06/s5")
+@WebFilter("/ex05/*")
 public class Filter03 implements Filter {
 
   @Override

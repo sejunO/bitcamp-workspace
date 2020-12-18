@@ -12,9 +12,9 @@
 
 <form action='updatePhoto' method='post' enctype='multipart/form-data'>
 <input type='hidden' name='no' value='${member.no}'><br>
-<a href='../upload/${member.photo}'>
-<img src='../upload/${member.photo}_120x120.jpg'></a><br>
-<input type='file' name='photo'>
+<a href='../../upload/${member.photo}'>
+<img src='../../upload/${member.photo}_120x120.jpg'></a><br>
+<input type='file' name='photoFile'>
 <button>변경</button>
 </form>
 <br>
