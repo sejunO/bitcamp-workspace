@@ -134,7 +134,7 @@ Mini-PMS를 이용하는 회원 정보를 출력한다. 일단 한 명의 정보
 [작업 파일]
 
 - com.eomcs.pms.App2  클래스 추가
-  
+
 ###### 3단계 - 한 개의 작업 정보를 출력한다
 
 프로젝트에서 수행할 작업 정보를 출력한다. 일단 한 개의 작업 정보만 출력한다.
@@ -177,9 +177,9 @@ macOS 개발 환경 구축하기
 - bash 쉘을 zsh 쉘로 변경하기
 - oh-my-zsh 플러그인을 추가하기
 - 5일차 과제 풀이
-- 연습 
+- 연습
   - 자바 프로젝트(bitcamp-java-project) 만들기
-  - 자바 프로젝트 실행하기 
+  - 자바 프로젝트 실행하기
     - > gradle run
   - 자바 프로젝트 빌드하기
     - > gradle build
@@ -189,9 +189,9 @@ macOS 개발 환경 구축하기
 - Gradle로 자바 프로젝트를 eclipse 프로젝트로 설정하기
   - 'build.gradle' 빌드 스크립트 파일에 'eclipse' 플러그인 추가
   - 이클립스 설정 파일 생성
-    - > gradle eclipse 
+    - > gradle eclipse
 - Eclipse IDE로 프로젝트 가져오기
-  - bitcamp-java-project 임포트 
+  - bitcamp-java-project 임포트
   - bitcamp-java-basic 임포트
 - 값을 메모리에 저장하는 방식
   - com.eomcs.basic.ex03 패키지 예제
@@ -219,7 +219,7 @@ macOS 개발 환경 구축하기
 - 변수를 다루는 방법 II
   - com.eomcs.basic.ex04 패키지 예제
   - Exam0510 ~ Exam0950 클래스
-  - 포인터의 개념(hello.c), 배열과 레퍼런스, 상수, 
+  - 포인터의 개념(hello.c), 배열과 레퍼런스, 상수,
   - 클래스 변수와 인스턴스 변수, 로컬 변수
   - 변수와 블록, 형변환
 
@@ -229,7 +229,7 @@ macOS 개발 환경 구축하기
   - com.eomcs.basic.ex05 패키지 예제
   - 산술연산자, 연산자 우선순위, 연산의 결과 타입, 명시적 형변환과 암시적 형변환
   - 관계 연산자, 부동소수점의 비교에서 주의할 점
-  - 비트 연산자 
+  - 비트 연산자
   - Exam0110 ~ Exam0355 클래스
 
 ### 13일차(2020-07-29,수)
@@ -429,14 +429,14 @@ macOS 개발 환경 구축하기
   - 26-c 버전 수행: 로컬 클래스(local class)
 - 해커톤 명단 선정
   - 김성태/박민섭 : 학생 성적 조회 시스템
-  - 최희진/김하연 : 영화 추천 사이트 
+  - 최희진/김하연 : 영화 추천 사이트
   - 이종엽/이승혁 : 주소록 관리 시스템
   - 조은채/김태희 : 음식점 포스 시스템
   - 김유아/오세준 : 도서 관리 시스템
   - 이성권/권구현 : 도서 대출/반납 시스템
   - 김찬구/유지연 : 포켓몬 도감 서비스
   - 유아람/신소미 : 타자 연습 프로그램
-  - 조아진/이재현 : 배달 음식 주문 관리 시스템 
+  - 조아진/이재현 : 배달 음식 주문 관리 시스템
   - 류승희/정지은/최진영 : 도서 관리 시스템
   - 이건목/이용민 : 도서 대여 관리 시스템
 - git repository 준비
@@ -453,7 +453,7 @@ macOS 개발 환경 구축하기
   - `git pull` : 나머지 팀원들은 서버에 업로드 한 내용으로 로컬 저장소를 갱신한다.
 - gradle build script 파일 변경
   - eclipse 설정 파일을 생성할 수 있도록 gradle 플러그인 설정
-- eclispe IDE로 프로젝트를 임포트 하기 
+- eclispe IDE로 프로젝트를 임포트 하기
   - `gradle eclipse` : 이클립스 용 설정 파일 생성
 
 ## 36일차(2020-09-09,수)
@@ -511,12 +511,12 @@ macOS 개발 환경 구축하기
 
 - 파일 입출력
   - com.eomcs.io.ex01 패키지 예제(계속)
-- 람다 
+- 람다
   - com.eomcs.oop.ex12 패키지 예제
 
 ## 42일차(2020-09-17,목)
 
-- 람다 
+- 람다
   - com.eomcs.oop.ex12 패키지 예제(계속)
 - 파일 입출력
   - com.eomcs.io.ex02 ~ 패키지 예제(계속)
@@ -651,3 +651,397 @@ macOS 개발 환경 구축하기
   - 요구사항분석 및 설계, UI 디자인 수행
 - 스레드 : 자바에서 제공한 스레드풀 프레임워크 사용하기
   - com.eomcs.concurrent.ex7 패키지 예제
+
+## 61일차(2020-10-20,화)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 36-a 버전 수행 : 스레드풀을 이용하여 스레드를 재사용하기 : 스레드풀 구현하기
+  - 36-b 버전 수행 : 스레드풀을 이용하여 스레드를 재사용하기 : 자바에서 제공하는 스레드풀 사용하기
+- MariaDB DBMS 설치
+
+## 62일차(2020-10-21,수)
+
+- MariaDB DBMS 설정
+  - 사용자 추가
+  - 데이터베이스 추가
+  - 데이터베이스에 대해 사용자 권한 설정
+- SQL
+  - DDL(Data Definition Lanugage)
+
+## 63일차(2020-10-22,목)
+
+- 과제
+  - mini-pms C/S 를 기반으로 팀 별 프로젝트 수행
+
+## 64일차(2020-10-23,금)
+
+- 과제
+  - mini-pms C/S 를 기반으로 팀 별 프로젝트 수행 및 발표
+
+## 65일차(2020-10-26,월)
+
+- 네트워킹
+  - com.eomcs.net.ex04 Stateless 통신 방식에서 클라이언트를 구분하는 법
+- SQL
+  - DDL(Data Definition Lanugage)(계속)
+  - DML(Data Manipulation Language)
+
+## 66일차(2020-10-27,화)
+
+- SQL
+  - DQL(Data Query Language)
+- 프로젝트 팀 구성
+  - 4 ~ 5 인으로 구성
+
+## 67일차(2020-10-28,수)
+
+- SQL
+  - JOIN(cross, natural, inner, outer)
+  - sub-query
+- JDBC 프로그래밍
+  - JDBC API 개요
+  - com.eomcs.jdbc.ex1 패키지 예제
+- 프로젝트 주제 선정
+  - 팀 별 프로젝트 주제 선정(최소 2개)
+  - 현황 및 문제점, 해결 방안 및 이점, 주요 기능 소개
+
+## 68일차(2020-10-29,목)
+
+- JDBC 프로그래밍
+  - com.eomcs.jdbc.ex1 패키지 예제(계속)
+  - com.eomcs.jdbc.ex2 패키지 예제
+- 프로젝트 주제 선정
+  - 팀 별 프로젝트 주제 선정(최소 2개)
+  - 현황 및 문제점, 해결 방안 및 이점, 주요 기능 소개
+
+## 69일차(2020-10-30,금)
+
+- JDBC 프로그래밍
+  - com.eomcs.jdbc.ex2 패키지 예제(계속)
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 37 버전 수행 : 데이터 관리를 전문 프로그램인 DBMS에게 맡기기
+- 프로젝트 주제 선정
+  - 팀 별 프로젝트 주제 선정(최소 2개)
+  - 현황 및 문제점, 해결 방안 및 이점, 주요 기능 소개
+
+## 70일차(2020-11-02,월)
+
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 37 버전 수행 : 데이터 관리를 전문 프로그램인 DBMS에게 맡기기(계속)
+- 프로젝트 주제 선정(최소 2개)
+  - 팀 별 프로젝트 주제 선정 발표
+  - 발표 내용: 현황 및 문제점, 해결 방안 및 이점, 주요 기능 소개
+
+
+## 71일차(2020-11-03,화)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 37 버전 수행 : 데이터 관리를 전문 프로그램인 DBMS에게 맡기기(계속)
+  - 38 버전 수행 : 데이터 처리 코드를 별도의 클래스로 분리하기 : DAO 클래스 도입
+- UI 프로토타입 작성
+  - 선정된 주제에 대해 UI 프로토타입을 작성한다.
+
+## 72일차(2020-11-04,수)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 38-a 버전 수행 : 데이터 처리 코드를 별도의 클래스로 분리하기 : DAO 클래스 도입(계속)
+- UI 프로토타입 작성
+  - 선정된 주제에 대해 UI 프로토타입을 작성한다.
+
+## 73일차(2020-11-05,목)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 38-b 버전 수행 : 데이터 처리 코드를 별도의 클래스로 분리하기 : DAO 인터페이스 도입
+  - 38-c 버전 수행 : 데이터 처리 코드를 별도의 클래스로 분리하기 : DB 커넥션 객체 공유하기
+  - 38-d 버전 수행 : 데이터 처리 코드를 별도의 클래스로 분리하기 : 트랜잭션 적용하기
+  - 39 버전 수행 : 로그인/로그아웃 구현하기
+- UI 프로토타입 작성
+  - 선정된 주제에 대해 UI 프로토타입을 작성한다.
+
+## 74일차(2020-11-06,금)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 39 버전 수행 : 로그인/로그아웃 구현하기(계속)
+  - 40-a 버전 수행 : 커맨드 실행 전/후에 기능 추가하기: 디자인 패턴 적용 전
+  - 40-b 버전 수행 : 커맨드 실행 전/후에 기능 추가하기: Chain of Responsibility 패턴 적용
+  - 40-c 버전 수행 : 커맨드 실행 전/후에 기능 추가하기: init() 와 destroy()의 필요성
+- UI 프로토타입 작성
+  - 선정된 주제에 대해 UI 프로토타입을 작성한다.
+
+## 75일차(2020-11-09,월)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 41-a 버전 수행 : DB 프로그래밍 더 쉽고 간단히 하는 방법 : Mybatis 퍼시스턴스 프레임워크 도입
+- UI 프로토타입 발표
+  - 팀 별 프로젝트의 UI 프로토타입을 발표한다.
+
+## 76일차(2020-11-10,화)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 41-a 버전 수행 : DB 프로그래밍 더 쉽고 간단히 하는 방법 : Mybatis 퍼시스턴스 프레임워크 도입(계속)
+- UI 프로토타입 개정
+  - 팀 별 프로젝트의 UI 프로토타입을 개정한다.
+
+## 77일차(2020-11-11,수)
+
+- Mybatis 프로그래밍
+  - com.eomcs.mybatis 패키지 예제
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 41-a 버전 수행 : DB 프로그래밍 더 쉽고 간단히 하는 방법 : Mybatis 퍼시스턴스 프레임워크 도입(계속)
+  - 41-b 버전 수행 : DB 프로그래밍 더 쉽고 간단히 하는 방법 : Mybatis 기타 기능 활용하기
+- UI 프로토타입 개정
+  - 팀 별 프로젝트의 UI 프로토타입을 개정한다.
+
+## 78일차(2020-11-12,목)
+
+- Mybatis 프로그래밍
+  - com.eomcs.mybatis 패키지 예제(계속)
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 41-b 버전 수행 : DB 프로그래밍 더 쉽고 간단히 하는 방법 : Mybatis 기타 기능 활용하기(계속)
+- DB 모델링
+  - 논리 모델링
+- UI 프로토타입 개정
+  - 팀 별 프로젝트의 UI 프로토타입을 개정한다.
+
+## 79일차(2020-11-13,금)
+
+- DB 모델링
+  - 논리 모델링(계속)
+  - 물리 모델링
+- UI 프로토타입 최종 발표
+  - 팀 별 프로젝트의 최종 UI 프로토타입을 발표한다.
+
+## 80일차(2020-11-16,월)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 41-c 버전 수행 : DB 프로그래밍 더 쉽고 간단히 하는 방법 : Mybatis에서 트랜잭션 다루기
+- DB 모델링
+  - 팀 별 프로젝트에 대해 DB 모델링 수행
+
+## 81일차(2020-11-17,화)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 42 버전 수행 : 비즈니스 로직 분리하기 : 서비스 객체의 도입
+- DB 모델링 1차 검토
+  - 팀 별 작성한 DB 모델링 검토
+
+## 82일차(2020-11-18,수)
+
+- DB 모델링 1차 검토
+  - 팀 별 작성한 DB 모델링 검토
+  - 팀 별 DB모델링 개정
+  - 예제 데이터 입력
+
+## 83일차(2020-11-19,목)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 43 애플리케이션 서버 아키텍처로 전환하기
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기
+
+## 84일차(2020-11-20,금)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 85일차(2020-11-23,월)
+
+- 서블릿 프로그래밍(bitcamp-web-project)
+  - 웹 애플리케이션 서버 아키텍처의 개념
+  - JavaEE 와 Servlet API의 관계
+  - JavaEE 구현체와 서블릿 컨테이너의 관계
+  - eomcs-java-web 저장소 복제하기
+  - eomcs-web-project/src-00 예제 실습
+  - Servlet 인터페이스의 Life-cycle 메서드
+
+## 86일차(2020-11-24,화)
+
+- 서블릿 프로그래밍
+  - com.eomcs.web.ex01 예제 실습
+  - com.eomcs.web.ex02 예제 실습
+  - com.eomcs.web.ex03 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 87일차(2020-11-25,수)
+
+- HTML 태그 사용법
+  - src/main/webapp/temp/ch2 예제 실습
+
+## 88일차(2020-11-26,목)
+
+- 서블릿 프로그래밍
+  - com.eomcs.web.ex04 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 89일차(2020-11-27,금)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 90일차(2020-11-30,월)
+
+- 서블릿 프로그래밍
+  - com.eomcs.web.ex06 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 91일차(2020-12-01,화)
+
+- 서블릿 프로그래밍
+  - com.eomcs.web.ex06 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 92일차(2020-12-02,수)
+
+- 서블릿 프로그래밍
+  - com.eomcs.web.ex07 ~ ex08 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 92일차(2020-12-02,수)
+
+- 서블릿 프로그래밍
+  - com.eomcs.web.ex07 ~ ex08 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 44 버전 수행 : 애플리케이션 서버 아키텍처로 전환하기(계속)
+
+## 93일차(2020-12-03,목)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 45-a 버전 수행 : MVC 아키텍처로 전환하기 : JSP를 활용하여 view 컴포넌트 분리하기
+
+## 94일차(2020-12-04,금)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 45-a 버전 수행 : MVC 아키텍처로 전환하기 : JSP를 활용하여 view 컴포넌트 분리하기(계속)
+
+## 95일차(2020-12-07,월)
+
+- JSP 프로그래밍
+  - src/main/webapp/jsp/* 예제 실습
+  - src/main/webapp/el/* 예제 실습
+  - src/main/webapp/jstl/* 예제 실습
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 45-b 버전 수행 : MVC 아키텍처로 전환하기 : EL 및 JSTL 활용하기
+
+## 96일차(2020-12-08,화)
+
+- CSS 활용법
+  - src/main/webapp/css/* 예제 실습
+
+## 97일차(2020-12-09,수)
+
+- CSS 활용법
+  - src/main/webapp/css/* 예제 실습(계속)
+
+## 98일차(2020-12-10,목)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 45-c 버전 수행 : MVC 아키텍처로 전환하기 : 프론트 컨트롤러 도입하기
+  - 45-d 버전 수행 : MVC 아키텍처로 전환하기 : 페이지 컨트롤러를 POJO로 전환하기
+
+## 99일차(2020-12-11,금)
+
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 46-a 버전 수행 : Spring WebMVC 프레임워크 도입하기 : DispatcherServlet 프론트 컨트롤러 적용
+  - 46-b 버전 수행 : MVC 아키텍처로 전환하기 : 페이지 컨트롤러에서 요청 파라미터 다루기
+
+## 100일차(2020-12-14,월)
+
+- 리플랙션 API 사용법
+  - com.eomcs.reflect 패키지 예제
+- 애노테이션 사용법
+  - com.eomcs.annotation 패키지 예제
+- Spring IoC 컨테이너 사용법
+  - com.eomcs.spring.ioc 패키지 예제
+
+## 101일차(2020-12-15,화)
+
+- Spring IoC 컨테이너 사용법
+  - com.eomcs.spring.ioc 패키지 예제(계속)
+
+## 102일차(2020-12-16,수)
+
+- 리플랙션 API 사용법(프록시 만들기, DAO 구현체 자동 생성)
+  - com.eomcs.reflect.ex06 패키지 예제
+- Spring IoC 컨테이너 사용법(Mybatis 연동)
+  - com.eomcs.spring.ioc 패키지 예제(계속)
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 46-c 버전 수행 : Spring WebMVC 프레임워크 도입하기 : Mybatis와 Spring을 연동하기
+
+## 103일차(2020-12-17,목)
+
+- Spring WebMVC 사용법(eomcs-spring-webmvc)
+  - src-00 ~ src-07
+
+## 104일차(2020-12-18,금)
+
+- Spring WebMVC 사용법(eomcs-spring-webmvc)
+  - src-08 ~ src-13
+
+## 105일차(2020-12-21,월)
+
+- Spring WebMVC 사용법(eomcs-spring-webmvc)
+  - src-14
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 46-d 버전 수행 : Spring WebMVC 프레임워크 도입하기 : Java Config 설정하기
+
+## 106일차(2020-12-22,화)
+
+- Spring WebMVC 사용법(eomcs-spring-webmvc)
+  - src-14 (계속)
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 46-d 버전 수행 : Spring WebMVC 프레임워크 도입하기 : Java Config 설정하기(계속)
+
+## 107일차(2020-12-23,수)
+
+- Spring WebMVC 사용법(eomcs-spring-webmvc)
+  - src-14 (계속)
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 46-d 버전 수행 : Spring WebMVC 프레임워크 도입하기 : Java Config 설정하기(계속)
+  - 46-e 버전 수행 : Tiles 적용하기
+- JavaScript 프로그래밍(eomcs-web-project)
+  - /webapp/javascript/ex00 예제
+
+## 108일차(2020-12-24,목)
+
+- JavaScript 프로그래밍(eomcs-web-project)
+  - /webapp/javascript/ex01 ~ ex03 예제
+
+
+## 109일차(2020-12-28,월)
+
+- JavaScript 프로그래밍(eomcs-web-project)
+  - /webapp/javascript/ex04 ~ ex08 예제
+
+## 110일차(2020-12-29,화)
+
+- facebook 로그인(eomcs-web-project)
+  - /webapp/facebook/ 예제
+- 예제 프로젝트 수행(bitcamp-java-project)
+  - 46-e 버전 수행 : Tiles 적용하기, AJAX, Facebook 로그인
+
+## 111일차(2020-12-30,수)
+
+- 클라우드 서버에 배치
+  - AWS EC2 인스턴스 생성
+  - openjdk 11 설치
+  - 톰캣 서버 설치
+  - git 설치
+  - gradle 설치
+  - 프로젝트 clone
+  - nodejs 설치
+  - npm install
+  - gradle build
+  - 서버에 배치 및 테스트
+- 도메인 발급 및 연결
+  - gabia.com 에서 도메인 구매
+  - 도메인에 AWS EC2 서버의 IP 연결
+
+## 112일차(2020-12-31,목)
+
+- 프로젝트 발표
+  
