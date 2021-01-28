@@ -27,11 +27,8 @@ dependencies {
 
     // JSON 라이브러리
     implementation 'com.google.code.gson:gson:2.8.6'
-<<<<<<< HEAD
 
-=======
 implementation 'jstl:jstl:1.2'
->>>>>>> e3fe8021768f113e4880bbc692700e69329943f8
     implementation 'com.google.guava:guava:29.0-jre'
     testImplementation 'junit:junit:4.13'
 }

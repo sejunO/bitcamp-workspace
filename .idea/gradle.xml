@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/bitcamp-java-basic" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/bitcamp-java-basic" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/bitcamp-java-project" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/bitcamp-java-project" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/bitcamp-java-project-client" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/bitcamp-java-project-client" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/bitcamp-java-project-server" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/bitcamp-java-project-server" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/bitcamp-spring-webmvc" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/bitcamp-spring-webmvc" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/bitcamp-web-library" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/bitcamp-web-library" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/bitcamp-web-project" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/bitcamp-web-project" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

@@ -28,6 +28,6 @@ public class Calculator {
   }
 }
 
-public class Add extends Calculator {
+class ggg extends Calculator {
   
 }
